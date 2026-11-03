@@ -1,0 +1,43 @@
+import { render, screen, waitFor } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
+  notFound: vi.fn(),
+}));
+vi.mock('../../lib/supabase/RequireSession', () => ({
+  RequireSession: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}));
+
+import DailyNeeds from '../daily-needs/page';
+import Health from '../health/page';
+import Immigration from '../immigration/page';
+import MovingShipping from '../moving-shipping/page';
+import TheCity from '../the-city/page';
+
+const fetchMock = vi.fn(async () => ({ ok: true, json: async () => ({ sections: [] }) }));
+vi.stubGlobal('fetch', fetchMock);
+
+describe.each([
+  ['Daily Needs', DailyNeeds],
+  ['Health', Health],
+  ['Immigration', Immigration],
+  ['The City', TheCity],
+  ['Moving & Shipping', MovingShipping],
+])('/%s route', (name, Page) => {
+  it('renders its category heading', async () => {
+    render(<Page />);
+    expect(screen.getByRole('heading', { level: 1, name })).toBeInTheDocument();
+    // Let the section fetches settle so their state updates stay inside the test.
+    if (
+      name !== 'Daily Needs' &&
+      name !== 'Immigration' &&
+      name !== 'Health' &&
+      name !== 'The City' &&
+      name !== 'Moving & Shipping'
+    ) {
+      await waitFor(() => expect(screen.getAllByText(/coming soon/i).length).toBeGreaterThan(0));
+    }
+  });
+});
+

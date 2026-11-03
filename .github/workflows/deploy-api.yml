@@ -1,0 +1,85 @@
+name: Deploy API to staging
+
+# Continuous delivery, not continuous deployment — per ADR 0003, merging to
+# main reaches staging automatically, and production stays a human decision.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "api/**"
+      - "Dockerfile"
+      - ".gcloudignore"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/deploy-api.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-api-staging
+  cancel-in-progress: false # never cancel a half-finished deploy
+
+permissions:
+  contents: read
+  id-token: write # required to mint the Workload Identity Federation token
+
+jobs:
+  deploy:
+    name: Build and deploy to Cloud Run (staging)
+    runs-on: ubuntu-latest
+    environment: staging
+    # Skip rather than fail while the GCP identity is still being set up.
+    # Creating the deploy service account needs an IAM permission `roles/editor`
+    # does not grant, so these variables cannot exist yet — and a job that fails
+    # on every push to main is one people learn to ignore.
+    if: >-
+      vars.GCP_PROJECT_ID != '' &&
+      vars.GCP_WORKLOAD_IDENTITY_PROVIDER != '' &&
+      vars.GCP_DEPLOY_SERVICE_ACCOUNT != ''
+    steps:
+      # lfs: true -- checkout does not fetch LFS content by default, only the
+      # small pointer file. api/app/crime/*.csv is LFS-tracked (PR #51), and
+      # --source builds the image from exactly what's checked out here. Without
+      # this, the deployed image would have a pointer file instead of the real
+      # crime data, and /crime/stats would still 404 in production even though
+      # the data exists in the repo. Nothing in CI catches this today: the
+      # tests mock around the file entirely (api/tests/test_crime.py).
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      # Keyless auth. No long-lived service account JSON key is created or
+      # stored — GitHub mints a short-lived token that GCP trusts. A leaked
+      # repo secret would otherwise be a permanent credential.
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      # --source builds the image with Cloud Build using the root Dockerfile, so
+      # nothing is built on the runner. The repo root, not api/, because the
+      # workspace lockfile lives there; .gcloudignore trims the upload.
+      #
+      # --update-env-vars, not --set-env-vars: the latter deletes every variable
+      # it does not list, including CORS_ALLOW_ORIGINS and any PROMPT_VERSION
+      # rollback (ADR 0012) set directly on the service.
+      - name: Deploy
+        run: |
+          gcloud run deploy moving-assistant-api-staging \
+            --source . \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region northamerica-northeast2 \
+            --platform managed \
+            --allow-unauthenticated \
+            --update-env-vars ENVIRONMENT=staging,RELEASE_SHA=${{ github.sha }} \
+            --quiet
+
+      - name: Show the deployed URL
+        run: |
+          gcloud run services describe moving-assistant-api-staging \
+            --project "${{ vars.GCP_PROJECT_ID }}" \
+            --region northamerica-northeast2 \
+            --format 'value(status.url)'
+

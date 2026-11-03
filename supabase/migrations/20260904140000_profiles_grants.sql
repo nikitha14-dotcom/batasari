@@ -1,0 +1,56 @@
+-- Table-level privileges for public.profiles.
+--
+-- Follows 20260831120000_profiles_rls.sql (Rahul), which enabled RLS and added
+-- per-user policies but no table grants. Verified against dev on 2026-09-04,
+-- with RLS applied and the API returning 42501 on every /profile call:
+--
+--   has_table_privilege('service_role',  'public.profiles', 'select')   -> false
+--   has_table_privilege('service_role',  'public.profiles', 'insert')   -> false
+--   has_table_privilege('service_role',  'public.profiles', 'update')   -> false
+--   has_table_privilege('authenticated', 'public.profiles', 'select')   -> false
+--   has_table_privilege('anon',          'public.profiles', 'select')   -> false
+--   has_table_privilege('anon',          'public.profiles', 'truncate') -> TRUE
+--
+-- A table created by a migration on this project (owner: postgres) receives no
+-- DML grant for anon, authenticated, or service_role -- only REFERENCES,
+-- TRIGGER and TRUNCATE. That produces two distinct problems.
+--
+-- 1. RLS is not the first gate, and was never reached. PostgREST fails at the
+--    privilege check with 42501 "permission denied for table profiles" before
+--    any policy is evaluated. This is why the anon-key smoke test in
+--    docs/testing/auth-manual-test-plan.md returns 42501 rather than [].
+--
+-- 2. It caught the backend too, which is the blocking bug. /api connects as
+--    service_role. service_role bypasses RLS but does NOT bypass table grants,
+--    so every /profile read and write would have failed with the same 42501 --
+--    surfacing to a user as a broken onboarding form, and to a developer as
+--    something that looks like an auth failure.
+--
+-- What this migration does, and deliberately does not do:
+--
+--   service_role gets exactly SELECT, INSERT, UPDATE -- the three verbs
+--   api/app/routers/profile.py actually uses. No DELETE: profile rows are
+--   removed by the `on delete cascade` from auth.users, never by the
+--   application.
+--
+--   anon and authenticated get nothing. The browser never speaks to PostgREST;
+--   it reaches Postgres only through /api. Granting them DML so that the RLS
+--   policies in 20260831120000 have rows to filter would widen access in order
+--   to give a security control something to control. Those policies stay as the
+--   correct rule for the day a feature genuinely needs direct access.
+--
+--   TRUNCATE, REFERENCES and TRIGGER are revoked from anon and authenticated.
+--   Nothing needs them. TRUNCATE in particular is not a theoretical concern:
+--   Postgres RLS does not apply to TRUNCATE at all, so a future SECURITY INVOKER
+--   function exposed at /rest/v1/rpc could empty this table with the policies
+--   offering no protection whatsoever.
+--
+-- This is a property of how tables are created here, not of profiles. Every
+-- table added by migration will land the same way. See ADR 0008 -- whether to
+-- set schema-wide ALTER DEFAULT PRIVILEGES is an open decision for the TLs, not
+-- something this migration should settle on its own.
+
+grant select, insert, update on public.profiles to service_role;
+
+revoke truncate, references, trigger on public.profiles from anon, authenticated;
+

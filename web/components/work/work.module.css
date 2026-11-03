@@ -1,0 +1,373 @@
+/*
+ * Work section styles. Values come from the Figma file
+ * (Moving Assistant › Page 02 - Work): Center-Content, Work-Accordion-System
+ * and Expanded-Accordion with Tip.
+ *
+ * Uses Inter through the --font-inter variable set up in app/layout.tsx, the
+ * same way onboarding does, rather than the Arial/Georgia stack in
+ * globals.css.
+ *
+ * Avoids the <section> element on purpose: globals.css gives every <section>
+ * a white card with overflow: hidden, which would clip keyboard focus rings.
+ */
+
+.page {
+  --work-text-strong: #0f172a;
+  --work-text-body: #475569;
+  --work-text-muted: #64748b;
+  --work-border: #dde0de;
+  --work-icon-bg: #d1edd8;
+  --work-tip-bg: #eff6ff;
+  --work-tip-text: #35527c;
+  --work-button-border: #e2e8f0;
+  --work-page-bg: #fffefb;
+  --work-focus: #0f172a;
+
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 56px 32px;
+  background: var(--work-page-bg);
+  color: var(--work-text-strong);
+  font-family: var(--font-inter), Inter, system-ui, sans-serif;
+}
+
+/* ---------- Page layout: directory beside the co-pilot ---------- */
+
+/* Same column split as Housing's copilot page (globals.css .housing-find-layout). */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: start;
+  background: #fffefb;
+}
+
+.directoryPane {
+  min-width: 0;
+}
+
+/* The co-pilot (.copilot in globals.css) is a full-height rail. Pin it just
+   under the shared header and size it to the
+   rest of the window, so its title and message box both stay in view while
+   the directory scrolls. */
+.copilotPane {
+  position: sticky;
+  top: var(--app-header-height, 60px);
+  min-width: 0;
+}
+
+.copilotPane :global(.copilot) {
+  height: calc(100vh - var(--app-header-height, 60px));
+  min-height: 0;
+}
+
+@media (max-width: 1180px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* globals.css hides the co-pilot below 900px on every page, so the
+     directory takes the full width here. */
+  .copilotPane {
+    position: static;
+  }
+}
+
+/* ---------- Heading ---------- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  max-width: 672px;
+  margin-bottom: 45px;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: 700;
+  color: var(--work-text-strong);
+}
+
+.pageIntro {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--work-text-body);
+}
+
+/* ---------- Accordion ---------- */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 791px;
+}
+
+.section {
+  background: #ffffff;
+  border: 1px solid var(--work-border);
+  border-radius: 12px;
+}
+
+.sectionHeading {
+  margin: 0;
+  font: inherit;
+}
+
+.sectionButton {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sectionButton:focus-visible {
+  outline: 2px solid var(--work-focus);
+  outline-offset: -2px;
+}
+
+.iconTile {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  background: var(--work-icon-bg);
+}
+
+.titleBlock {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--work-text-strong);
+}
+
+.sectionBlurb {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--work-text-body);
+}
+
+.chevron {
+  display: flex;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  transition: transform 200ms ease-out;
+}
+
+.sectionOpen .chevron {
+  transform: rotate(180deg);
+}
+
+/* ---------- Open panel ---------- */
+
+/*
+ * Closed panels carry the hidden attribute, so their links are out of the tab
+ * order and the accessibility tree. The display rule is scoped to
+ * :not([hidden]) because an author display value would otherwise override it.
+ */
+.panel:not([hidden]) {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: work-panel-open 250ms ease-out;
+}
+
+.panelInner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+@keyframes work-panel-open {
+  from {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  to {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+.panelBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 0 18px 0 14px;
+}
+
+.tipIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--work-tip-bg);
+}
+
+.tipText {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--work-tip-text);
+}
+
+.tipLabel {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.divider {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--work-border);
+}
+
+.linkList {
+  margin: 0;
+  padding: 0 0 24px;
+  list-style: none;
+}
+
+.linkItem {
+  border-bottom: 1px solid var(--work-border);
+}
+
+/* ---------- Link card ---------- */
+
+.linkRow {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 15px 16px 26px;
+}
+
+.logoTile {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--work-border);
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--work-text-body);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.linkDetails {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.linkName {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--work-text-strong);
+}
+
+.linkDescription {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--work-text-muted);
+}
+
+/*
+ * One treatment for every button (spec §4.3): outlined at rest, filled dark on
+ * hover. The filled button in the mockup is a hover state, not a variant.
+ */
+.visitButton {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--work-button-border);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--work-text-strong);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 150ms ease-out,
+    border-color 150ms ease-out,
+    color 150ms ease-out;
+}
+
+.visitButton:hover {
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+.visitButton:focus-visible {
+  outline: 2px solid var(--work-focus);
+  outline-offset: 2px;
+}
+
+.visitLabel {
+  text-decoration: underline;
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .panel:not([hidden]) {
+    animation: none;
+  }
+
+  .chevron,
+  .visitButton {
+    transition: none;
+  }
+}
+

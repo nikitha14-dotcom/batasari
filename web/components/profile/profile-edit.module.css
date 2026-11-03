@@ -1,0 +1,13 @@
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.inputLabel { color: #0f172a; font-size: 14px; }
+.inputLabel span { color: #64748b; font-size: 12px; }
+.field input, .field select { min-height: 46px; padding: 0 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #0f172a; font: inherit; }
+.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: #b42318; }
+.questionEditor { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 16px; padding-top: 20px; border-top: 1px solid #edf0ee; }
+.error { margin: 0; color: #b42318; font-size: 12px; line-height: 1.4; }
+.success { margin: 0; color: #1f8a4c; font-size: 12px; line-height: 1.4; }
+
+@media (max-width: 700px) {
+  .questionEditor { grid-template-columns: 1fr; align-items: stretch; }
+}
+

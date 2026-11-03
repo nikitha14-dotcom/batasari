@@ -1,0 +1,32 @@
+[project]
+name = "moving-assistant-eval"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    # Shared code lives in the api package — import `app.gateway.*` rather than
+    # copying it. This is the whole point of the workspace.
+    "moving-assistant-api",
+    "google-genai>=2.20.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "ruff>=0.5.0",
+]
+
+[tool.uv.sources]
+moving-assistant-api = { workspace = true }
+
+[tool.uv]
+# /eval is scripts and notebooks, not a distributable package.
+package = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+

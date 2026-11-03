@@ -1,0 +1,536 @@
+/*
+ * ONB-01..04 (Sign Up, Verify Email, Create Password, Create Account).
+ * Values from Figma "ONB — Main Flow [READY]", frames 523:1031, 523:1065,
+ * 523:1083, 523:1117. Page chrome comes from OnboardingShell.
+ */
+
+/* Doubled class: outranks .card in onboarding.module.css whatever order
+   the two stylesheets load in. */
+.card.card {
+  --auth-card-w: 480px;
+  --auth-text: #212121;
+  --auth-muted: #5a5a5a;
+  --auth-ring: #d7d5dd;
+  --auth-placeholder: rgba(4, 3, 8, 0.4);
+  --auth-optional: #3b3b3b;
+  --auth-hint: #767676;
+  --auth-legal: #403f3e;
+  --auth-legal-link: #3d4592;
+
+  width: var(--auth-card-w);
+  padding: 43px 40px;
+  gap: 32px;
+}
+
+.card.cardTall {
+  padding-top: 56px;
+  padding-bottom: 56px;
+  gap: 47px;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  color: var(--auth-text);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 38.4px;
+  letter-spacing: -1px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--auth-muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--auth-text);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22.4px;
+}
+
+.labelNote {
+  color: var(--auth-optional);
+  font-weight: 400;
+}
+
+.hint {
+  margin: -6px 0 0;
+  color: var(--auth-hint);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 45px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--auth-ring);
+  color: #121212;
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: -0.28px;
+}
+
+.input::placeholder {
+  color: var(--auth-placeholder);
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #3c9d63;
+}
+
+.input[aria-invalid="true"] {
+  box-shadow: inset 0 0 0 1px #b3261e;
+}
+
+.inputWithToggle {
+  padding-right: 48px;
+}
+
+.toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  display: flex;
+  padding: 4px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid #0f172a;
+}
+
+.fieldError {
+  margin: 0;
+  color: #b3261e;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.formError {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.nameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 7px;
+}
+
+.divider {
+  height: 1px;
+  margin: 4px 0;
+  border: 0;
+  background: #e5e4e8;
+}
+
+.switchRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.switchText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.switchTitle {
+  color: #232529;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.24px;
+}
+
+.switchSub {
+  color: #5c5e63;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.22px;
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 30px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: #f1f1f1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  width: 13px;
+  height: 13px;
+  border-radius: 6.5px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #d1d3d6;
+  transition: transform 0.15s ease;
+}
+
+.switch[aria-checked="true"] {
+  background: #3c9d63;
+}
+
+.switch[aria-checked="true"]::after {
+  transform: translateX(14px);
+  box-shadow: none;
+}
+
+.switch:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.button {
+  width: 100%;
+  height: 56px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background: #b8f2c5;
+  color: #010101;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  border-color: #cccbcf;
+  background: #e9e9e9;
+  cursor: default;
+}
+
+.button:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.waitlist {
+  margin: 28px 0 0;
+  color: var(--auth-muted);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.waitlistLink {
+  color: var(--auth-legal-link);
+  text-decoration: underline;
+}
+
+.waitlistLink:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+/* The waitlist line already separates the form from the legal note. */
+.waitlist + .legal {
+  margin-top: 20px;
+}
+
+.legal {
+  margin: 38px 0 0;
+  color: var(--auth-legal);
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+}
+
+.legal a {
+  color: var(--auth-legal-link);
+  text-decoration: underline;
+}
+
+.legalButton {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--auth-legal-link);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.legalButton:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.body {
+  margin: 0 auto;
+  max-width: 269px;
+  color: var(--auth-muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.body p {
+  margin: 0 0 20px;
+}
+
+.body p:last-child {
+  margin-bottom: 0;
+}
+
+.linkButton {
+  align-self: flex-start;
+  margin: 0 auto;
+  width: 269px;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #3291f2;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.linkButton:disabled {
+  color: #9e9e9e;
+  cursor: default;
+}
+
+.inlineLink {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #3291f2;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.inlineLink:disabled {
+  color: #9e9e9e;
+  cursor: default;
+}
+
+.resend {
+  margin: -32px auto 0;
+  width: 269px;
+  max-width: 100%;
+  color: var(--auth-muted);
+  font-size: 13px;
+}
+
+/* ---- top bar Login button ---- */
+
+.loginButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border: 1px solid #c5c5c5;
+  border-radius: 10px;
+  background: transparent;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.loginButton:hover {
+  background: #ffffff;
+}
+
+.logoutButton {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.logoutButton:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* ---- ONB-01 welcome panel ---- */
+
+.welcomeTitle {
+  margin: 0;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.welcomeBody {
+  color: #626262;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.28px;
+}
+
+.welcomeBody p {
+  margin: 0 0 20px;
+}
+
+.welcomeBody p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 560px) {
+  .nameRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Placeholder while the session loads or a redirect is in flight. */
+.blank {
+  min-height: 100vh;
+  background: #fffefb;
+}
+
+/* Centred text link under a form (Login). */
+.centerLink {
+  align-self: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #3291f2;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.centerLink:focus-visible,
+.inlineLink:focus-visible,
+.linkButton:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+/* ONB-03 password requirements checklist */
+.rules {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+  margin: -12px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.rule {
+  color: #767676;
+}
+
+.ruleMet {
+  color: #2f7d4a;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* "An account already exists" notice on Sign Up */
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+  color: #1e3a5f;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.noticeButton {
+  align-self: flex-start;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #1e3a5f;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.noticeButton:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+

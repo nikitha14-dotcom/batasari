@@ -1,0 +1,11 @@
+# Virtual workspace root — this is not a package itself, it only ties the
+# Python members together so they can share code and resolve to one lockfile.
+#
+# Without this, /eval had no way to import from /api, and the Claude client was
+# being copy-pasted between them.
+#
+# /web is not a member: it is a pnpm project with its own lockfile, per ADR 0001.
+
+[tool.uv.workspace]
+members = ["api", "eval"]
+

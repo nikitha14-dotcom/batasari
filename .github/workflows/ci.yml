@@ -1,0 +1,213 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Week 2 scope, per "Eng & DS tasks - week 2":
+#   checkout -> dependencies -> code quality -> tests -> build -> security scanning
+#
+# Integration and end-to-end tests are named in that task but no such tests
+# exist yet. Rather than fake a passing stage, they are deliberately absent —
+# see docs/decisions/0007-ci-scope-week-2.md.
+
+jobs:
+  web:
+    name: Web — lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+  api:
+    name: API — lint, test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      # Catches lockfile drift (a pyproject.toml dependency added without
+      # running `uv lock`) at the point it's introduced. `uv sync --extra dev`
+      # below does not use --locked, so it silently absorbs drift instead of
+      # failing -- the nightly harness workflow is the only thing that uses
+      # --locked, so this class of bug was invisible until something there
+      # broke. Checked from the repo root: uv.lock is one file for the whole
+      # api+eval workspace, not per-member.
+      - name: Lockfile is in sync with pyproject.toml
+        working-directory: .
+        run: uv lock --check
+
+      - name: Install dependencies
+        run: uv sync --extra dev
+
+      - name: Lint
+        run: uv run ruff check .
+
+      - name: Tests
+        run: uv run pytest -q
+
+  security:
+    name: Security scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Gated at critical only. There is a backlog of high-severity advisories
+      # inherited from Next.js 14 that needs a major-version upgrade to clear;
+      # gating on them today would leave CI permanently red, which teaches
+      # everyone to ignore it. Tighten to `high` once that upgrade lands.
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # A change is blocked only by advisories in dependencies it changes. An
+      # advisory newly published against what is already on main would
+      # otherwise fail every open PR, including ones that never touch /web.
+      # Those are caught by the daily run in dependency-audit.yml instead.
+      - name: Did this change touch web dependencies?
+        id: webdeps
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [ -z "$BASE" ] || ! git cat-file -e "$BASE^{commit}" 2>/dev/null; then
+            echo "changed=true" >> "$GITHUB_OUTPUT" # cannot tell, so be strict
+          elif git diff --quiet "$BASE" HEAD -- web/package.json web/pnpm-lock.yaml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Web dependency audit (blocking — critical)
+        if: steps.webdeps.outputs.changed == 'true'
+        working-directory: web
+        run: pnpm audit --audit-level critical
+
+      - name: Web dependency audit (report — critical, dependencies unchanged)
+        if: steps.webdeps.outputs.changed != 'true'
+        working-directory: web
+        run: |
+          if ! pnpm audit --audit-level critical; then
+            echo "::warning title=Critical advisory in existing web dependencies::Not introduced by this change, so it does not block it. The daily dependency audit on main tracks it (ADR 0007)."
+          fi
+
+      - name: Web dependency audit (report — high and below)
+        working-directory: web
+        run: pnpm audit --audit-level high || true
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: API dependency audit (report)
+        working-directory: api
+        run: |
+          uv export --no-dev --format requirements-txt -o /tmp/requirements.txt
+          uvx pip-audit -r /tmp/requirements.txt || true
+
+      # Not yet blocking: first run on the real runner is unverified, and a
+      # false positive here would block the whole team. Promote to blocking
+      # once it has run clean a few times.
+      # Pinned to a commit SHA rather than @main: a moving reference means a
+      # third party can change what runs in our pipeline without us knowing.
+      # SHA below is release v3.97.1.
+      - name: Secret scan
+        continue-on-error: true
+        uses: trufflesecurity/trufflehog@20652fbbdefffcdaa493a5bf57ab2ac6b1db715b
+        with:
+          path: ./
+          # A PR diffs base..head; a push diffs the previous commit..this one.
+          base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          head: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          extra_args: --only-verified
+
+  db-guard:
+    name: DB — rebuild from migrations, check privileges
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pinned rather than `latest`: a CLI release can change how migrations are
+      # applied, which would alter what this job actually verifies without any
+      # change in the repo. Bump deliberately.
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.116.0
+
+      # This is also the continuous version of "prove the schema can be
+      # reproduced from scratch" — the free tier has no backups, so the repo is
+      # the only recovery path (ADR 0002). A migration that only works against
+      # an existing database fails here rather than during an incident.
+      - name: Rebuild the schema from migrations only
+        run: |
+          supabase start \
+            -x studio,imgproxy,edge-runtime,logflare,vector,realtime,storage-api,supavisor,mailpit
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      # Supabase's default privileges hand every new table in `public` the full
+      # set — including TRUNCATE — to anon and authenticated, and RLS does not
+      # apply to TRUNCATE. This catches that on any table anyone adds. ADR 0010.
+      - name: Check table privileges
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+        run: uv run --with "psycopg[binary]" python scripts/check_db_privileges.py
+
+      - name: Check database constraints are actually enforced
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+        run: uv run --with "psycopg[binary]" python scripts/check_db_constraints.py
+
+      - name: Check Answer Quality metric aggregation
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+        run: uv run --with "psycopg[binary]" python scripts/check_answer_quality_metrics.py
+

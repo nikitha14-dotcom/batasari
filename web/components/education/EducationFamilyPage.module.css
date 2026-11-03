@@ -1,0 +1,1445 @@
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 28px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 36px 56px;
+}
+
+.mainContent {
+  min-width: 0;
+}
+
+.pageHeader {
+  margin-bottom: 28px;
+}
+
+.breadcrumb {
+  margin: 0 0 8px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.pageTitle {
+  margin: 0;
+  color: #17251b;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.pageSubtitle {
+  max-width: 720px;
+  margin: 10px 0 0;
+  color: #6b756d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.groupTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.standardGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section {
+  overflow: hidden;
+  border: 1px solid #dfe5df;
+  border-radius: 14px;
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sectionSelected {
+  border-color: #b9d6bf;
+  box-shadow: 0 3px 14px rgba(33, 75, 44, 0.06);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 92px;
+  padding: 18px 20px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sectionHeader:hover {
+  background: #fafcfb;
+}
+
+.sectionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  margin-right: 16px;
+  border-radius: 12px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.sectionHeaderText {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sectionTitle {
+  color: #1e2a21;
+  font-size: 17px;
+  line-height: 1.3;
+  font-weight: 650;
+}
+
+.sectionDescription {
+  max-width: 700px;
+  color: #737d75;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sectionArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  margin-left: 14px;
+  color: #68736b;
+  transition: transform 0.2s ease;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.sectionBody {
+  padding: 0 20px 22px;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 2px;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 116px;
+  padding: 18px;
+  border: 1px solid #e1e7e2;
+  border-radius: 12px;
+  background: #ffffff;
+  color: inherit;
+  text-align: left;
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin-right: 14px;
+  border-radius: 10px;
+  background: #edf7ef;
+  color: #3d7d4e;
+}
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #263229;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+.cardDescription {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #747d76;
+  font-size: 12px;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  margin-top: 2px;
+  color: #315f3c;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cardLink:hover {
+  color: #1e4729;
+  text-decoration: underline;
+}
+
+.cardLink:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.status {
+  margin: 12px 0 0;
+  padding: 16px;
+  border-radius: 10px;
+  background: #f7f9f7;
+  color: #6c766e;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  padding: 14px 16px;
+  border: 1px solid #ecd3d3;
+  border-radius: 10px;
+  background: #fff8f8;
+  color: #8b4a4a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.error button {
+  flex: 0 0 auto;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #d9b9b9;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #7b3d3d;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1px solid #d9e5f2;
+  border-radius: 10px;
+  background: #f7fbff;
+}
+
+.tipIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #35527c;
+}
+
+.tipText {
+  min-width: 0;
+  color: #35527c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.tipText strong {
+  font-weight: 700;
+}
+
+.tipText p {
+  display: inline;
+  margin: 0;
+}
+
+.copilot {
+  min-width: 0;
+}
+
+@media (max-width: 1100px) {
+  .page {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .copilot {
+    order: -1;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 28px 18px 40px;
+  }
+
+  .pageTitle {
+    font-size: 26px;
+  }
+
+  .groupTitle {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .sectionHeader {
+    min-height: 82px;
+    padding: 16px;
+  }
+
+  .sectionIcon {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+    margin-right: 12px;
+  }
+
+  .sectionTitle {
+    font-size: 15px;
+  }
+
+  .sectionDescription {
+    font-size: 12px;
+  }
+
+  .sectionBody {
+    padding: 0 16px 18px;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 100px;
+  }
+
+  .error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCHOOLS IN CANADA — Hub page (first Figma screen)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hubPage {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Heading ── */
+
+.hubHeader {
+  margin-bottom: 4px;
+}
+
+.hubTitle {
+  margin: 0 0 10px;
+  color: #17251b;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
+
+.hubSubtitle {
+  max-width: 680px;
+  margin: 0;
+  color: #6b756d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── 2×2 card grid ── */
+
+.hubGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.hubCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  min-height: 130px;
+  padding: 20px 22px 22px;
+  border: 1px solid #dfe5df;
+  border-radius: 14px;
+  background: #ffffff;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.hubCard:hover {
+  border-color: #b9d6bf;
+  box-shadow: 0 3px 14px rgba(33, 75, 44, 0.07);
+}
+
+.hubCard:focus-visible {
+  outline: 2px solid #3c7a4c;
+  outline-offset: 2px;
+}
+
+.hubCardTop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hubCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.hubCardTitle {
+  flex: 1;
+  min-width: 0;
+  color: #1e2a21;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.hubCardArrow {
+  flex-shrink: 0;
+  color: #68736b;
+}
+
+.hubCardDescription {
+  margin: 0;
+  color: #737d75;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.hubCardLoading {
+  margin: 0;
+  color: #9ca3a0;
+  font-size: 12px;
+}
+
+/* ── Info bar + Official Links row ── */
+
+.hubInfoRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.hubInfoNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 18px;
+  border: 1px solid #d9e5f2;
+  border-radius: 12px;
+  background: #f7fbff;
+  color: #35527c;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.hubInfoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #3563a4;
+}
+
+.hubInfoText {
+  min-width: 0;
+}
+
+.hubInfoText strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #1e3d5c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hubInfoBody {
+  color: #35527c;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.hubInfoBody p {
+  margin: 0;
+}
+
+.hubOfficialLinks {
+  padding: 16px 18px;
+  border: 1px solid #dfe5df;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.hubOfficialTitle {
+  margin: 0 0 10px;
+  color: #1e2a21;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.hubOfficialList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hubOfficialLink {
+  color: #3c7a4c;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.hubOfficialLink:hover {
+  color: #1e4729;
+  text-decoration: underline;
+}
+
+.hubOfficialLink:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCHOOLS IN CANADA — Detail view (second Figma screen)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.schoolLifePage {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.schoolLifeHeader {
+  margin-bottom: 4px;
+}
+
+.schoolLifeTitle {
+  margin: 0;
+  color: #17251b;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.schoolLifeIntroduction {
+  max-width: 720px;
+  margin-top: 8px;
+  color: #6b756d;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.schoolLifeIntroduction p {
+  margin: 0;
+}
+
+.schoolLifeTopics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.schoolLifeTopic {
+  overflow: hidden;
+  border: 1px solid #dfe5df;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.schoolLifeTopicOpen {
+  border-color: #b9d6bf;
+}
+
+.schoolLifeTopicHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 68px;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.schoolLifeTopicHeader:hover {
+  background: #fafcfb;
+}
+
+.schoolLifeTopicHeader:focus-visible {
+  outline: 2px solid #3c7a4c;
+  outline-offset: -2px;
+}
+
+.schoolLifeTopicIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border-radius: 9px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.schoolLifeTopicText {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.schoolLifeTopicTitle {
+  color: #1e2a21;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.schoolLifeTopicSummary {
+  color: #737d75;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.schoolLifeTopicArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  margin-left: 10px;
+  color: #68736b;
+  transition: transform 0.2s ease;
+}
+
+.schoolLifeTopicBody {
+  padding: 0 16px 16px 68px;
+  border-top: 1px solid #edf1ed;
+  color: #5a6860;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.schoolLifeTopicBody p {
+  margin: 14px 0 0;
+}
+
+.schoolLifeResources {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.schoolLifeResourceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailPage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Header ── */
+
+.detailHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 4px;
+}
+
+.detailHeaderIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 68px;
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.detailHeaderText {
+  flex: 1;
+  min-width: 0;
+}
+
+.detailTitle {
+  margin: 0 0 8px;
+  color: #17251b;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.detailSubtitle {
+  margin: 0;
+  color: #6b756d;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ── Back button (section detail → topic list) ── */
+
+.detailBackBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: #3c7a4c;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.detailBackBtn:hover {
+  color: #1e4729;
+}
+
+.detailBackBtn:focus-visible {
+  outline: 2px solid #3c7a4c;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Section detail page header (smaller than list header) ── */
+
+.detailSectionHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #e8eee9;
+  margin-bottom: 4px;
+}
+
+/* ── Topic row list ── */
+
+.detailRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* detailRow is now a <button> — reset button defaults first */
+.detailRow {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 18px 20px;
+  border: 1px solid #dfe5df;
+  border-radius: 12px;
+  background: #ffffff;
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.detailRow:hover {
+  border-color: #b9d6bf;
+  box-shadow: 0 2px 8px rgba(33, 75, 44, 0.05);
+}
+
+.detailRow:focus-visible {
+  outline: 2px solid #3c7a4c;
+  outline-offset: 2px;
+}
+
+.detailRowIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin-right: 16px;
+  border-radius: 10px;
+  background: #edf7ef;
+  color: #3d7d4e;
+}
+
+.detailRowContent {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.detailRowMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.detailRowTitle {
+  display: block;
+  color: #1e2a21;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.detailRowDescription {
+  margin: 4px 0 0;
+  color: #737d75;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.detailRowArrow {
+  flex-shrink: 0;
+  color: #9aab9e;
+}
+
+/* ── document-copy body: full markdown content block ── */
+
+.detailDocBody {
+  padding: 20px 24px;
+  border: 1px solid #e8eee9;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #2d3b30;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* Headings inside the seeded markdown (#### = h4, ##### = h5) */
+.detailDocBody :global(h1),
+.detailDocBody :global(h2),
+.detailDocBody :global(h3),
+.detailDocBody :global(h4),
+.detailDocBody :global(h5) {
+  margin: 20px 0 8px;
+  color: #17251b;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.detailDocBody :global(h4) { font-size: 16px; }
+.detailDocBody :global(h5) { font-size: 14px; }
+
+.detailDocBody :global(h4:first-child),
+.detailDocBody :global(h5:first-child) { margin-top: 0; }
+
+.detailDocBody :global(p) { margin: 0 0 10px; }
+.detailDocBody :global(p:last-child) { margin-bottom: 0; }
+
+.detailDocBody :global(ul),
+.detailDocBody :global(ol) { margin: 6px 0 10px; padding-left: 20px; }
+
+.detailDocBody :global(li) { margin-bottom: 4px; }
+.detailDocBody :global(strong) { font-weight: 700; color: #1e2a21; }
+.detailDocBody :global(em) { color: #6b756d; font-style: italic; }
+.detailDocBody :global(a) { color: #3c7a4c; text-decoration: underline; }
+.detailDocBody :global(a:hover) { color: #1e4729; }
+
+/* ── Official links bar ── */
+
+.officialLinksBar {
+  padding: 16px 20px;
+  border: 1px solid #e8eee9;
+  border-radius: 12px;
+  background: #f9fbf9;
+}
+
+.officialLinksList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.officialLinksItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #3c7a4c;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.officialLinksItem:hover { color: #1e4729; text-decoration: underline; }
+
+.officialLinksItem:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ── Green "Learn more" banner ── */
+
+.learnMoreBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px;
+  border-radius: 12px;
+  background: #e2f2e5;
+  color: #1e4729;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.learnMoreBanner:hover { background: #cde8d3; }
+
+.learnMoreBanner:focus-visible {
+  outline: 2px solid #3c7a4c;
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — hub and detail
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 700px) {
+  .hubGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .hubTitle {
+    font-size: 24px;
+  }
+
+  .hubInfoRow {
+    grid-template-columns: 1fr;
+  }
+
+  .detailTitle {
+    font-size: 22px;
+  }
+
+  .detailHeader {
+    gap: 14px;
+  }
+
+  .detailHeaderIcon {
+    flex-basis: 52px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .detailDocBody {
+    padding: 16px;
+    font-size: 13px;
+  }
+
+  .officialLinksBar {
+    padding: 14px 16px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION DETAIL VIEWS (Figma screens 1.1 – 1.4)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Plain header (no icon box) ── */
+
+.sectionDetailHeader {
+  margin-bottom: 8px;
+}
+
+.sectionDetailTitle {
+  margin: 0 0 10px;
+  color: #17251b;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+
+.sectionDetailSubtitle {
+  margin: 0;
+  max-width: 560px;
+  color: #6b756d;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── Chip row (derived from **bold** labels in API body) ── */
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid #d4e6d8;
+  border-radius: 20px;
+  background: #f3faf5;
+  color: #2d4a35;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.chipDot {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #3c7a4c;
+}
+
+/* ── Tip / note bar (derived from *italic* lines in API body) ── */
+
+.sectionTipBar {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #f0faf3;
+  border: 1px solid #c8e6d0;
+  color: #2d4a35;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sectionTipIcon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  margin-top: 1px;
+  color: #3c7a4c;
+}
+
+.sectionTipText {
+  margin: 0;
+  color: #2d4a35;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LEVEL CARDS  (section 1.1 — has ##### sub-items)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.levelCardList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.levelCard {
+  padding: 24px;
+  border: 1px solid #dfe5df;
+  border-radius: 14px;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.levelCardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Level badge: "Level 01" pill — ordinal derived from array index, not hardcoded */
+.levelBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #e2f2e5;
+  color: #2d6b3f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.levelCardDescription {
+  margin: 4px 0 0;
+  color: #6b756d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.levelCardTitle {
+  margin: 4px 0 0;
+  color: #17251b;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* 2×2 sub-grid of sub-cards inside a level card */
+.subGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.subCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid #e8eee9;
+  border-radius: 10px;
+  background: #fafcfa;
+}
+
+.subCardArrow {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  margin-top: 1px;
+  border-radius: 6px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.subCardContent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.subCardTitle {
+  display: block;
+  color: #1e2a21;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.subCardDesc {
+  margin: 0;
+  color: #5a6860;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FLAT CARDS  (sections 1.2 – 1.4 — no ##### sub-items)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.flatCardList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.flatCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 20px 22px;
+  border: 1px solid #dfe5df;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.flatCardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+  margin-top: 2px;
+}
+
+.flatCardContent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.flatCardTitle {
+  display: block;
+  color: #1e2a21;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.flatCardDesc {
+  margin: 0;
+  color: #5a6860;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   LEARN MORE LINK GRID  (bottom of section detail — from API linkItems)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.learnMoreSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.learnMoreLabel {
+  margin: 0;
+  color: #17251b;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1px;
+}
+
+.learnMoreGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.learnMoreTile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid #dfe5df;
+  border-radius: 10px;
+  background: #ffffff;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.learnMoreTile:hover {
+  border-color: #b9d6bf;
+  box-shadow: 0 2px 8px rgba(33, 75, 44, 0.06);
+}
+
+.learnMoreTile:focus-visible {
+  outline: 2px solid #3c7a4c;
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+.learnMoreTileInner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.learnMoreTileArrow {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 5px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.learnMoreTileName {
+  margin: 0;
+  color: #1e2a21;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.learnMoreTileTitle {
+  margin: 3px 0 0;
+  color: #6b756d;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.learnMoreTileExternal {
+  flex-shrink: 0;
+  color: #9aab9e;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE — section detail views
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 700px) {
+  .sectionDetailTitle {
+    font-size: 22px;
+  }
+
+  .subGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .learnMoreGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .levelCard {
+    padding: 18px 16px;
+  }
+
+  .flatCard {
+    padding: 16px;
+    gap: 14px;
+  }
+}
+
+/* ── Level card icon + badge row (added for change D) ── */
+
+.levelCardTopRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.levelCardIconBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #e2f2e5;
+  color: #3c7a4c;
+}
+
+.levelCardMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+

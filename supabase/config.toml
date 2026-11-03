@@ -1,0 +1,12 @@
+# Supabase local dev config
+# Run `supabase init` to regenerate the full version of this file if needed,
+# then `supabase link --project-ref <ref>` to connect to the dev project.
+
+project_id = "batasari"
+
+[db]
+port = 54322
+
+[api]
+port = 54321
+

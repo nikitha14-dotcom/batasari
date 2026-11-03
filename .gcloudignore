@@ -1,0 +1,43 @@
+# What `gcloud run deploy --source .` uploads to Cloud Build. The API image
+# needs only the root pyproject.toml and uv.lock, api/, and
+# eval/pyproject.toml (see Dockerfile). Everything else stays local -- above
+# all .env, which must never reach a build or an image (ADR 0004).
+#!include:.gitignore
+
+# Re-include the crime datasets that .gitignore excludes.
+#
+# .gitignore still carries "api/app/crime/*.csv" and "*.geojson" from before
+# these files were moved to Git LFS. They are tracked, so git ignores those
+# rules entirely -- git never applies an ignore rule to a file already in the
+# index, which is why `git check-ignore` reports them as not ignored.
+#
+# gcloud has no such concept. It reads the included patterns as plain globs
+# and strips both files from the upload, so `COPY api/app api/app` copies a
+# directory without them and every /crime request fails at the spatial join
+# with "No such file or directory". That is why address lookup has never
+# worked in a deployed environment -- it works locally, where the files are
+# simply on disk.
+#
+# Negations must come after the include or they have no effect.
+!api/app/crime/*.csv
+!api/app/crime/*.geojson
+
+.git
+.github/
+web/
+docs/
+supabase/
+scripts/
+api/tests/
+api/scripts/
+eval/*
+!eval/pyproject.toml
+
+**/__pycache__/
+**/.venv/
+**/.pytest_cache/
+**/.ruff_cache/
+.env
+.env.*
+Claude outputs/
+

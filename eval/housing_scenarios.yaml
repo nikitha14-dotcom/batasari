@@ -1,0 +1,126 @@
+# DS #2 — Housing Scenarios (one per scenario type)
+# Draft v2
+
+# --- clearly_needs_clarification ---
+- gold_case_id: "HOUSING_FINDHOUSING_002"
+  category: "Housing"
+  subcategory: "Find Housing"
+  scenario_type: "clearly_needs_clarification"
+
+  ground_truth:
+    critical_facts:
+      - "Can't give a rent budget answer without at least rough location, household size, and property type (studio vs 1BR vs larger)."
+
+    must_not_claim_facts:
+      - "Must not give a specific rent figure or neighbourhood without location."
+      - "Must not assume single-person household or a specific unit type if onboarding didn't say so."
+
+    expected_source_type:
+      tier: "N/A"
+      domains: []
+
+    expected_clarification_behaviour:
+      action: "clarify"
+      reasoning: "User asked 'how much should I budget for rent' with nothing in onboarding and nothing in-thread on location, household size, or property type. All three change the answer too much to guess."
+
+
+# --- enough_context ---
+- gold_case_id: "HOUSING_CHECKTHEPLACE_001"
+  category: "Housing"
+  subcategory: "Check The Place"
+  scenario_type: "enough_context"
+
+  ground_truth:
+    critical_facts:
+      - "Crime data should be shown as rate per 100,000 residents, not raw counts."
+      - "Downtown/high-density areas can show inflated per-resident rates from daytime non-resident population."
+
+    must_not_claim_facts:
+      - "Must not present one crime stat as a flat safety verdict."
+      - "Must not compare neighbourhoods without the per-100,000 normalization."
+
+    expected_source_type:
+      tier: "Tier A"
+      domains:
+        - "data.torontopolice.on.ca"
+        - "open.toronto.ca"
+
+    expected_clarification_behaviour:
+      action: "answer_directly"
+      reasoning: "Grad student persona from onboarding + postal code given in-thread. Enough to answer directly with the normalized data."
+
+
+# --- some_info_known ---
+- gold_case_id: "HOUSING_COMPAREOPTIONS_002"
+  category: "Housing"
+  subcategory: "Compare Housing Options"
+  scenario_type: "some_info_known"
+
+  ground_truth:
+    critical_facts:
+      - "Subletting generally needs landlord's written consent; unreasonable refusal can be challenged at the LTB."
+      - "Subletting without consent can risk eviction even on an otherwise fine lease."
+
+    must_not_claim_facts:
+      - "Must not say subletting is always fine or always forbidden without consent."
+      - "Must not make claims about this user's specific lease terms UNLESS the user has uploaded the actual lease in-thread — in that case, use the uploaded document as context and answer from its specific clauses (with the standard 'not stored' caveat), rather than falling back to the general rule."
+
+    expected_source_type:
+      tier: "Tier A"
+      domains:
+        - "tribunalsontario.ca/ltb"
+        - "ontario.ca"
+
+    expected_clarification_behaviour:
+      action: "answer_directly"
+      reasoning: "Province is known (Ontario default), and the general rule doesn't hinge on the missing detail. Answer with the general rule and flag that their lease might add conditions — or, if they've uploaded the lease, answer from it directly."
+
+
+# --- ambiguous ---
+- gold_case_id: "HOUSING_FINDHOUSING_003"
+  category: "Housing"
+  subcategory: "Find Housing"
+  scenario_type: "ambiguous"
+
+  ground_truth:
+    critical_facts:
+      - "Nothing should be asserted until it's clear which meaning of 'sketchy' the user means — safety vs. build quality vs. landlord reliability."
+
+    must_not_claim_facts:
+      - "Must not assume 'sketchy' = unsafe and jump to crime data."
+      - "Must not assume 'sketchy' = poor condition and skip safety entirely."
+
+    expected_source_type:
+      tier: "N/A"
+      domains: []
+
+    expected_clarification_behaviour:
+      action: "clarify"
+      reasoning: "'should I go with the cheaper unit even though it's kind of sketchy' is genuinely ambiguous, not just missing info — the two readings point to different data and different answers."
+
+
+# --- multi_turn ---
+- gold_case_id: "HOUSING_COMPAREOPTIONS_003"
+  category: "Housing"
+  subcategory: "Compare Housing Options"
+  scenario_type: "multi_turn"
+
+  ground_truth:
+    critical_facts:
+      - "Turn 1: 'I might buy instead of renting' with no length-of-stay or status known should ask both, since they dominate this tradeoff."
+      - "Turn 2: user replies '2 years, work permit' model should now say that directly favors renting (break-even timelines, mortgage constraints on work permits), and NOT re-ask what was just given."
+
+    must_not_claim_facts:
+      - "Must not ignore turn 1's answer and re-ask in turn 2."
+      - "Must not give specific mortgage rates or investment advice."
+
+    expected_source_type:
+      tier: "Tier A"
+      domains:
+        - "ontario.ca"
+        - "canada.ca"
+
+    expected_clarification_behaviour:
+      action: "clarify"
+      reasoning: "First turn is missing the two variables that matter most here, so it should clarify. Second turn has both answers, so it should switch to answer_directly and carry the context forward."
+

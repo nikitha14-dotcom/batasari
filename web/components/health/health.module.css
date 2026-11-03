@@ -1,0 +1,39 @@
+.page { width: min(100%, 1120px); padding: 32px; color: #0f172a; }
+.heading { margin: 0 0 14px; font-size: 28px; font-weight: 700; line-height: 32px; }
+.heroDescription { max-width: 672px; margin: 0 0 26px; color: #475569; font-size: 16px; line-height: 20px; }
+.sections { display: flex; flex-direction: column; gap: 16px; }
+.accordion { overflow: hidden; border: 1px solid #dde0de; border-radius: 12px; background: #fff; }
+.header { display: flex; width: 100%; align-items: center; gap: 16px; padding: 16px; border: 0; background: #fff; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.header:focus-visible, .resource:focus-visible, .featureLink:focus-visible, .companyRow:focus-visible, .error button:focus-visible { outline: 2px solid #166534; outline-offset: 2px; }
+.iconBackground { display: inline-flex; width: 52px; height: 52px; flex: 0 0 52px; align-items: center; justify-content: center; border-radius: 8px; background: #d1edd8; }
+.headerText { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 2px; }
+.headerText strong { font-size: 15px; line-height: 22px; }
+.headerText span { color: #475569; font-size: 12px; line-height: 16px; }
+.chevron { display: inline-flex; transition: transform .15s ease; }
+.chevronOpen { transform: rotate(180deg); }
+.panel { padding: 0 16px 16px; border-top: 1px solid #dde0de; }
+.contentStack { display: flex; flex-direction: column; gap: 12px; padding: 16px 24px; }
+.insuranceContent { display: flex; flex-direction: column; padding: 0 24px 16px; }
+.servicesContent { display: flex; flex-direction: column; padding: 0 24px 16px; }
+.description, .contentBlock { color: #4a4a4a; font-size: 14px; line-height: 20px; }
+.description p, .contentBlock p { margin: 0 0 8px; }
+.contentBlock h3 { margin: 0 0 6px; color: #0f172a; font-size: 15px; }
+.resource { display: flex; align-items: center; gap: 16px; min-width: 0; padding: 12px 0; border-bottom: 1px solid #dde0de; color: inherit; text-decoration: none; }
+.resource:last-child { border-bottom: 0; }
+.resourceText { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 4px; }
+.resourceText strong { color: #0f172a; font-size: 14px; line-height: 18px; }
+.resourceDescription { color: #4a4a4a; font-size: 13px; line-height: 18px; }
+.resourceDescription p { margin: 0; }
+.groupTitle { margin: 16px 0 0; color: #0f172a; font-size: 15px; line-height: 20px; }
+.featureLink { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; padding: 10px; border: 1px solid #b9a3c9; border-radius: 10px; color: #6d557e; font-size: 12px; font-weight: 600; line-height: 16px; text-decoration: underline; }
+.externalIcon { flex: 0 0 auto; color: #6d557e; font-size: 16px; font-weight: 500; line-height: 1; text-decoration: none; }
+.companyList { margin-top: 8px; overflow: hidden; border: 1px solid #dde0de; border-radius: 10px; }
+.companyRow { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; gap: 12px; padding: 10px 16px; color: inherit; text-decoration: none; }
+.companyRow + .companyRow { border-top: 1px solid #dde0de; }
+.companyRow strong { color: #0f172a; font-size: 12px; line-height: 16px; }
+.companyLink { display: inline-flex; align-items: center; gap: 8px; min-width: 0; color: #6d557e; font-size: 11px; font-weight: 600; line-height: 16px; text-decoration: underline; }
+.status { margin: 0; padding: 16px 24px; color: #64748b; font-size: 13px; line-height: 18px; }
+.error { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 16px 24px; padding: 12px; border: 1px solid #fecaca; border-radius: 10px; background: #fef2f2; color: #991b1b; font-size: 13px; }
+.error button { flex-shrink: 0; padding: 6px 10px; border: 1px solid #991b1b; border-radius: 8px; background: #fff; color: #991b1b; cursor: pointer; }
+@media (max-width: 700px) { .page { padding: 24px 16px; } .header { padding: 14px; } .panel { padding: 0 10px 10px; } .contentStack, .insuranceContent, .servicesContent { padding: 14px 10px; } .headerText span { overflow-wrap: anywhere; } .companyRow { grid-template-columns: 1fr; gap: 2px; } }
+

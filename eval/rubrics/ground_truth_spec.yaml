@@ -1,0 +1,31 @@
+# Ground-Truth Specification Template for Gold Test Cases
+# PMs and Devs must use this exact structure for every test case.
+
+eval_id: "HOUSING_RENT_001"
+category: "Housing"
+subcategory: "Check The Place"
+scenario_type: "enough_context"
+
+ground_truth:
+  # 1. Non-negotiable facts the response MUST include
+  critical_facts:
+    - "A landlord in Ontario must give a tenant 90 days written notice before a rent increase."
+    - "Rent can only be increased once every 12 months."
+
+  # 2. Hallucinations or incorrect assumptions the model MUST NOT make
+  must_not_claim_facts:
+    - "Must not claim that the landlord can increase the rent by any amount (unless noting the building is exempt from rent control)."
+    - "Must not provide direct investment or real estate purchasing advice."
+
+  # 3. Permissible source tiers and specific expected domains
+  expected_source_type:
+    tier: "Tier A"
+    domains:
+      - "tribunalsontario.ca/ltb"
+      - "ontario.ca"
+
+  # 4. Expected model behavior regarding clarification loops
+  expected_clarification_behaviour:
+    action: "answer_directly" # Options: clarify | answer_directly | route_to_static
+    reasoning: "User provided target move date and budget; sufficient context exists to explain standard rent control rules without further interrogation."
+

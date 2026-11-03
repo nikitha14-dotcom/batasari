@@ -1,0 +1,67 @@
+# Insight Extraction Evaluation Rubric
+# Scoring criteria for assessing quality of extracted insight deltas.
+
+evaluation_criteria:
+  - name: "Field Accuracy"
+    weight: 0.25
+    description: "Did the extraction identify the correct field(s)?"
+    scoring:
+      3: "All expected fields correctly identified, no extras"
+      2: "Most fields correct, 1 missing or 1 extra"
+      1: "Some fields correct but multiple missing or spurious"
+      0: "Completely wrong fields or no extraction when expected"
+
+  - name: "Operation Accuracy"
+    weight: 0.25
+    description: "Did the extraction use the correct operation (set/append/remove/clear)?"
+    scoring:
+      3: "All operations correct"
+      2: "Most operations correct, 1 wrong"
+      1: "Some operations correct, multiple wrong"
+      0: "All operations wrong"
+
+  - name: "Value Accuracy"
+    weight: 0.25
+    description: "Did the extraction produce the correct value(s)?"
+    scoring:
+      3: "Values are semantically correct and well-formatted"
+      2: "Values are mostly correct but could be better phrased"
+      1: "Values partially correct, some missing or distorted"
+      0: "Values are wrong or missing when expected"
+
+  - name: "Precision"
+    weight: 0.15
+    description: "Did the extraction avoid spurious / hallucinated fields?"
+    scoring:
+      3: "No spurious extractions"
+      2: "1 spurious extraction"
+      1: "2-3 spurious extractions"
+      0: "4+ spurious extractions or blatant hallucinations"
+
+  - name: "Confidence Calibration"
+    weight: 0.10
+    description: "Is the confidence score well-calibrated?"
+    scoring:
+      3: "Confidence matches actual correctness (high when right, low when unsure)"
+      2: "Confidence is reasonable but slightly miscalibrated"
+      1: "Confidence is significantly miscalibrated"
+      0: "Always 1.0 regardless of actual certainty"
+
+pass_threshold: 2.0  # weighted average must be >= 2.0 to pass
+
+edge_case_rules:
+  empty_deltas:
+    description: "When no insight should be extracted"
+    expected: "deltas array is empty, confidence is high (0.9-1.0)"
+    fail_if: "Any deltas are returned for a clearly non-extractable message"
+
+  already_known:
+    description: "When the insight already exists in current_insights"
+    expected: "No re-extraction of known values"
+    fail_if: "Model re-sets the same value that's already in current_insights"
+
+  ambiguous_input:
+    description: "When the user's message is vague"
+    expected: "Empty deltas or low confidence (< 0.7)"
+    fail_if: "High-confidence extraction of specific values from vague input"
+

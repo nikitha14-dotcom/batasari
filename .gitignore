@@ -1,0 +1,36 @@
+# Env
+.env
+.env.local
+
+# Node
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ruff_cache/
+.pytest_cache/
+api/pytest-cache-files-*/
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Local tool settings, not shared with the team
+.claude/settings.local.json
+
+# Supabase CLI local state
+supabase/.temp/
+supabase/.branches/
+
+Claude outputs/
+api/.data/
+.data/
+

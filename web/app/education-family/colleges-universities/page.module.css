@@ -1,0 +1,94 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 855px) minmax(300px, 360px);
+  gap: 24px;
+  align-items: start;
+  padding: 56px 32px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.documentBody {
+  padding: 0 26px 20px 84px;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.documentBody h1,
+.documentBody h2,
+.documentBody h3,
+.documentBody h4,
+.documentBody h5,
+.documentBody h6 {
+  color: #0f172a;
+}
+
+.documentBody h4 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.documentBody h5 {
+  margin: 18px 0 6px;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.documentBody p {
+  margin: 0 0 12px;
+}
+
+.documentBody p:last-child {
+  margin-bottom: 0;
+}
+
+.documentBody ul,
+.documentBody ol {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+.documentBody a {
+  color: #0f172a;
+}
+
+.sectionResources {
+  overflow: hidden;
+  border: 1px solid #dde0de;
+  border-width: 1px 0 0;
+}
+
+.copilot {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 28px 16px 60px;
+  }
+
+  .copilot {
+    display: none;
+  }
+
+  .documentBody {
+    padding: 0 16px 18px;
+  }
+}
+

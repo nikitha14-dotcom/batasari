@@ -1,0 +1,363 @@
+/* Category pages, from the Figma "Work Mock -R-1" Center-Content:
+   Hero-Text, Expanded-Accordion with Tip, Agency rows, Collapsed-Accordion. */
+
+.page {
+  max-width: 855px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  padding: 56px 32px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.heading {
+  margin: 0;
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.notice {
+  margin: -21px 0 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #fcd34d;
+  background: #fffbeb;
+  color: #78350f;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.subcategoryGroup {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+}
+
+.subcategoryGroupTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.subcategoryGroupSections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- accordion ---- */
+
+.accordion {
+  /* globals.css styles every <section> (margin, radius, border); reset here. */
+  margin: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 12px;
+}
+
+.accordionOpen {
+  border-radius: 16px;
+}
+
+.accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accordionHeader:focus-visible,
+.retry:focus-visible,
+.visit:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.accordionIcon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #d1edd8;
+  color: #0f172a;
+}
+
+.accordionText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.accordionTitle {
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.accordionOpen .accordionTitle {
+  font-weight: 700;
+}
+
+.accordionSummary {
+  color: #475569;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.chevron {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: #0f172a;
+  transition: transform 0.15s ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.status {
+  margin: 0;
+  padding: 0 16px 20px 84px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.errorBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 16px 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+.errorBox p {
+  margin: 0;
+}
+
+.retry {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #991b1b;
+  background: #ffffff;
+  color: #991b1b;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---- tip ---- */
+
+.tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0 18px 16px 14px;
+  border-bottom: 1px solid #dde0de;
+}
+
+.tipIcon {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: #eff6ff;
+  color: #35527c;
+}
+
+.tipText {
+  color: #35527c;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.tipText strong {
+  font-weight: 700;
+}
+
+.tipText p {
+  display: inline;
+  margin: 0;
+}
+
+/* ---- resource rows ---- */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 15px 16px 26px;
+  border-bottom: 1px solid #dde0de;
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.rowText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rowTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.rowBody {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.rowBody h1,
+.rowBody h2,
+.rowBody h3,
+.rowBody h4,
+.rowBody h5,
+.rowBody h6 {
+  color: #0f172a;
+}
+
+.rowBody h1 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.rowBody h2 {
+  margin: 14px 0 8px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.rowBody p {
+  margin: 0 0 6px;
+}
+
+.rowBody p:last-child {
+  margin-bottom: 0;
+}
+
+.rowBody ul,
+.rowBody ol {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.rowBody a {
+  color: #0f172a;
+}
+
+.visit {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.visitText {
+  text-decoration: underline;
+}
+
+.visit:hover {
+  border-color: #000000;
+  background: #000000;
+  color: #ffffff;
+}
+
+/* ---- placeholder pages ---- */
+
+.placeholder {
+  margin: 0;
+  padding: 40px 24px;
+  border: 1px dashed #dde0de;
+  border-radius: 16px;
+  background: #ffffff;
+  color: #64748b;
+  font-size: 15px;
+  text-align: center;
+}
+
+.copilotPane {
+  max-width: 480px;
+}
+
+@media (max-width: 900px) {
+  .page {
+    gap: 28px;
+    padding: 28px 16px 60px;
+  }
+
+  .row {
+    flex-wrap: wrap;
+    padding: 14px 16px;
+  }
+}
+

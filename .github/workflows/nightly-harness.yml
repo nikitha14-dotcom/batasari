@@ -1,0 +1,44 @@
+name: Nightly Evaluation Harness
+
+# The full gold set, run by hand for a model or prompt change (CI plan, step 3).
+# It no longer runs every night: ai-smoke.yml checks 5 questions daily instead,
+# for about a tenth of the cost.
+on:
+  workflow_dispatch:
+
+jobs:
+  run-harness:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        # The harness imports app.gateway.* from /api and google-genai from
+        # /eval, so it needs both workspace members installed. There is no
+        # `eval` extra on moving-assistant-api -- asking for one aborts the
+        # install, which is why every nightly run since Sep 8 died here.
+        run: uv sync --locked
+
+      # V8 (PR #48) replaced the Gemini-based generator with real Anthropic
+      # calls and added --scope, so this needs ANTHROPIC_API_KEY instead of
+      # GOOGLE_API_KEY and an explicit --scope. Without --scope, the harness
+      # defaults to "failed" (the small regression slice) -- the nightly run
+      # is meant to cover all 30 cases, per Rahul P.
+      - name: Run evaluation harness
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: uv run --package moving-assistant-eval python -m eval.harness.eval_harness_final --scope all

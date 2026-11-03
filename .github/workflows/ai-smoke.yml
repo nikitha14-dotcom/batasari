@@ -1,0 +1,65 @@
+name: AI smoke check
+
+# The CI plan (ClickUp "CI plan"):
+#   1) PRs that touch the AI code, and rollbacks: a quick check of the real
+#      /ai/answer path (1 question + a prompt-injection attempt), ~$0.05-0.15.
+#   2) Daily: 1 question per category, 5 total, ~$0.40.
+#   3) Model or prompt changes: the full gold set, started by hand from
+#      nightly-harness.yml.
+# Real Sonnet with web search; the database is a stand-in, so nothing is
+# written to staging. Checks structure, not wording.
+
+on:
+  pull_request:
+    paths:
+      - "api/app/gateway/**"
+      - "api/app/routers/ai_answer.py"
+      - "scripts/ai_smoke.py"
+      - ".github/workflows/ai-smoke.yml"
+  schedule:
+    - cron: "0 13 * * *" # daily, 9am Toronto
+  workflow_dispatch:
+    inputs:
+      set:
+        description: "smoke = 1 question + injection check, daily = 5 questions"
+        type: choice
+        options: [smoke, daily]
+        default: smoke
+
+concurrency:
+  group: ai-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ai-smoke:
+    # PRs from forks don't get repository secrets, so there is no key to run with.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --locked
+
+      - name: Run the AI smoke check
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AI_SMOKE_SET: ${{ github.event_name == 'schedule' && 'daily' || inputs.set || 'smoke' }}
+          # Same switches as the staging API, so this checks what users get.
+          ROUTER_ENABLED: "true"
+          CATEGORY_PROMPTS_ENABLED: "true"
+          CATEGORY_PROMPT_CATEGORIES: "Work,Finance,Education & Family,Housing"
+          PRIMARY_PROVIDER: ${{ vars.PRIMARY_PROVIDER || 'claude' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: uv run python ../scripts/ai_smoke.py
+

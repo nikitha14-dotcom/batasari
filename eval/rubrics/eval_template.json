@@ -1,0 +1,37 @@
+{
+  "eval_id": "HOUSING_RENT_CONTROL_001",
+  "user_id": "intern_ds_01",
+  "category": "Housing",
+  "subcategory": "Check The Place",
+  "question": "Does my landlord have a limit on how much they can raise my rent next year?",
+  
+  "context": {
+    "target_move_date": "2026-09-01",
+    "visa_type": "Work Permit",
+    "household_composition": "Couple, no kids",
+    "has_pets": false,
+    "origin_city": "London, UK",
+    "budget_cad": 2600,
+    "custom_variables": {
+      "building_first_occupied": "After November 15, 2018"
+    }
+  },
+  
+  "instructions_version": "v1.0.0",
+  
+  "authoritative_source_guidance": [
+    {
+      "source_name": "Ontario Residential Tenancies Act (RTA) / Landlord and Tenant Board",
+      "authority_tier": "Tier A",
+      "source_url": "https://www.ontario.ca/page/renting-ontario-your-rights",
+      "grounded_facts": [
+        "Buildings, apartments, or condo units first occupied for residential purposes after November 15, 2018 are exempt from rent control limits."
+      ]
+    }
+  ]
+}
+
+
+
+
+

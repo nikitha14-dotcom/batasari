@@ -1,0 +1,748 @@
+/*
+ * Onboarding design system — values lifted frame by frame from
+ * Figma "ONB — Main Flow [READY]" (file ZayUVkHPson2ipubuPYdKk).
+ *
+ * The Figma file defines NO variables, so every colour below is a raw hex
+ * read off a specific node. Tokens are declared once here so a future
+ * design-token pass has a single place to land.
+ */
+
+.root {
+  --ob-bg: #fffefb;
+  --ob-hairline: #dde0de;
+  --ob-brand: #0f172a;
+
+  --ob-heading: #232529;
+  --ob-option-text: #4e4e4e;
+  --ob-option-text-active: #313131;
+  --ob-value: #515151;
+  --ob-label: #626262;
+  --ob-skip: #5a5a5a;
+  --ob-placeholder: #b8b8b8;
+  --ob-muted: #9e9e9e;
+  --ob-suggest-label: #6f6e6e;
+
+  --ob-ring: #dedede;
+  --ob-progress-on: #f8e6a2;
+  --ob-progress-off: #f2f1f4;
+  --ob-icon-bg: #d1edd8;
+  --ob-stepper-border: #838383;
+  --ob-suggest-hl: #f7f7f7;
+
+  --ob-cta-on: #b8f2c5;
+  --ob-cta-off: #e9e9e9;
+  --ob-cta-off-border: #cccbcf;
+  --ob-cta-text: #010101;
+  --ob-link: #3291f2;
+  --ob-danger: #b3261e;
+
+  --ob-card-w: 545px;
+  --ob-content-w: 464px;
+  --ob-footer-w: 455px;
+
+  position: relative;
+  min-height: 100vh;
+  background: var(--ob-bg);
+  overflow-x: hidden;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  color: var(--ob-heading);
+}
+
+/* ============================================================
+   DECORATIVE BACKGROUND
+   Figma uses two 836x816 gradient ellipses (Ellipse 191 / 192).
+   Their SVG exports are not reachable from this environment, so they are
+   reproduced as radial gradients at the same size and offsets.
+   ============================================================ */
+
+.blob {
+  position: absolute;
+  width: 836px;
+  height: 816px;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blobGreen {
+  left: -300px;
+  top: 395px;
+  background: radial-gradient(closest-side, rgba(199, 235, 206, 0.85), rgba(199, 235, 206, 0));
+}
+
+.blobWarm {
+  left: 889px;
+  top: 53px;
+  background: radial-gradient(closest-side, rgba(250, 240, 200, 0.8), rgba(250, 240, 200, 0));
+}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+
+.topBar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 83px;
+  background: var(--ob-bg);
+  border-bottom: 1px solid var(--ob-hairline);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  height: 35px;
+  /* Geist is unavailable on Next 14.2 (see app/layout.tsx); Inter is the
+     documented fallback for the wordmark. */
+  font-family: var(--font-geist, var(--font-inter)), "Geist", "Inter", system-ui, sans-serif;
+  font-size: 26px;
+  letter-spacing: 1.56px;
+  color: var(--ob-brand);
+  white-space: nowrap;
+}
+
+.brandStrong {
+  font-weight: 700;
+}
+
+.brandLight {
+  font-weight: 300;
+}
+
+.topBarLink {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ob-heading);
+  cursor: pointer;
+}
+
+/* ============================================================
+   CARD
+   Figma centres the card on the full 1440x1024 frame, so it overlaps the
+   region below the 87px top bar rather than being centred within it.
+   ============================================================ */
+
+.stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 87px);
+  padding: 40px 20px;
+}
+
+.card {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--ob-card-w);
+  max-width: 100%;
+  padding: 43px 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+}
+
+/* ONB-01: welcome text on the left, card on the right (Figma: text at
+   x=190, card centred 290px right of the frame centre). */
+.stageSplit {
+  gap: 110px;
+}
+
+.aside {
+  width: 440px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 49px;
+}
+
+@media (max-width: 1100px) {
+  .stageSplit {
+    flex-direction: column;
+    gap: 32px;
+  }
+}
+
+/* ============================================================
+   HEADER: back arrow, progress, question
+   ============================================================ */
+
+.cardHead {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ob-heading);
+  cursor: pointer;
+}
+
+.backButton:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.backButton:not(:disabled):hover {
+  background: var(--ob-progress-off);
+}
+
+.progress {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+}
+
+.progressSegment {
+  height: 8px;
+  flex: 1 1 74px;
+  border-radius: 999px;
+  background: var(--ob-progress-off);
+  transition: background 150ms ease;
+}
+
+.progressSegmentOn {
+  background: var(--ob-progress-on);
+}
+
+.question {
+  margin: 0;
+  font-size: 30px;
+  line-height: 34px;
+  font-weight: 700;
+  color: var(--ob-heading);
+  overflow-wrap: break-word;
+}
+
+/* ============================================================
+   OPTION LIST
+   ============================================================ */
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.option {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 52px;
+  padding: 11px 28px;
+  border: 0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--ob-ring);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  line-height: 26.1px;
+  color: var(--ob-option-text);
+  text-align: left;
+  cursor: pointer;
+  transition: box-shadow 120ms ease, background 120ms ease;
+}
+
+.option:not(:disabled):hover {
+  box-shadow: inset 0 0 0 1px #c4c4c4;
+}
+
+.option:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/*
+ * Figma shows the chosen option only by expanding it (extra outer shadow,
+ * darker label). There is no filled/among-equals "selected" swatch in the
+ * file, so a focus ring is added here for options that carry no sub-input —
+ * without it a keyboard or screen-reader user has no selection signal at all.
+ */
+.optionSelected {
+  color: var(--ob-option-text-active);
+  box-shadow: inset 0 0 0 2px #7fd497;
+}
+
+.optionExpanded {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 28px;
+  color: var(--ob-option-text-active);
+  box-shadow: inset 0 0 0 1px var(--ob-ring), 0 0 2px 0 rgba(0, 0, 0, 0.25);
+  cursor: default;
+}
+
+.optionLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.optionTrigger {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Underlined "Please specify" field inside an expanded option. */
+.inlineField {
+  width: 100%;
+  max-width: 406px;
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: 1px solid var(--ob-ring);
+  border-radius: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ob-option-text);
+  outline: none;
+}
+
+.inlineField::placeholder {
+  color: var(--ob-placeholder);
+}
+
+.inlineField:focus {
+  border-bottom-color: #7fd497;
+}
+
+/* ============================================================
+   NUMERIC STEPPER + CHILD AGES  (ONB-07A / 07B / 07C)
+   ============================================================ */
+
+.subPanel {
+  width: calc(100% + 56px);
+  margin: 0 -28px -20px;
+  padding: 18px 28px 20px;
+  border-top: 1px solid var(--ob-ring);
+}
+
+.subPrompt {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ob-option-text);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.stepperButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21.6px;
+  height: 20.6px;
+  padding: 0;
+  border: 0.8px solid var(--ob-stepper-border);
+  border-radius: 4px;
+  background: #ffffff;
+  color: #000000;
+  cursor: pointer;
+}
+
+.stepperButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.stepperValue {
+  min-width: 11px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  text-align: center;
+  color: #000000;
+}
+
+.ageRows {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  margin-top: 22px;
+}
+
+.ageRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ageLabel {
+  width: 57px;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--ob-option-text);
+}
+
+.ageInput {
+  box-sizing: border-box;
+  width: 87px;
+  height: 22px;
+  padding: 4px 15px;
+  border: 0.8px solid var(--ob-stepper-border);
+  border-radius: 6px;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  color: #000000;
+  text-align: center;
+  outline: none;
+}
+
+.ageInput::placeholder {
+  color: var(--ob-placeholder);
+}
+
+/* ============================================================
+   DATE FIELD  (ONB-05 / 05A / 05B)
+   ============================================================ */
+
+.dateField {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  gap: 36px;
+  width: 273px;
+  max-width: 100%;
+  padding: 18px 32px;
+  border-radius: 30px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--ob-ring);
+  cursor: pointer;
+}
+
+.dateIconBox {
+  display: flex;
+  align-items: center;
+  padding: 13px;
+  border-radius: 8px;
+  background: var(--ob-icon-bg);
+  color: #2f7d4f;
+}
+
+.dateBody {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.dateLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: var(--ob-label);
+}
+
+.dateValue {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  line-height: 26.1px;
+  color: var(--ob-value);
+  white-space: nowrap;
+}
+
+.dateValueEmpty {
+  color: var(--ob-muted);
+}
+
+/* The native picker sits invisibly over the whole control. */
+.dateNativeInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* ============================================================
+   SEARCH + SUGGESTIONS  (ONB-09 / 09A / 09B / 09C)
+   ============================================================ */
+
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.searchField {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1 1 398px;
+  min-width: 0;
+  padding: 13px 29px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--ob-ring);
+  color: var(--ob-option-text);
+}
+
+.searchInput {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 18px;
+  letter-spacing: -0.3px;
+  line-height: 26.1px;
+  color: #000000;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: var(--ob-muted);
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border: 1px solid var(--ob-ring);
+  border-radius: 50%;
+  background: #ffffff;
+  color: var(--ob-option-text);
+  cursor: pointer;
+}
+
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.suggestionsLabel {
+  margin: 0 0 14px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 26.1px;
+  color: var(--ob-suggest-label);
+}
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 32px;
+  padding: 2px 8px 3px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 26.1px;
+  color: #000000;
+  text-align: left;
+  cursor: pointer;
+}
+
+.suggestionActive,
+.suggestion:hover {
+  background: var(--ob-suggest-hl);
+}
+
+.suggestionMatch {
+  font-weight: 600;
+}
+
+/* ============================================================
+   FOOTER: Skip / Continue / Start from scratch
+   ============================================================ */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: var(--ob-footer-w);
+  max-width: 100%;
+  align-self: flex-end;
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.skipButton {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  line-height: 26.1px;
+  color: var(--ob-skip);
+  cursor: pointer;
+}
+
+.skipButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.continueButton {
+  box-sizing: border-box;
+  padding: 14px 58px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background: var(--ob-cta-on);
+  font-family: inherit;
+  font-size: 17.156px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 26.1px;
+  color: var(--ob-cta-text);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.continueButtonDisabled,
+.continueButton:disabled {
+  background: var(--ob-cta-off);
+  border-color: var(--ob-cta-off-border);
+  cursor: not-allowed;
+}
+
+.restartButton {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 34px;
+  color: var(--ob-link);
+  cursor: pointer;
+}
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+.error {
+  margin: 0;
+  font-size: 15px;
+  line-height: 22px;
+  color: var(--ob-danger);
+}
+
+.loading {
+  margin: 0;
+  font-size: 18px;
+  color: var(--ob-muted);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ============================================================
+   NARROW VIEWPORTS
+   The Figma frames are 1440x1024 only; this keeps the card usable below
+   that without changing any desktop measurement.
+   ============================================================ */
+
+@media (max-width: 600px) {
+  .topBar {
+    padding: 18px 20px;
+  }
+
+  .brand {
+    font-size: 20px;
+    letter-spacing: 1.2px;
+  }
+
+  .card {
+    padding: 28px 20px;
+    gap: 32px;
+  }
+
+  .question {
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  .continueButton {
+    padding: 14px 32px;
+  }
+
+  .subPanel {
+    width: calc(100% + 40px);
+    margin: 0 -20px -20px;
+    padding: 18px 20px 20px;
+  }
+}
+

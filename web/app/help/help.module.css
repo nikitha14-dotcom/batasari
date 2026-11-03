@@ -1,0 +1,171 @@
+.page {
+  width: min(100%, 855px);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 56px 32px;
+}
+
+.description {
+  width: min(100%, 768px);
+  margin-top: 14px;
+  color: #475569;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.description p {
+  margin: 0;
+}
+
+.faqSection {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: min(100%, 768px);
+  margin-top: 34px;
+  padding-top: 12px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  overflow: visible;
+}
+
+.faqSection h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.card {
+  /* Keep the border around the answer list only. The section heading and follow-up
+     prompt intentionally sit outside this card as separate content. */
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.item + .item {
+  border-top: 1px solid #f1f5f9;
+}
+
+.itemButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 52px;
+  padding: 16px 20px;
+  border: 0;
+  background: transparent;
+  color: #1e293b;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.itemButton:focus-visible,
+.error button:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: -2px;
+}
+
+.itemButton svg {
+  flex: 0 0 auto;
+  transition: transform 0.15s ease;
+}
+
+.itemOpen .itemButton {
+  font-weight: 600;
+}
+
+.itemOpen .itemButton svg {
+  transform: rotate(180deg);
+}
+
+.answer {
+  padding: 0 20px 18px;
+  color: #475569;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.answer p {
+  margin: 0 0 10px;
+}
+
+.answer p:last-child {
+  margin-bottom: 0;
+}
+
+.answer ul,
+.answer ol {
+  margin: 0 0 10px;
+  padding-left: 20px;
+}
+
+.answer a,
+.feedbackPrompt a {
+  color: #256347;
+  text-decoration: underline;
+}
+
+.status {
+  margin: 0;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 13px;
+}
+
+.error p {
+  margin: 0;
+}
+
+.error button {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  border: 1px solid #991b1b;
+  border-radius: 8px;
+  background: #fff;
+  color: #991b1b;
+  font: inherit;
+  cursor: pointer;
+}
+
+.feedbackPrompt {
+  margin: 2px 0 0;
+  color: #475569;
+  font-size: 13px;
+  line-height: 17px;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 36px 20px 56px;
+  }
+
+  .faqSection {
+    margin-top: 28px;
+    padding-top: 0;
+  }
+}
+

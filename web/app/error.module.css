@@ -1,0 +1,112 @@
+/* Error boundary screen. Palette matches components/navigation and
+   components/content so a crash still looks like the product. */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #fffefb;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+}
+
+.card {
+  width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 40px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 12px;
+}
+
+.heading {
+  margin: 0;
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.body {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.detail {
+  margin: 0;
+  padding: 12px;
+  overflow-x: auto;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 18px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  padding: 0 20px;
+  border: 1px solid #dde0de;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primary {
+  background: #daf4e0;
+  color: #0f172a;
+}
+
+.primary:hover {
+  background: #c9edd2;
+}
+
+.secondary {
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.secondary:hover {
+  background: #f3faf5;
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
+}
+
+.digest {
+  margin: 0;
+  color: #94a3a0;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.digest code {
+  color: #475569;
+  font-size: 12px;
+}
+

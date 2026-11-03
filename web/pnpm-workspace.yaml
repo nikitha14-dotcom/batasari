@@ -1,0 +1,12 @@
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true
+
+overrides:
+  postcss: 8.5.26
+  source-map-js: 1.2.2
+  # Vitest currently requests tinypool 1.x, which has two critical prototype
+  # pollution advisories. Pin the patched Node 20-compatible release until
+  # Vitest updates its own dependency range.
+  tinypool: 2.1.2
+

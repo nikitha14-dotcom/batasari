@@ -1,0 +1,77 @@
+/* Figma UserFeedback: the Feedback_1 layout. The card is the 1030 x 730
+   Frame; field widths (933) come from its inner boxes. */
+
+.page {
+  max-width: 1086px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 55px 28px 64px;
+}
+
+.card {
+  /* globals.css styles bare <section> elements; this is a <div> and needs no
+     reset, but the zero margin documents that the gap above is the parent's. */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 56px 48px 62px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 12px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Figma: question at y=92, lead at y=124, stars at y=186. */
+.intro > div:last-child {
+  margin-top: 22px;
+}
+
+/*
+ * Centred, where the mock has these three elements at x=294, x=314 and x=291
+ * inside a 1030-wide card -- left of its centre by roughly 75px, and by
+ * different amounts each. Reading that as centring drift rather than intent.
+ */
+.question {
+  margin: 0;
+  color: #0f172a;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.lead {
+  margin: 0;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+.modalBody {
+  margin: 0;
+  max-width: 522px;
+  color: #475569;
+  font-size: 15px;
+  line-height: 22px;
+}
+
+@media (max-width: 900px) {
+  .page {
+    padding: 28px 16px 48px;
+  }
+
+  .card {
+    padding: 32px 20px 40px;
+  }
+}
+

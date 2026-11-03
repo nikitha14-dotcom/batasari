@@ -1,0 +1,1162 @@
+/*
+ * Housing screens, built from the Figma frames (FH-01…FH-08, HO-01/02,
+ * CP-01/02). A CSS module rather than more globals.css, because the first
+ * pass reused the older hand-written Housing classes and the result drifted
+ * from the design. Scoping these means the two cannot fight over a name.
+ *
+ * Values are taken from the frames, not approximated: the step pill is
+ * rgba(34,136,77,0.75) on 41px at radius 25; the expanded popup is #dcf2e1
+ * with a 1px border of that same green at radius 16 and 15px padding.
+ */
+
+/* Page header: title left, stepper right, one row (Figma "center header") */
+
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 33px 0;
+}
+
+.pageTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 35px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.pageSubtitle {
+  margin: 0 0 8px;
+  color: #475569;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+/* Stepper */
+
+.sequence {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+
+.stepLine {
+  width: 30px;
+  height: 1px;
+  background: #cfd4d0;
+}
+
+.step {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 41px;
+  padding: 10px;
+  border-radius: 25px;
+  background: #efede4;
+  color: #6b6a63;
+  font-size: 16px;
+  line-height: 25px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.step:hover {
+  filter: brightness(0.98);
+}
+
+.stepActive {
+  background: rgba(34, 136, 77, 0.75);
+  color: #ffffff;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 20px;
+  background: #dcdacf;
+  color: #6b6a63;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+.stepActive .stepNumber {
+  background: #dcf2e1;
+  color: #000000;
+}
+
+/* Accordion card (Figma "Expanded-Accordion") */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 16px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cardIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  flex: none;
+  border-radius: 8px;
+  background: #d1edd8;
+  font-size: 22px;
+}
+
+.cardIconWarn {
+  background: #fbeee9;
+  border: 1px solid #d97757;
+}
+
+.cardTitles {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+.cardSubtitle {
+  margin: 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.cardChevron {
+  flex: none;
+  color: #0f172a;
+  font-size: 16px;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.cardChevronOpen {
+  transform: rotate(180deg);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.groupLabel {
+  margin: 0;
+  color: #000000;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+/* Option cards ("SubSectionItem*") */
+
+.optionRow {
+  display: flex;
+  gap: 10px;
+}
+
+.optionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.option {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 16px;
+  text-align: left;
+}
+
+.optionWide {
+  grid-column: 1 / -1;
+  max-width: 470px;
+}
+
+.optionIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 18px;
+  background: #f7f5f9;
+  font-size: 16px;
+}
+
+.optionText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  min-width: 0;
+  min-height: 90px;
+}
+
+.optionTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.optionTitle {
+  margin: 0;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+}
+
+.optionBadge {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 9px;
+  border-radius: 10px;
+  background: #f7f5f9;
+  color: #7e6e93;
+  font-size: 10px;
+  line-height: 15px;
+}
+
+.optionBlurb {
+  margin: 2px 0 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.learnMore {
+  align-self: flex-start;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #7e6e93;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 10px;
+  cursor: pointer;
+}
+
+.learnMore:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.learnMore:disabled {
+  color: #a8a2b1;
+  cursor: default;
+}
+
+/* Resource rows (Figma "RecommendedResourcesList") */
+
+.resourceIntro {
+  display: flex;
+  gap: 10px;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.resourceIntro::before {
+  content: "";
+  flex: none;
+  width: 1px;
+  background: #cfd4d0;
+}
+
+.resourceBox {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 14px;
+}
+
+.resourceRow {
+  display: flex;
+  gap: 10px;
+}
+
+.resourceRow + .resourceRow {
+  padding-top: 11px;
+  border-top: 1px solid #eef1ee;
+}
+
+.resourceName {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 159px;
+  flex: none;
+  /* FH-01 left-aligns the resource column; the description column keeps its
+     own left edge, so the two read as a table. */
+  text-align: left;
+  color: #7e6e93;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: underline;
+}
+
+.resourceDesc {
+  flex: 1;
+  min-width: 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.resourceDesc :global(p) {
+  margin: 0;
+}
+
+/* Expanded popup (Figma "… Expanded Version", FH-02 … FH-08) */
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: min(713px, 100%);
+  padding: 15px;
+  background: #dcf2e1;
+  border: 1px solid rgba(34, 136, 77, 0.75);
+  border-radius: 16px;
+}
+
+.popupHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popupTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.popupBlurb {
+  margin: 2px 0 0;
+  color: #475569;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.popupGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.popupGroup {
+  display: flex;
+  gap: 10px;
+  padding: 12px 7px;
+  background: #ffffff;
+  border-radius: 14px;
+}
+
+.popupBullet {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-top: 7px;
+  border-radius: 3px;
+  background: #0f172a;
+}
+
+.popupGroupText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.popupGroupHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.popupGroupTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.popupBody {
+  margin: 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.popupBody :global(p) {
+  margin: 0 0 4px;
+}
+
+.popupChipLabel {
+  margin: 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.popupChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Figma "Visit-Action": 1px #7e6e93, radius 8, 12px horizontal padding. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 12px;
+  border: 1px solid #7e6e93;
+  border-radius: 8px;
+  color: #7e6e93;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.chip:hover {
+  background: #f7f5f9;
+}
+
+/* Compare page (HO-01 condensed / HO-02 expanded) */
+
+.compareGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compareGroupLabel {
+  margin: 0;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.compareBox {
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.compareRowHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 16px;
+  background: none;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.compareBox > .compareRow + .compareRow {
+  border-top: 1px solid #eef1ee;
+}
+
+.compareRowTitle {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.compareRowBody {
+  padding: 0 16px 14px 32px;
+  color: #475569;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.compareRowBody :global(p) {
+  margin: 0 0 6px;
+}
+
+.compareStatic {
+  padding: 14px 16px;
+  color: #475569;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.compareStatic :global(p) {
+  margin: 0;
+}
+
+.compareSource {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #7e6e93;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.expandAll {
+  padding: 8px 16px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 8px;
+  color: #0f172a;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.expandAll:hover {
+  background: #f3faf5;
+}
+
+.compareTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Check the Place (CP-01 empty, CP-02 with a result) */
+
+.checkStack {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.addressCard {
+  display: flex;
+  gap: 10px;
+  padding: 25px 20px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 16px;
+}
+
+.addressText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.addressTitle {
+  margin: 0;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.addressSubtitle {
+  margin: 5px 0 0;
+  color: #475569;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.addressForm {
+  display: flex;
+  gap: 10px;
+}
+
+.addressField {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  height: 38px;
+  padding: 0 10px 0 15px;
+  background: #f7f5f9;
+  border: 1px solid #d7d7d7;
+  border-radius: 12px;
+}
+
+.addressInput {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+  color: #7e6e93;
+  font: inherit;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.addressInput:focus {
+  outline: none;
+}
+
+.addressInput::placeholder {
+  color: #a79fb3;
+}
+
+.addressClear {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #7e6e93;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.checkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 151px;
+  height: 38px;
+  flex: none;
+  padding: 0 15px;
+  background: #7e6e93;
+  border: 1px solid #d7d7d7;
+  border-radius: 12px;
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  line-height: 17px;
+  cursor: pointer;
+}
+
+.checkButton:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.resultBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.resultHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.resultAddress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.resultAddressText {
+  margin: 0;
+  color: #000000;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 17px;
+}
+
+.resultStatus {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  background: rgba(34, 136, 77, 0.75);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.savePlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #7e6e93;
+  font: inherit;
+  font-size: 13px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+/* The crime accordion puts its caption above the neighbourhood name. */
+.crimeCaption {
+  margin: 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.statsBox {
+  padding: 15px;
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  border-radius: 14px;
+}
+
+.statsTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.statsTable th {
+  padding: 0 0 11px;
+  color: #475569;
+  font-weight: 400;
+  text-align: left;
+}
+
+.statsTable td {
+  padding: 11px 0;
+  color: #000000;
+}
+
+.statsTable tbody tr {
+  border-top: 1px solid #eef1ee;
+}
+
+.statsTable th:last-child,
+.statsTable td:last-child {
+  width: 59px;
+  text-align: right;
+}
+
+/* Scoped to the cell: `.statsTable td` sets colour #000 and is one element
+   more specific than a bare `.statsUp`, so the plain class lost and every
+   difference rendered black. */
+.statsTable td.statsUp {
+  color: #d97757;
+}
+
+.statsTable td.statsDown {
+  color: rgba(34, 136, 77, 0.75);
+}
+
+.statsFooter {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 5px;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.statsFooter a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* Popup list layout (FH-03 … FH-08): one box, link + description per row */
+
+.popupIntro {
+  margin: 0;
+  color: #475569;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.popupIntro :global(p) {
+  margin: 0 0 6px;
+}
+
+.popupList {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 14px;
+}
+
+.popupListHeading {
+  margin: 0;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.popupItem {
+  display: flex;
+  gap: 10px;
+}
+
+.popupItem + .popupItem {
+  padding-top: 11px;
+  border-top: 1px solid #eef1ee;
+}
+
+.popupItemLink {
+  width: 159px;
+  flex: none;
+}
+
+.popupItemName {
+  color: #7e6e93;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: normal;
+  text-decoration: underline;
+}
+
+.popupItemDesc {
+  flex: 1;
+  min-width: 0;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.popupItemDesc :global(p) {
+  margin: 0;
+}
+
+/* Popup dialog chrome (the frames show a near-transparent scrim) */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(2px);
+  overflow-y: auto;
+}
+
+.scrimInner {
+  position: relative;
+  width: min(760px, 100%);
+  margin: auto;
+}
+
+.popupClose {
+  position: absolute;
+  top: -34px;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Popup sections (FH-04 … FH-08) */
+
+.popupTabs {
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  background: #ffffff;
+  border-radius: 14px;
+}
+
+.popupTab {
+  flex: 1;
+  padding: 10px 16px;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  color: #475569;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.popupTabActive {
+  background: #ffffff;
+  border: 1px solid #dde0de;
+  color: #0f172a;
+}
+
+.popupSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.popupSectionHeading {
+  margin: 0;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+/* Intro paragraph with the frames' left rule. */
+.popupIntroBar {
+  padding-left: 10px;
+  border-left: 1px solid #b6d8c1;
+  color: #475569;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.popupIntroBar :global(p) {
+  margin: 0 0 6px;
+}
+
+.popupNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #475569;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+/* University boards: institution on the left, its link on the right. */
+.popupLinkRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 4px;
+}
+
+.popupLinkRight + .popupLinkRight {
+  border-top: 1px solid #eef1ee;
+}
+
+.popupInstitution {
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+/* Header band: full width above the two-column grid, so the stepper sits
+   above the Co-Pilot rail exactly as the frames show it. */
+.headerBand {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Arrangement cards (FH-07): title, RTA badge, description, link chips.
+   Rendered only when the rows exist -- they are seeded on staging but not
+   in every environment, so the section disappears rather than half-renders. */
+.arrangement {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 14px;
+}
+
+.arrangementHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.arrangementTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.arrangementTitle {
+  margin: 0;
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+.rtaBadge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.rtaBadgeOut {
+  background: #fbeee9;
+  color: #a4502f;
+}
+
+.rtaBadgeIn {
+  background: #f2eef8;
+  color: #7e6e93;
+}
+
+.callout {
+  display: flex;
+  gap: 8px;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 14px;
+  color: #475569;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.callout :global(p) {
+  margin: 0 0 6px;
+}
+
+.callout :global(p:last-child) {
+  margin: 0;
+}
+
+/* The frames set the bold lead phrase of a callout paragraph in the accent
+   purple. The emphasis itself comes from the seeded markdown, not from here. */
+.callout :global(strong) {
+  color: #7e6e93;
+  font-weight: 700;
+}
+
+.calloutTitle {
+  margin: 0 0 4px;
+  color: #7e6e93;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+/* Chip row living inside the rows box (FH-05 "Operator sites"). */
+.popupChipRow {
+  display: flex;
+  gap: 10px;
+  padding-top: 11px;
+  border-top: 1px solid #eef1ee;
+}
+
+.popupChipHeading {
+  width: 159px;
+  flex: none;
+  color: #7e6e93;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: left;
+}
+
+/* The caution line sits inside the box, under the last row. */
+.popupList > .popupNote {
+  padding-top: 11px;
+  border-top: 1px solid #eef1ee;
+}
+
+/* The frames rule off each paragraph inside a callout: the "Before signing"
+   advice from the Realtor.ca note, the RTA explanation from the deposit
+   checklist. */
+.calloutPara + .calloutPara {
+  padding-top: 10px;
+  margin-top: 10px;
+  border-top: 1px solid #eef1ee;
+}
+
+.calloutPara :global(p) {
+  margin: 0;
+}
+

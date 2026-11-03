@@ -1,0 +1,42 @@
+{
+  "_fixture_notice": "Sample/mock response for dev use, NOT a live API call. Based on a real run of get_crime_data() with hardcoded coordinates (lat=43.6426, lon=-79.3871) against the real geojson/csv dataset files. The 'address' field below is illustrative only - geocoding is not wired in yet, so real requests currently take lat/lon directly, not an address string.",
+  "request_example": {
+    "address": "150 Dan Leckie Way, Toronto, ON",
+    "note": "Confirmed working: get_crime_data_by_address(address) resolves this address via the real Google Maps Geocoding API to lat=43.6406731, lon=-79.3885327, then calls get_crime_data() with that coordinate, correctly matching Harbourfront-CityPlace (id 165) -- the same neighbourhood as the hardcoded-coordinate example below."
+  },
+  "response": {
+    "neighbourhood": {
+      "id": 165,
+      "name": "Harbourfront-CityPlace",
+      "rate_year": 2025,
+      "estimated_population": 35321,
+      "crime_rates_per_100k": {
+        "assault": {"neighbourhood_rate": 883.33, "city_average": 767.9, "difference_percentage": 15.03, "incident_count": 312},
+        "autotheft": {"neighbourhood_rate": 56.62, "city_average": 225.21, "difference_percentage": -74.86, "incident_count": 20},
+        "biketheft": {"neighbourhood_rate": 138.73, "city_average": 65.98, "difference_percentage": 110.26, "incident_count": 49},
+        "breakenter": {"neighbourhood_rate": 141.56, "city_average": 189.5, "difference_percentage": -25.3, "incident_count": 50},
+        "robbery": {"neighbourhood_rate": 48.13, "city_average": 78.45, "difference_percentage": -38.65, "incident_count": 17},
+        "theftover": {"neighbourhood_rate": 56.62, "city_average": 60.69, "difference_percentage": -6.7, "incident_count": 20},
+        "homicide": {"neighbourhood_rate": 2.83, "city_average": 1.4, "difference_percentage": 102.25, "incident_count": 1},
+        "shooting": {"neighbourhood_rate": 8.49, "city_average": 8.15, "difference_percentage": 4.22, "incident_count": 3},
+        "theftfrommv": {"neighbourhood_rate": 121.74, "city_average": 211.56, "difference_percentage": -42.46, "incident_count": 43}
+      }
+    },
+    "crime_markers": [
+      {
+        "event_id": "GO-20255323",
+        "offence": "Assault",
+        "lat": 43.6439791830828,
+        "lon": -79.3886581386073
+      },
+      {
+        "event_id": "GO-20251944",
+        "offence": "Assault",
+        "lat": 43.6381255772293,
+        "lon": -79.3988660337099
+      }
+    ],
+    "total_incidents_found": 515,
+    "_markers_notice": "crime_markers array truncated to 2 real sample entries for fixture readability. In production this array would contain every 2025 incident from the CSV's 5 covered categories for this neighbourhood (405 for Harbourfront-CityPlace) - do not assume the array length matches total_incidents_found, and do not assume it covers all 9 categories (Bike Theft, Homicide, Shooting, and Theft From MV incidents never appear here since the CSV doesn't have them)."
+  }
+}
