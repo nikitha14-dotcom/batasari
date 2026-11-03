@@ -19,7 +19,22 @@ const nextConfig = {
   // Image optimizer off until the Next 15.5.24+ upgrade: GHSA-2xp9-vwfh-vxw4 is
   // RCE through it, and nothing here uses next/image. ADR 0007, "Exception".
   images: { unoptimized: true },
+  // The copied project has older Canada-focused routes. Keep them out of the
+  // India product until they have India-specific data and copy.
+  async redirects() {
+    return [
+      { source: "/housing/:path*", destination: "/india-guide", permanent: false },
+      { source: "/the-city", destination: "/india-guide", permanent: false },
+      { source: "/rent", destination: "/india-guide", permanent: false },
+      { source: "/finance/:path*", destination: "/moving-shipping", permanent: false },
+      { source: "/education-family/:path*", destination: "/checklist", permanent: false },
+      { source: "/work", destination: "/checklist", permanent: false },
+      { source: "/daily-needs", destination: "/checklist", permanent: false },
+      { source: "/groceries", destination: "/checklist", permanent: false },
+      { source: "/health", destination: "/checklist", permanent: false },
+      { source: "/safety", destination: "/checklist", permanent: false },
+    ];
+  },
 };
 
 module.exports = nextConfig;
-

@@ -4,11 +4,21 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import { AppShell } from "@/components/navigation";
-import { apiUrl } from "@/lib/api/apiBase";
-import { getAccessToken } from "@/lib/supabase/client";
 import styles from "./batasari-pages.module.css";
 
-const CITIES = ["Ahmedabad", "Bengaluru", "Chennai", "Delhi NCR", "Hyderabad", "Indore", "Jaipur", "Kochi", "Kolkata", "Mumbai", "Pune"];
+const CITY_INFO = [
+  { name: "Ahmedabad", state: "Gujarat", region: "West", languages: "Gujarati, Hindi, English" },
+  { name: "Bengaluru", state: "Karnataka", region: "South", languages: "Kannada, English, Hindi" },
+  { name: "Chennai", state: "Tamil Nadu", region: "South", languages: "Tamil, English" },
+  { name: "Delhi", state: "Delhi (NCT)", region: "North", languages: "Hindi, English, Punjabi" },
+  { name: "Hyderabad", state: "Telangana", region: "South", languages: "Telugu, Urdu, English, Hindi" },
+  { name: "Jaipur", state: "Rajasthan", region: "North", languages: "Hindi, Rajasthani, English" },
+  { name: "Kochi", state: "Kerala", region: "South", languages: "Malayalam, English, Hindi" },
+  { name: "Kolkata", state: "West Bengal", region: "East", languages: "Bengali, Hindi, English" },
+  { name: "Mumbai", state: "Maharashtra", region: "West", languages: "Marathi, Hindi, English" },
+  { name: "Pune", state: "Maharashtra", region: "West", languages: "Marathi, Hindi, English" },
+];
+const CITIES = CITY_INFO.map((city) => city.name);
 
 function useSavedChecks(storageKey: string) {
   const [checked, setChecked] = useState<string[]>([]);
@@ -48,32 +58,19 @@ export function MyMoveDashboard() {
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const ready = Boolean(moveType && from && to);
-  async function saveMovePlan() {
+  function saveMovePlan() {
     if (!ready || saving) return;
     setSaving(true);
     setSaveMessage("");
     try {
-      const token = await getAccessToken();
-      const response = await fetch(apiUrl("/india/move-plans"), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify({
-          title: `${from} to ${to}`,
-          move_type: moveType,
-          ...(moveType === "within_india" ? { origin_city: from } : { origin_country: from }),
-          destination_city: to,
-        }),
-      });
-      if (!response.ok) {
-        const payload = await response.json().catch(() => null);
-        throw new Error(payload?.detail ?? "We could not save your move plan. Please try again.");
-      }
-      setSaveMessage("Your move plan is saved. You can find it in your Batasari account.");
+      const key = "batasari-move-plans-v1";
+      const current: unknown = JSON.parse(window.localStorage.getItem(key) ?? "[]");
+      const plans = Array.isArray(current) ? current : [];
+      plans.unshift({ title: `${from} to ${to}`, moveType, from, to, savedAt: new Date().toISOString() });
+      window.localStorage.setItem(key, JSON.stringify(plans.slice(0, 10)));
+      setSaveMessage("Your move plan is saved in this browser on this device.");
     } catch (error) {
-      setSaveMessage(error instanceof Error ? error.message : "We could not save your move plan. Please try again.");
+      setSaveMessage(error instanceof Error ? "This browser could not save your plan. Check that local storage is enabled." : "We could not save your move plan. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -86,13 +83,13 @@ export function MyMoveDashboard() {
           <div className={styles.plannerHead}><span className={styles.stepPill}>START HERE</span><h2>Your move at a glance</h2><p>Choose your route and destination to shape your planning checklist.</p></div>
           <div className={styles.formGrid}>
             <label>What kind of move?
-              <select value={moveType} onChange={(event) => setMoveType(event.target.value)}><option value="">Select your move</option>{MOVE_OPTIONS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select>
+              <select value={moveType} onChange={(event) => { setMoveType(event.target.value); setFrom(""); setTo(""); }}><option value="">Select your move</option>{MOVE_OPTIONS.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select>
             </label>
             {moveType === "within_india" && <label>Moving from
               <select value={from} onChange={(event) => setFrom(event.target.value)}><option value="">Choose a city</option>{CITIES.map((city) => <option key={city}>{city}</option>)}</select>
             </label>}
             {(moveType === "returning_to_india" || moveType === "relocating_to_india") && <label>Coming from
-              <select value={from} onChange={(event) => setFrom(event.target.value)}><option value="">Choose a country</option>{["Australia", "Canada", "Germany", "India (another city)", "Singapore", "United Arab Emirates", "United Kingdom", "United States", "Other country"].map((place) => <option key={place}>{place}</option>)}</select>
+              <select value={from} onChange={(event) => setFrom(event.target.value)}><option value="">Choose a country</option>{["Australia", "Canada", "Germany", "Singapore", "United Arab Emirates", "United Kingdom", "United States", "Other country"].map((place) => <option key={place}>{place}</option>)}</select>
             </label>}
             <label>Moving to
               <select value={to} onChange={(event) => setTo(event.target.value)}><option value="">Choose an Indian city</option>{CITIES.map((city) => <option key={city}>{city}</option>)}</select>
@@ -118,7 +115,7 @@ export function IndiaCityGuide() {
   const [city, setCity] = useState("Bengaluru");
   const questionList = useMemo(() => CITY_PROMPTS.map((item) => `${city}: ${item}`), [city]);
   return <AppShell activeHref="/india-guide"><div className={styles.page}><PageIntro eyebrow="CITY GUIDE" title="Find a city that feels right." description="Start with the places on your shortlist. Batasari helps you organise what to compare; always verify local details before you decide." />
-    <section className={styles.cityPicker}><label htmlFor="city-select">Choose a city to explore</label><select id="city-select" value={city} onChange={(event) => setCity(event.target.value)}>{CITIES.map((item) => <option key={item}>{item}</option>)}</select><p>City-specific listings and local service data can be added as Batasari expands. For now, use this guide to focus your research around the needs that matter to your household.</p></section>
+    <section className={styles.cityPicker}><label htmlFor="city-select">Choose a city to explore</label><select id="city-select" value={city} onChange={(event) => setCity(event.target.value)}>{CITIES.map((item) => <option key={item}>{item}</option>)}</select><p>Indian Rupee (INR) · India Standard Time (IST)</p><p>{CITY_INFO.find((item) => item.name === city)?.state} · {CITY_INFO.find((item) => item.name === city)?.region} India · Common languages: {CITY_INFO.find((item) => item.name === city)?.languages}</p></section>
     <h2 className={styles.subheading}>Questions to take with you</h2><div className={styles.promptGrid}>{questionList.map((item, index) => <article key={item} className={styles.promptCard}><span>0{index + 1}</span><p>{item}</p></article>)}</div>
     <div className={styles.callout}><strong>Shortlisting more than one city?</strong><p>Use the same questions for each place so you can compare options on your own priorities.</p><Link href="/categories">Add your move details →</Link></div>
   </div></AppShell>;
@@ -171,4 +168,3 @@ export function MovingChecklist() {
     <p className={styles.disclaimer}>This checklist is a starting point. Requirements vary by route, city, service provider, and personal circumstances.</p>
   </div></AppShell>;
 }
-
