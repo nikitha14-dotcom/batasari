@@ -7,15 +7,15 @@ Batasari helps people plan a move between Indian cities or a move to India from 
 You need Node.js 20 or newer and pnpm. Install Node.js from [nodejs.org](https://nodejs.org/) if needed, then install pnpm once:
 
 ```powershell
-npm install --global pnpm
+npm.cmd install --global pnpm
 ```
 
 Open PowerShell in the Batasari repository folder and run:
 
 ```powershell
 cd web
-pnpm install
-pnpm dev
+pnpm.cmd install
+pnpm.cmd dev
 ```
 
 Open <http://localhost:3000>. The public planner, city guide, moving guidance, and checklist work without a Supabase account or a running backend. Move plans and checked tasks are saved in the current browser on the current device.
