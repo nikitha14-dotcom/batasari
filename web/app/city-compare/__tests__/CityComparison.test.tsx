@@ -20,7 +20,7 @@ describe("CityComparison", () => {
     const surat = await screen.findByLabelText(/Surat/);
     fireEvent.click(surat);
     fireEvent.click(screen.getByLabelText(/Hyderabad/));
-    expect(screen.getByRole("table", { name: /selected city comparison/i })).toBeInTheDocument();
+    expect(screen.getByRole("region", { name: /selected city comparison/i })).toBeInTheDocument();
     expect(screen.getByRole("columnheader", { name: /Surat/ })).toBeInTheDocument();
     expect(screen.getByRole("columnheader", { name: /Hyderabad/ })).toBeInTheDocument();
   });
@@ -28,7 +28,7 @@ describe("CityComparison", () => {
   it("shows supported metadata and explicitly marks unsupported metrics", async () => {
     render(<CityComparison />);
     fireEvent.click(await screen.findByLabelText(/Surat/));
-    const table = screen.getByRole("table", { name: /selected city comparison/i });
+    const table = within(screen.getByRole("region", { name: /selected city comparison/i })).getByRole("table");
     expect(within(table).getByText("Gujarat")).toBeInTheDocument();
     expect(within(table).getByText("Gujarati, Hindi, English")).toBeInTheDocument();
     expect(within(table).getAllByText("Not available in verified data").length).toBeGreaterThan(0);
