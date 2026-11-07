@@ -49,7 +49,7 @@ describe("CityComparison", () => {
   });
 
   it("shows a recoverable error if the directory request fails", async () => {
-    listIndiaCities.mockRejectedValue(new Error("City directory offline"));
+    listIndiaCities.mockRejectedValueOnce(new Error("City directory offline"));
     render(<CityComparison />);
     expect(await screen.findByRole("alert")).toHaveTextContent("City directory offline");
     fireEvent.click(screen.getByRole("button", { name: /try again/i }));
