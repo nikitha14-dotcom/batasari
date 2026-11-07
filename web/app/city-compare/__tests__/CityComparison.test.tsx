@@ -29,7 +29,7 @@ describe("CityComparison", () => {
     render(<CityComparison />);
     fireEvent.click(await screen.findByLabelText(/Surat/));
     const table = within(screen.getByRole("region", { name: /selected city comparison/i })).getByRole("table");
-    expect(within(table).getByText("Gujarat")).toBeInTheDocument();
+    expect(within(table).getAllByText("Gujarat").length).toBeGreaterThan(0);
     expect(within(table).getByText("Gujarati, Hindi, English")).toBeInTheDocument();
     expect(within(table).getAllByText("Not available in verified data").length).toBeGreaterThan(0);
     expect(screen.getByText(/do not estimate rent, living costs, salaries/i)).toBeInTheDocument();
