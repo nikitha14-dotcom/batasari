@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./planner.module.css";
+import { createIndiaMovePlan, updateIndiaMovePlan } from "@/lib/api/india";
+import { getAccessToken } from "@/lib/supabase/client";
 
 type MoveDraft = {
   moveType: string;
@@ -44,6 +46,9 @@ export default function MovePlanner() {
   ]);
   const [saved, setSaved] = useState(false);
   const [ready, setReady] = useState(false);
+  const [remotePlanId, setRemotePlanId] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
     try {
@@ -53,6 +58,7 @@ export default function MovePlanner() {
         if (data.draft) setDraft({ ...INITIAL, ...data.draft });
         if (Array.isArray(data.checked)) setChecked(data.checked.filter((id) => TASKS.some((task) => task.id === id)));
         if (Array.isArray(data.expenses)) setExpenses(data.expenses);
+        if (typeof (data as { remotePlanId?: unknown }).remotePlanId === "string") setRemotePlanId((data as { remotePlanId: string }).remotePlanId);
       }
     } catch { /* Ignore invalid or unavailable local data. */ }
     setReady(true);
@@ -62,11 +68,41 @@ export default function MovePlanner() {
   const progress = Math.round((checked.length / TASKS.length) * 100);
   const update = (key: keyof MoveDraft, value: string) => { setDraft((current) => ({ ...current, [key]: value })); setSaved(false); };
   const toggleTask = (id: string) => { setChecked((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]); setSaved(false); };
-  const save = () => {
+  const save = async () => {
+    setSaving(true);
+    setSaveError("");
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, savedAt: new Date().toISOString() }));
+      const token = await getAccessToken();
+      let nextRemotePlanId = remotePlanId;
+      if (token) {
+        if (!draft.destination.trim()) throw new Error("Choose your destination city before syncing this plan to your account.");
+        if (draft.moveType === "within_india" && !draft.origin.trim()) throw new Error("Enter your starting city before syncing this plan.");
+        if (draft.moveType !== "within_india" && !draft.origin.trim()) throw new Error("Enter your origin country before syncing this plan.");
+        const payload = {
+          title: `${draft.origin || "Origin"} to ${draft.destination}`,
+          move_type: draft.moveType as "within_india" | "returning_to_india" | "relocating_to_india",
+          origin_city: draft.moveType === "within_india" ? draft.origin.trim() : null,
+          origin_country: draft.moveType === "within_india" ? null : draft.origin.trim(),
+          destination_city: draft.destination,
+          move_date: draft.moveDate || null,
+          household_size: Math.max(1, Number.parseInt(draft.household, 10) || 1),
+          services: [] as ("packers_movers" | "local_transport" | "storage" | "international_shipping")[],
+          notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\\n") || null,
+        };
+        const result = nextRemotePlanId
+          ? await updateIndiaMovePlan(nextRemotePlanId, payload)
+          : await createIndiaMovePlan(payload);
+        nextRemotePlanId = result.id;
+        setRemotePlanId(result.id);
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, savedAt: new Date().toISOString() }));
       setSaved(true);
-    } catch { setSaved(false); }
+    } catch (error) {
+      setSaved(false);
+      setSaveError(error instanceof Error ? error.message : "Unable to save your plan. Please try again.");
+    } finally {
+      setSaving(false);
+    }
   };
   const download = () => {
     const lines = [
@@ -95,8 +131,8 @@ export default function MovePlanner() {
       <div className={styles.container}>
         <div className={styles.breadcrumb}><Link href="/">Home</Link><span>/</span> Move planner</div>
         <section className={styles.hero}>
-          <div><p className={styles.kicker}>YOUR PERSONAL RELOCATION WORKSPACE</p><h1>A calmer move<br /><em>starts with a plan.</em></h1><p className={styles.heroText}>Bring your route, timeline, budget and essential tasks together. Your draft stays in this browser until you save or export it.</p></div>
-          <aside className={styles.progressCard}><div className={styles.progressTop}><span>MOVE READINESS</span><strong>{progress}%</strong></div><div className={styles.track}><span style={{ width: `${progress}%` }} /></div><p>{checked.length} of {TASKS.length} tasks completed</p><button type="button" onClick={save} className={styles.saveButton}>Save my plan</button>{saved && <span className={styles.saved} role="status">Saved on this device ✓</span>}</aside>
+          <div><p className={styles.kicker}>YOUR PERSONAL RELOCATION WORKSPACE</p><h1>A calmer move<br /><em>starts with a plan.</em></h1><p className={styles.heroText}>Bring your route, timeline, budget and essential tasks together. Save locally as a guest, or sign in to sync your move details to your account.</p></div>
+          <aside className={styles.progressCard}><div className={styles.progressTop}><span>MOVE READINESS</span><strong>{progress}%</strong></div><div className={styles.track}><span style={{ width: `${progress}%` }} /></div><p>{checked.length} of {TASKS.length} tasks completed</p><button type="button" onClick={save} className={styles.saveButton} disabled={saving}>{saving ? "Saving…" : "Save my plan"}</button>{saved && <span className={styles.saved} role="status">{remotePlanId ? "Synced to your account and saved on this device ✓" : "Saved on this device ✓"}</span>}{saveError && <span className={styles.saveError} role="alert">{saveError}</span>}</aside>
         </section>
 
         <section className={styles.section} aria-labelledby="details-heading">
@@ -123,8 +159,8 @@ export default function MovePlanner() {
           <div className={styles.taskGrid}>{["Before the move", "Moving week", "After arrival"].map((group) => <div className={styles.taskGroup} key={group}><h3>{group}</h3>{TASKS.filter((task) => task.group === group).map((task) => <label className={`${styles.task} ${checked.includes(task.id) ? styles.taskDone : ""}`} key={task.id}><input type="checkbox" checked={checked.includes(task.id)} onChange={() => toggleTask(task.id)} /><span>{task.title}</span></label>)}</div>)}</div>
         </section>
 
-        <section className={styles.finalCard}><div><p className={styles.kicker}>KEEP YOUR PLAN CLOSE</p><h2>Your next chapter, one step at a time.</h2><p>Save your progress on this device or export a copy to share with your family or moving provider.</p></div><div className={styles.finalActions}><button type="button" onClick={save}>Save plan</button><button type="button" onClick={download} className={styles.secondaryButton}>Download plan ↓</button></div></section>
-        <p className={styles.disclaimer}>Privacy note: this version stores your draft in this browser on this device. It is not synced to your account or another device. Budget figures are your own inputs, not provider quotes. For immigration, visa, OCI and customs matters, confirm current requirements with official authorities.</p>
+        <section className={styles.finalCard}><div><p className={styles.kicker}>KEEP YOUR PLAN CLOSE</p><h2>Your next chapter, one step at a time.</h2><p>Save your progress on this device or export a copy to share with your family or moving provider.</p></div><div className={styles.finalActions}><button type="button" onClick={save} disabled={saving}>{saving ? "Saving…" : "Save plan"}</button><button type="button" onClick={download} className={styles.secondaryButton}>Download plan ↓</button></div></section>
+        <p className={styles.disclaimer}>Privacy note: your detailed budget and checklist stay in this browser. If you sign in, the move route and basic details are also saved to your Batasari account. Budget figures are your own inputs, not provider quotes. For immigration, visa, OCI and customs matters, confirm current requirements with official authorities.</p>
       </div>
       <footer className={styles.footer}><Link href="/">Batasari</Link><span>Plan thoughtfully. Move confidently.</span><Link href="/privacy-statement">Privacy</Link></footer>
     </main>
