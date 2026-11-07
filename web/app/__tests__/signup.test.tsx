@@ -38,15 +38,15 @@ describe("ONB-01 sign up / ONB-02 verify email", () => {
   it("shows the sign-up card, welcome panel, legal links and Login", () => {
     render(<SignUpPage />);
 
-    expect(screen.getByRole("banner")).toHaveTextContent("KnewSooner");
+    expect(screen.getByRole("banner")).toHaveTextContent("Batasari");
     expect(screen.getByRole("heading", { name: "Sign Up" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Welcome to KnewSooner!" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Welcome to Batasari!" })).toBeInTheDocument();
     expect(
-      screen.getByText("What you’ll wish you knew. Sooner."),
+      screen.getByText("Your move to India, made clearer."),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        'Considering a move to Toronto, preparing to arrive, or settling in? Get practical local knowledge, useful resources, and AI-assisted guidance tailored to your situation.',
+        'Moving within India or preparing to make a home here from abroad? Bring your important plans, questions, and next steps together in one place.',
       ),
     ).toBeInTheDocument();
     expect(

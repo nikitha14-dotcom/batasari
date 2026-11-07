@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('next/navigation', () => ({
@@ -21,23 +21,14 @@ vi.stubGlobal('fetch', fetchMock);
 describe.each([
   ['Daily Needs', DailyNeeds],
   ['Health', Health],
-  ['Immigration', Immigration],
+  ['Get ready for your stay in India.', Immigration],
   ['The City', TheCity],
-  ['Moving & Shipping', MovingShipping],
+  ['Choose help with confidence.', MovingShipping],
 ])('/%s route', (name, Page) => {
   it('renders its category heading', async () => {
     render(<Page />);
     expect(screen.getByRole('heading', { level: 1, name })).toBeInTheDocument();
-    // Let the section fetches settle so their state updates stay inside the test.
-    if (
-      name !== 'Daily Needs' &&
-      name !== 'Immigration' &&
-      name !== 'Health' &&
-      name !== 'The City' &&
-      name !== 'Moving & Shipping'
-    ) {
-      await waitFor(() => expect(screen.getAllByText(/coming soon/i).length).toBeGreaterThan(0));
-    }
+
   });
 });
 

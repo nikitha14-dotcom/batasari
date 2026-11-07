@@ -13,6 +13,7 @@ type NavItem = { label: string; href: string; icon: IconName };
 export const NAV_ITEMS: readonly NavItem[] = [
   { label: 'My move', href: '/categories', icon: 'house' },
   { label: 'City guide', href: '/india-guide', icon: 'map-pinned' },
+  { label: 'Compare cities', href: '/city-compare', icon: 'map-pin' },
   { label: 'Moving services', href: '/moving-shipping', icon: 'truck' },
   { label: 'Stay & documents', href: '/immigration', icon: 'globe' },
   { label: 'Checklist', href: '/checklist', icon: 'square-check' },

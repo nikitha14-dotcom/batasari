@@ -13,7 +13,7 @@ describe("nextStepFor", () => {
     [{ user_metadata: { has_password: true } }, "/create-account"],
     [{ user_metadata: { has_password: true, first_name: "  " } }, "/create-account"],
     [{ user_metadata: { has_password: true, first_name: "Amy" } }, "/onboarding"],
-    [{ user_metadata: { has_password: true, first_name: "Amy", onboarding_completed: true } }, "/housing"],
+    [{ user_metadata: { has_password: true, first_name: "Amy", onboarding_completed: true } }, "/categories"],
   ])("%j -> %s", (user, route) => {
     expect(nextStepFor(user)).toBe(route);
   });

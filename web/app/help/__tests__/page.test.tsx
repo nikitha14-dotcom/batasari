@@ -58,16 +58,16 @@ describe('Help & FAQ page', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'FAQ' })).toBeInTheDocument();
     expect(
       screen.getByText(
-        'KnewSooner is currently in Beta. Features, AI models and policies may change as we learn from users and improve the product.',
+        'Batasari is currently in Beta. Features, AI models and policies may change as we learn from users and improve the product.',
       ),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 2, name: 'Frequently asked questions' }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText('Find answers to common questions about KnewSooner.'),
+      screen.queryByText('Find answers to common questions about Batasari.'),
     ).toBeNull();
-    expect(screen.getAllByRole('button')).toHaveLength(3);
+    expect(screen.getAllByRole('button')).toHaveLength(2);
     const accordion = screen.getByTestId('faq-accordion');
     expect(within(accordion).queryByRole('heading')).toBeNull();
     expect(within(accordion).queryByRole('link', { name: 'Send us feedback' })).toBeNull();
@@ -80,7 +80,7 @@ describe('Help & FAQ page', () => {
   it('opens one answer at a time and resolves API placeholders to internal links', async () => {
     render(<Page />);
     const first = await screen.findByRole('button', {
-      name: 'How does KnewSooner personalize my experience?',
+      name: 'How does Batasari personalize my experience?',
     });
     fireEvent.click(first);
     expect(first).toHaveAttribute('aria-expanded', 'true');

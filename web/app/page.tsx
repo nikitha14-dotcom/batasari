@@ -16,8 +16,9 @@ export default function Home() {
         <nav className={styles.headerNav} aria-label="Main navigation">
           <a href="#how-it-works">How it works</a>
           <Link href="/india-guide">Cities</Link>
+          <Link href="/city-compare">Compare cities</Link>
           <Link href="/moving-shipping">Moving help</Link>
-          <Link className={styles.navButton} href="/categories">Plan your move</Link>
+          <Link className={styles.navButton} href="/plan">Plan your move</Link>
         </nav>
       </header>
 
@@ -27,7 +28,7 @@ export default function Home() {
           <h1>Your move to India,<br /><em>made clearer.</em></h1>
           <p className={styles.lede}>A thoughtful place to plan a move between Indian cities or make a new home in India from abroad.</p>
           <div className={styles.actions}>
-            <Link className={styles.primaryButton} href="/categories">Start your move plan <span aria-hidden="true">↗</span></Link>
+            <Link className={styles.primaryButton} href="/plan">Start your move plan <span aria-hidden="true">↗</span></Link>
             <Link className={styles.textButton} href="/india-guide">Explore Indian cities <span aria-hidden="true">→</span></Link>
           </div>
           <p className={styles.note}>One plan for the move, the home, and settling in.</p>

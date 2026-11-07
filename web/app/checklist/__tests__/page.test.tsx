@@ -1,28 +1,17 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-
-vi.mock("@/components/navigation", () => ({
-  AppShell: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
-
-vi.mock("@/lib/supabase/RequireSession", () => ({
-  RequireSession: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
+import { describe, expect, it } from "vitest";
 
 import ChecklistPage from "../page";
 
-describe("Checklist page", () => {
-  it("uses the shared copilot with a checklist-specific starter question", () => {
+describe("Batasari moving checklist", () => {
+  it("renders practical moving tasks grouped by stage", () => {
     render(<ChecklistPage />);
-
-    expect(screen.getByRole("heading", { level: 1, name: "Checklist" })).toBeInTheDocument();
-    expect(screen.getByRole("complementary", { name: "AI Co-Pilot" })).toHaveClass("copilot");
-    expect(screen.getByRole("button", { name: "Generate my checklist" })).toBeInTheDocument();
-    expect(
-      screen.queryByRole("button", {
-        name: "I don't have a Canadian job offer or credit history, how do I make my rental application competitive?",
-      })
-    ).not.toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "One step at a time." })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Before the move" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Packing and logistics" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "Moving day" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 2, name: "After arrival" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Create a moving budget in ₹ INR")).toBeInTheDocument();
+    expect(screen.getByText(/tasks complete/)).toBeInTheDocument();
   });
 });
-
