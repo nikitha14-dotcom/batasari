@@ -46,7 +46,6 @@ export default function MovePlanner() {
   ]);
   const [saved, setSaved] = useState(false);
   const [synced, setSynced] = useState(false);
-  const [ready, setReady] = useState(false);
   const [cityOptions, setCityOptions] = useState<string[]>(CITIES);
   const [remotePlanId, setRemotePlanId] = useState<string | null>(null);
   const [remotePlanType, setRemotePlanType] = useState<string | null>(null);
@@ -68,7 +67,6 @@ export default function MovePlanner() {
         if (typeof (data as { remotePlanType?: unknown }).remotePlanType === "string") setRemotePlanType((data as { remotePlanType: string }).remotePlanType);
       }
     } catch { /* Ignore invalid or unavailable local data. */ }
-    setReady(true);
   }, []);
 
   const total = useMemo(() => expenses.reduce((sum, item) => sum + (Number(item.amount) || 0), 0), [expenses]);
@@ -99,7 +97,16 @@ export default function MovePlanner() {
             services: [] as ("packers_movers" | "local_transport" | "storage" | "international_shipping")[],
             notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\n") || null,
           };
-          const { move_type: _moveType, ...updatePayload } = payload;
+          const updatePayload = {
+            title: payload.title,
+            origin_city: payload.origin_city,
+            origin_country: payload.origin_country,
+            destination_city: payload.destination_city,
+            move_date: payload.move_date,
+            household_size: payload.household_size,
+            services: payload.services,
+            notes: payload.notes,
+          };
           const result = nextRemotePlanId && remotePlanType === draft.moveType
             ? await updateIndiaMovePlan(nextRemotePlanId, updatePayload)
             : await createIndiaMovePlan(payload);
