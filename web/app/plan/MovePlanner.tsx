@@ -147,7 +147,7 @@ export default function MovePlanner() {
     <main className={styles.shell}>
       <header className={styles.topbar}>
         <Link className={styles.brand} href="/"><span className={styles.brandMark}>ब</span>Batasari</Link>
-        <nav aria-label="Planner navigation"><Link href="/india-guide">City guide</Link><Link href="/moving-shipping">Moving help</Link><Link href="/checklist">Checklist</Link></nav>
+        <nav aria-label="Planner navigation"><Link href="/india-guide">City guide</Link><Link href="/city-compare">Compare cities</Link><Link href="/moving-shipping">Moving help</Link><Link href="/checklist">Checklist</Link></nav>
         <Link className={styles.topAction} href="/categories">My move hub ↗</Link>
       </header>
       <div className={styles.container}>
