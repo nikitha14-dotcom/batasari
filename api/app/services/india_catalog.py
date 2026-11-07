@@ -216,26 +216,90 @@ INDIAN_CITIES = [
 
 MOVE_CHECKLISTS = {
     "within_india": [
-        {"id": "confirm-move-date", "title": "Confirm your move date and handover dates", "days_before": 30},
-        {"id": "compare-movers", "title": "Compare written quotes from movers", "days_before": 21},
-        {"id": "lease-address", "title": "Review your lease and update important addresses", "days_before": 14},
-        {"id": "utilities", "title": "Arrange utility transfer or connection", "days_before": 7},
-        {"id": "inventory", "title": "Photograph valuables and prepare an item inventory", "days_before": 3},
-        {"id": "handover", "title": "Record meter readings and complete the home handover", "days_before": 0},
+        {
+            "id": "confirm-move-date",
+            "title": "Confirm your move date and handover dates",
+            "days_before": 30,
+        },
+        {
+            "id": "compare-movers",
+            "title": "Compare written quotes from movers",
+            "days_before": 21,
+        },
+        {
+            "id": "lease-address",
+            "title": "Review your lease and update important addresses",
+            "days_before": 14,
+        },
+        {
+            "id": "utilities",
+            "title": "Arrange utility transfer or connection",
+            "days_before": 7,
+        },
+        {
+            "id": "inventory",
+            "title": "Photograph valuables and prepare an item inventory",
+            "days_before": 3,
+        },
+        {
+            "id": "handover",
+            "title": "Record meter readings and complete the home handover",
+            "days_before": 0,
+        },
     ],
     "returning_to_india": [
-        {"id": "travel-docs", "title": "Check passport, entry documents, and travel dates", "days_before": 60},
-        {"id": "customs-guidance", "title": "Review current official customs guidance for your belongings", "days_before": 45},
-        {"id": "housing", "title": "Arrange temporary or long-term accommodation", "days_before": 30},
-        {"id": "shipment-quotes", "title": "Compare international shipment and baggage options", "days_before": 30},
-        {"id": "arrival-plan", "title": "Plan airport transport, local SIM, and first-week essentials", "days_before": 7},
+        {
+            "id": "travel-docs",
+            "title": "Check passport, entry documents, and travel dates",
+            "days_before": 60,
+        },
+        {
+            "id": "customs-guidance",
+            "title": "Review current official customs guidance for your belongings",
+            "days_before": 45,
+        },
+        {
+            "id": "housing",
+            "title": "Arrange temporary or long-term accommodation",
+            "days_before": 30,
+        },
+        {
+            "id": "shipment-quotes",
+            "title": "Compare international shipment and baggage options",
+            "days_before": 30,
+        },
+        {
+            "id": "arrival-plan",
+            "title": "Plan airport transport, local SIM, and first-week essentials",
+            "days_before": 7,
+        },
     ],
     "relocating_to_india": [
-        {"id": "visa-check", "title": "Confirm your visa or entry requirements using official sources", "days_before": 90},
-        {"id": "customs-guidance", "title": "Review current official customs guidance for your belongings", "days_before": 60},
-        {"id": "housing", "title": "Arrange temporary or long-term accommodation", "days_before": 45},
-        {"id": "shipment-quotes", "title": "Compare international shipment and baggage options", "days_before": 30},
-        {"id": "arrival-plan", "title": "Plan airport transport, local SIM, and first-week essentials", "days_before": 7},
+        {
+            "id": "visa-check",
+            "title": "Confirm your visa or entry requirements using official sources",
+            "days_before": 90,
+        },
+        {
+            "id": "customs-guidance",
+            "title": "Review current official customs guidance for your belongings",
+            "days_before": 60,
+        },
+        {
+            "id": "housing",
+            "title": "Arrange temporary or long-term accommodation",
+            "days_before": 45,
+        },
+        {
+            "id": "shipment-quotes",
+            "title": "Compare international shipment and baggage options",
+            "days_before": 30,
+        },
+        {
+            "id": "arrival-plan",
+            "title": "Plan airport transport, local SIM, and first-week essentials",
+            "days_before": 7,
+        },
     ],
 }
 
