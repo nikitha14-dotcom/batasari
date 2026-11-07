@@ -1,6 +1,6 @@
 """India-specific public reference data and authenticated move planning API."""
 
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from typing import Literal
 from uuid import uuid4
 
@@ -69,7 +69,12 @@ def list_cities(
         cities = [city for city in cities if city["region"].casefold() == region.strip().casefold()]
     if q:
         needle = q.strip().casefold()
-        cities = [city for city in cities if needle in city["name"].casefold() or needle in city["state"].casefold()]
+        cities = [
+            city
+            for city in cities
+            if needle in city["name"].casefold()
+            or needle in city["state"].casefold()
+        ]
     return {"cities": cities, "currency": "INR", "timezone": "Asia/Kolkata"}
 
 
@@ -104,9 +109,15 @@ def create_move_plan(request: Request, body: MovePlanCreate):
     user_id = _user_id(request)
     payload = body.model_dump(mode="json")
     if body.move_type == "within_india" and not body.origin_city:
-        raise HTTPException(status_code=422, detail="origin_city is required for moves within India")
+        raise HTTPException(
+            status_code=422,
+            detail="origin_city is required for moves within India",
+        )
     if body.move_type != "within_india" and not body.origin_country:
-        raise HTTPException(status_code=422, detail="origin_country is required for moves from abroad")
+        raise HTTPException(
+            status_code=422,
+            detail="origin_country is required for moves from abroad",
+        )
 
     if getattr(request.state, "use_local_profile_store", False):
         row = {
@@ -114,7 +125,7 @@ def create_move_plan(request: Request, body: MovePlanCreate):
             "id": str(uuid4()),
             "user_id": user_id,
             "status": "planning",
-            "created_at": datetime.now(timezone.utc).isoformat(),
+            "created_at": datetime.now(UTC).isoformat(),
             "updated_at": datetime.now(timezone.utc).isoformat(),
         }
         _local_store(request).setdefault(user_id, []).append(row)
