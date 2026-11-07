@@ -18,7 +18,7 @@ pnpm.cmd install
 pnpm.cmd dev
 ```
 
-Open <http://localhost:3000>. The public planner, city guide, moving guidance, and checklist work without a Supabase account or a running backend. Move plans and checked tasks are saved in the current browser on the current device.
+Open <http://localhost:3000>. The public planner, city guide, moving guidance, and checklist work without a Supabase account or a running backend. Guest move plans are saved in the current browser on the current device. When Supabase and the API are configured and a user is signed in, the move route and core move details can also sync to the account; the detailed budget and checklist remain browser-local.
 
 Stop the website by pressing **Ctrl+C** in PowerShell.
 
@@ -36,7 +36,7 @@ Open <http://localhost:3000>.
 
 ## Optional backend and accounts
 
-The FastAPI backend and Supabase migration are included for future account-backed move plans. They are not required to review the public website. To enable account sign-in or deploy the backend, create a separate Batasari Supabase project, configure the variables in `.env.example`, and review the migrations before applying them. Do not reuse credentials or a database from the source Moving Assistant project.
+The FastAPI backend and Supabase migration support account-backed move plans. They are not required to review the public website. The planner uses `GET /india/cities`, `POST /india/move-plans`, and `PATCH /india/move-plans/{plan_id}` for city options and authenticated plan syncing. To enable account sign-in or deploy the backend, create a separate Batasari Supabase project, configure the variables in `.env.example`, and review the migrations before applying them. Do not reuse credentials or a database from the source Moving Assistant project.
 
 ## Product scope
 
