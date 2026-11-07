@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { withBatasariBrand } from '@/lib/content/brandCopy';
+import { withKnewSoonerBrand } from '@/lib/content/brandCopy';
 const { fetchSubcategoryContent } = vi.hoisted(() => ({
   fetchSubcategoryContent: vi.fn(),
 }));
@@ -120,7 +120,7 @@ describe('Help & FAQ page', () => {
       items: [],
     });
     render(<Page />);
-    expect(await screen.findByText(withBatasariBrand(CONTENT.description.bodyMarkdown))).toBeInTheDocument();
+    expect(await screen.findByText(withKnewSoonerBrand(CONTENT.description.bodyMarkdown))).toBeInTheDocument();
     expect(screen.getByText('The FAQs are unavailable right now.')).toBeInTheDocument();
     expect(screen.queryByTestId('faq-accordion')).toBeNull();
   });
@@ -132,7 +132,7 @@ describe('Help & FAQ page', () => {
     });
     render(<Page />);
     // Wait for FAQ items to load before counting all buttons
-    await screen.findByRole('button', { name: withBatasariBrand(CONTENT.items[0].title) });
+    await screen.findByRole('button', { name: withKnewSoonerBrand(CONTENT.items[0].title) });
     const questions = screen.getAllByRole('button').filter(
       (btn) => btn.getAttribute('aria-controls') !== null,
     );
@@ -141,7 +141,7 @@ describe('Help & FAQ page', () => {
     expect(questions[1]).toHaveAttribute('aria-controls', 'faq-answer-1');
 
     fireEvent.click(questions[0]);
-    expect(screen.getByRole('region', { name: withBatasariBrand(CONTENT.items[0].title) })).toHaveAttribute(
+    expect(screen.getByRole('region', { name: withKnewSoonerBrand(CONTENT.items[0].title) })).toHaveAttribute(
       'aria-labelledby',
       'faq-question-0',
     );
@@ -154,7 +154,7 @@ describe('Help & FAQ page', () => {
       items: [{ ...CONTENT.items[0], bodyMarkdown: '<img src="/tracking" />Safe text' }],
     });
     render(<Page />);
-    fireEvent.click(await screen.findByRole('button', { name: withBatasariBrand(CONTENT.items[0].title) }));
+    fireEvent.click(await screen.findByRole('button', { name: withKnewSoonerBrand(CONTENT.items[0].title) }));
     expect(screen.queryByRole('img')).toBeNull();
     expect(screen.getByText('Safe text')).toBeInTheDocument();
   });
