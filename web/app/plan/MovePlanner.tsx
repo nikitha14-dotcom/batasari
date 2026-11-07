@@ -49,6 +49,7 @@ export default function MovePlanner() {
   const [ready, setReady] = useState(false);
   const [cityOptions, setCityOptions] = useState<string[]>(CITIES);
   const [remotePlanId, setRemotePlanId] = useState<string | null>(null);
+  const [remotePlanType, setRemotePlanType] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
 
@@ -64,6 +65,7 @@ export default function MovePlanner() {
         if (Array.isArray(data.checked)) setChecked(data.checked.filter((id) => TASKS.some((task) => task.id === id)));
         if (Array.isArray(data.expenses)) setExpenses(data.expenses);
         if (typeof (data as { remotePlanId?: unknown }).remotePlanId === "string") setRemotePlanId((data as { remotePlanId: string }).remotePlanId);
+        if (typeof (data as { remotePlanType?: unknown }).remotePlanType === "string") setRemotePlanType((data as { remotePlanType: string }).remotePlanType);
       }
     } catch { /* Ignore invalid or unavailable local data. */ }
     setReady(true);
@@ -79,7 +81,7 @@ export default function MovePlanner() {
     setSaveError("");
     try {
       let nextRemotePlanId = remotePlanId;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, savedAt: new Date().toISOString() }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, remotePlanType, savedAt: new Date().toISOString() }));
       setSaved(true);
       const token = await getAccessToken();
       if (token) {
@@ -98,13 +100,14 @@ export default function MovePlanner() {
             notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\\n") || null,
           };
           const { move_type: _moveType, ...updatePayload } = payload;
-          const result = nextRemotePlanId
+          const result = nextRemotePlanId && remotePlanType === draft.moveType
             ? await updateIndiaMovePlan(nextRemotePlanId, updatePayload)
             : await createIndiaMovePlan(payload);
           nextRemotePlanId = result.id;
           setRemotePlanId(result.id);
+          setRemotePlanType(draft.moveType);
           setSynced(true);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, savedAt: new Date().toISOString() }));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, remotePlanType: draft.moveType, savedAt: new Date().toISOString() }));
         } catch (syncError) {
           setSaveError(`Saved on this device, but account sync failed: ${syncError instanceof Error ? syncError.message : "Please try again."}`);
         }
