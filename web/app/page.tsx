@@ -16,6 +16,7 @@ export default function Home() {
         <nav className={styles.headerNav} aria-label="Main navigation">
           <a href="#how-it-works">How it works</a>
           <Link href="/india-guide">Cities</Link>
+          <Link href="/city-compare">Compare cities</Link>
           <Link href="/moving-shipping">Moving help</Link>
           <Link className={styles.navButton} href="/plan">Plan your move</Link>
         </nav>
