@@ -172,7 +172,7 @@ describe("CategoryPageView", () => {
     stubContent({});
     render(<CategoryPageView config={health} />);
     const nav = screen.getByRole("navigation", { name: "Categories" });
-    expect(within(nav).getByRole("link", { name: "Health" })).toHaveAttribute("aria-current", "page");
+    expect(within(nav).getByRole("link", { name: "City guide" })).toHaveAttribute("href", "/india-guide");
     expect(within(nav).getByRole("link", { name: "Immigration" })).toHaveAttribute("href", "/immigration");
   });
 });
