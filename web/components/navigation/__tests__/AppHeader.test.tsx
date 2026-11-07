@@ -12,7 +12,7 @@ describe("AppHeader", () => {
     render(<AppHeader />);
 
     const wordmark = screen.getByRole("link", { name: "Batasari home" });
-    expect(wordmark).toHaveAttribute("href", "/housing");
+    expect(wordmark).toHaveAttribute("href", "/categories");
     expect(wordmark).toHaveTextContent("Batasari");
   });
 });
