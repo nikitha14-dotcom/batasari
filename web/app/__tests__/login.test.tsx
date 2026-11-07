@@ -47,7 +47,7 @@ describe("login page", () => {
   it("uses the new design: Login heading, email + password, Sign up in the top bar", () => {
     render(<LoginPage />);
 
-    expect(screen.getByRole("banner")).toHaveTextContent("KnewSooner");
+    expect(screen.getByRole("banner")).toHaveTextContent("Batasari");
     expect(screen.getByRole("heading", { name: "Login" })).toBeInTheDocument();
     expect(emailField()).toBeInTheDocument();
     expect(screen.getByLabelText("Password")).toHaveAttribute("type", "password");
@@ -108,7 +108,7 @@ describe("login page", () => {
     expect(resetPasswordForEmail).not.toHaveBeenCalled();
   });
 
-  it("has no 'New to KnewSooner' footer (Sign up is in the top bar)", () => {
+  it("has no 'New to Batasari' footer (Sign up is in the top bar)", () => {
     render(<LoginPage />);
     expect(screen.queryByText(/new to knewsooner/i)).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Sign up" })).toHaveAttribute("href", "/signup");
