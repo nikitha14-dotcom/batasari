@@ -97,7 +97,7 @@ export default function MovePlanner() {
             move_date: draft.moveDate || null,
             household_size: Math.max(1, Number.parseInt(draft.household, 10) || 1),
             services: [] as ("packers_movers" | "local_transport" | "storage" | "international_shipping")[],
-            notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\\n") || null,
+            notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\n") || null,
           };
           const { move_type: _moveType, ...updatePayload } = payload;
           const result = nextRemotePlanId && remotePlanType === draft.moveType
