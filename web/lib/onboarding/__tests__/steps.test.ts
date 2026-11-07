@@ -13,11 +13,13 @@ const byId = Object.fromEntries(STEPS.map((step) => [step.id, step]));
 describe("the step strategies", () => {
   it("covers ONB-05 through ONB-10 in order", () => {
     expect(STEPS.map((step) => step.id)).toEqual([
+      "move_type",
       "move_date",
       "visa",
       "household",
       "pets",
       "city_country",
+      "destination_city",
       "accommodation",
     ]);
   });
