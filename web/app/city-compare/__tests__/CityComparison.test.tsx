@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const listIndiaCities = vi.fn();
+const { listIndiaCities } = vi.hoisted(() => ({ listIndiaCities: vi.fn() }));
 vi.mock("@/lib/api/india", () => ({ listIndiaCities: () => listIndiaCities() }));
 
 import CityComparison from "../CityComparison";
