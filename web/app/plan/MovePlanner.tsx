@@ -76,32 +76,36 @@ export default function MovePlanner() {
     setSaving(true);
     setSaveError("");
     try {
-      const token = await getAccessToken();
       let nextRemotePlanId = remotePlanId;
-      if (token) {
-        if (!draft.destination.trim()) throw new Error("Choose your destination city before syncing this plan to your account.");
-        if (draft.moveType === "within_india" && !draft.origin.trim()) throw new Error("Enter your starting city before syncing this plan.");
-        if (draft.moveType !== "within_india" && !draft.origin.trim()) throw new Error("Enter your origin country before syncing this plan.");
-        const payload = {
-          title: `${draft.origin || "Origin"} to ${draft.destination}`,
-          move_type: draft.moveType as "within_india" | "returning_to_india" | "relocating_to_india",
-          origin_city: draft.moveType === "within_india" ? draft.origin.trim() : null,
-          origin_country: draft.moveType === "within_india" ? null : draft.origin.trim(),
-          destination_city: draft.destination,
-          move_date: draft.moveDate || null,
-          household_size: Math.max(1, Number.parseInt(draft.household, 10) || 1),
-          services: [] as ("packers_movers" | "local_transport" | "storage" | "international_shipping")[],
-          notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\\n") || null,
-        };
-        const { move_type: _moveType, ...updatePayload } = payload;
-        const result = nextRemotePlanId
-          ? await updateIndiaMovePlan(nextRemotePlanId, updatePayload)
-          : await createIndiaMovePlan(payload);
-        nextRemotePlanId = result.id;
-        setRemotePlanId(result.id);
-      }
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, savedAt: new Date().toISOString() }));
       setSaved(true);
+      const token = await getAccessToken();
+      if (token) {
+        try {
+          if (!draft.destination.trim()) throw new Error("Choose your destination city to sync this plan.");
+          if (!draft.origin.trim()) throw new Error("Enter your starting city or origin country to sync this plan.");
+          const payload = {
+            title: `${draft.origin || "Origin"} to ${draft.destination}`,
+            move_type: draft.moveType as "within_india" | "returning_to_india" | "relocating_to_india",
+            origin_city: draft.moveType === "within_india" ? draft.origin.trim() : null,
+            origin_country: draft.moveType === "within_india" ? null : draft.origin.trim(),
+            destination_city: draft.destination,
+            move_date: draft.moveDate || null,
+            household_size: Math.max(1, Number.parseInt(draft.household, 10) || 1),
+            services: [] as ("packers_movers" | "local_transport" | "storage" | "international_shipping")[],
+            notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\\n") || null,
+          };
+          const { move_type: _moveType, ...updatePayload } = payload;
+          const result = nextRemotePlanId
+            ? await updateIndiaMovePlan(nextRemotePlanId, updatePayload)
+            : await createIndiaMovePlan(payload);
+          nextRemotePlanId = result.id;
+          setRemotePlanId(result.id);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, savedAt: new Date().toISOString() }));
+        } catch (syncError) {
+          setSaveError(`Saved on this device, but account sync failed: ${syncError instanceof Error ? syncError.message : "Please try again."}`);
+        }
+      }
     } catch (error) {
       setSaved(false);
       setSaveError(error instanceof Error ? error.message : "Unable to save your plan. Please try again.");
