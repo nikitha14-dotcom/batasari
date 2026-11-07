@@ -8,12 +8,12 @@ vi.mock("../useHeaderProfile", () => ({
 import { AppHeader } from "../AppHeader";
 
 describe("AppHeader", () => {
-  it("uses KnewSooner as the signed-in home wordmark", () => {
+  it("uses Batasari as the signed-in home wordmark", () => {
     render(<AppHeader />);
 
-    const wordmark = screen.getByRole("link", { name: "KnewSooner home" });
+    const wordmark = screen.getByRole("link", { name: "Batasari home" });
     expect(wordmark).toHaveAttribute("href", "/housing");
-    expect(wordmark).toHaveTextContent("KnewSooner");
+    expect(wordmark).toHaveTextContent("Batasari");
   });
 });
 
