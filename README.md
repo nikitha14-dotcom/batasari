@@ -42,6 +42,7 @@ The FastAPI backend and Supabase migration support account-backed move plans. Th
 
 - India-city move planning and household relocation preparation.
 - City starting points include regional context, common languages, INR, and India Standard Time.
+- City comparison at `/city-compare` compares supported directory metadata side by side (state, region, languages, currency, and time zone). It explicitly marks cost, rent, jobs, climate, connectivity, and lifestyle metrics as unavailable until verified, dated source datasets are integrated. No composite scores or city rankings are generated.
 - Practical quote and mover-safety questions for local transport, intercity moves, and packers.
 - Arrival and document research links to official Government of India sources.
 - No mover marketplace, price guarantee, or provider verification is represented as available.
