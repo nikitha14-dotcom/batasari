@@ -38,9 +38,9 @@ describe("ONB-01 sign up / ONB-02 verify email", () => {
   it("shows the sign-up card, welcome panel, legal links and Login", () => {
     render(<SignUpPage />);
 
-    expect(screen.getByRole("banner")).toHaveTextContent("KnewSooner");
+    expect(screen.getByRole("banner")).toHaveTextContent("Batasari");
     expect(screen.getByRole("heading", { name: "Sign Up" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Welcome to KnewSooner!" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Welcome to Batasari!" })).toBeInTheDocument();
     expect(
       screen.getByText("What you’ll wish you knew. Sooner."),
     ).toBeInTheDocument();
