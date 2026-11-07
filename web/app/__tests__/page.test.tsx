@@ -17,7 +17,7 @@ describe("Batasari home page", () => {
     render(<Home />);
 
     expect(screen.getByRole("heading", { name: /your move to india, made clearer/i })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /start your move plan/i })).toHaveAttribute("href", "/categories");
+    expect(screen.getByRole("link", { name: /start your move plan/i })).toHaveAttribute("href", "/plan");
     expect(screen.getByRole("link", { name: /explore indian cities/i })).toHaveAttribute("href", "/india-guide");
   });
 });
