@@ -126,7 +126,7 @@ def create_move_plan(request: Request, body: MovePlanCreate):
             "user_id": user_id,
             "status": "planning",
             "created_at": datetime.now(UTC).isoformat(),
-            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(UTC).isoformat(),
         }
         _local_store(request).setdefault(user_id, []).append(row)
         return row
@@ -150,7 +150,7 @@ def update_move_plan(request: Request, plan_id: str, body: MovePlanUpdate):
         for plan in plans:
             if plan["id"] == plan_id:
                 plan.update(changes)
-                plan["updated_at"] = datetime.now(timezone.utc).isoformat()
+                plan["updated_at"] = datetime.now(UTC).isoformat()
                 return plan
         raise HTTPException(status_code=404, detail="Move plan not found")
 
@@ -159,7 +159,7 @@ def update_move_plan(request: Request, plan_id: str, body: MovePlanUpdate):
         raise HTTPException(status_code=503, detail="Supabase is not configured")
     result = (
         supabase.table("move_plans")
-        .update({**changes, "updated_at": datetime.now(timezone.utc).isoformat()})
+        .update({**changes, "updated_at": datetime.now(UTC).isoformat()})
         .eq("id", plan_id)
         .eq("user_id", user_id)
         .execute()
