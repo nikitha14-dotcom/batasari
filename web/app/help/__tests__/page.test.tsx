@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { withKnewSoonerBrand } from '@/lib/content/brandCopy';
+import { withBatasariBrand } from '@/lib/content/brandCopy';
 const { fetchSubcategoryContent } = vi.hoisted(() => ({
   fetchSubcategoryContent: vi.fn(),
 }));
@@ -58,14 +58,14 @@ describe('Help & FAQ page', () => {
     expect(await screen.findByRole('heading', { level: 1, name: 'FAQ' })).toBeInTheDocument();
     expect(
       screen.getByText(
-        'KnewSooner is currently in Beta. Features, AI models and policies may change as we learn from users and improve the product.',
+        'Batasari is currently in Beta. Features, AI models and policies may change as we learn from users and improve the product.',
       ),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 2, name: 'Frequently asked questions' }),
     ).toBeInTheDocument();
     expect(
-      screen.queryByText('Find answers to common questions about KnewSooner.'),
+      screen.queryByText('Find answers to common questions about Batasari.'),
     ).toBeNull();
     expect(screen.getAllByRole('button')).toHaveLength(3);
     const accordion = screen.getByTestId('faq-accordion');
@@ -80,7 +80,7 @@ describe('Help & FAQ page', () => {
   it('opens one answer at a time and resolves API placeholders to internal links', async () => {
     render(<Page />);
     const first = await screen.findByRole('button', {
-      name: 'How does KnewSooner personalize my experience?',
+      name: 'How does Batasari personalize my experience?',
     });
     fireEvent.click(first);
     expect(first).toHaveAttribute('aria-expanded', 'true');
@@ -120,7 +120,7 @@ describe('Help & FAQ page', () => {
       items: [],
     });
     render(<Page />);
-    expect(await screen.findByText(withKnewSoonerBrand(CONTENT.description.bodyMarkdown))).toBeInTheDocument();
+    expect(await screen.findByText(withBatasariBrand(CONTENT.description.bodyMarkdown))).toBeInTheDocument();
     expect(screen.getByText('The FAQs are unavailable right now.')).toBeInTheDocument();
     expect(screen.queryByTestId('faq-accordion')).toBeNull();
   });
@@ -132,7 +132,7 @@ describe('Help & FAQ page', () => {
     });
     render(<Page />);
     // Wait for FAQ items to load before counting all buttons
-    await screen.findByRole('button', { name: withKnewSoonerBrand(CONTENT.items[0].title) });
+    await screen.findByRole('button', { name: withBatasariBrand(CONTENT.items[0].title) });
     const questions = screen.getAllByRole('button').filter(
       (btn) => btn.getAttribute('aria-controls') !== null,
     );
@@ -141,7 +141,7 @@ describe('Help & FAQ page', () => {
     expect(questions[1]).toHaveAttribute('aria-controls', 'faq-answer-1');
 
     fireEvent.click(questions[0]);
-    expect(screen.getByRole('region', { name: withKnewSoonerBrand(CONTENT.items[0].title) })).toHaveAttribute(
+    expect(screen.getByRole('region', { name: withBatasariBrand(CONTENT.items[0].title) })).toHaveAttribute(
       'aria-labelledby',
       'faq-question-0',
     );
@@ -154,7 +154,7 @@ describe('Help & FAQ page', () => {
       items: [{ ...CONTENT.items[0], bodyMarkdown: '<img src="/tracking" />Safe text' }],
     });
     render(<Page />);
-    fireEvent.click(await screen.findByRole('button', { name: withKnewSoonerBrand(CONTENT.items[0].title) }));
+    fireEvent.click(await screen.findByRole('button', { name: withBatasariBrand(CONTENT.items[0].title) }));
     expect(screen.queryByRole('img')).toBeNull();
     expect(screen.getByText('Safe text')).toBeInTheDocument();
   });
