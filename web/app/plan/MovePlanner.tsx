@@ -89,8 +89,9 @@ export default function MovePlanner() {
           services: [] as ("packers_movers" | "local_transport" | "storage" | "international_shipping")[],
           notes: [draft.notes.trim(), draft.budget ? `Target budget INR: ${draft.budget}` : ""].filter(Boolean).join("\\n") || null,
         };
+        const { move_type: _moveType, ...updatePayload } = payload;
         const result = nextRemotePlanId
-          ? await updateIndiaMovePlan(nextRemotePlanId, payload)
+          ? await updateIndiaMovePlan(nextRemotePlanId, updatePayload)
           : await createIndiaMovePlan(payload);
         nextRemotePlanId = result.id;
         setRemotePlanId(result.id);
