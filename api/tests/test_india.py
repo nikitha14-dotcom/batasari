@@ -14,6 +14,10 @@ def test_india_cities_are_in_inr_and_can_be_filtered():
     assert [city["name"] for city in payload["cities"]] == ["Mumbai"]
     assert payload["cities"][0]["languages"]
 
+    surat = client.get("/india/cities", params={"q": "Surat"})
+    assert surat.status_code == 200
+    assert surat.json()["cities"][0]["state"] == "Gujarat"
+
 
 def test_india_checklist_rejects_unknown_move_type():
     response = client.get("/india/checklists/not-a-move")
