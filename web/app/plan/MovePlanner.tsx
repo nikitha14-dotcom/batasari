@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import styles from "./planner.module.css";
-import { createIndiaMovePlan, updateIndiaMovePlan } from "@/lib/api/india";
+import { createIndiaMovePlan, listIndiaCities, updateIndiaMovePlan } from "@/lib/api/india";
 import { getAccessToken } from "@/lib/supabase/client";
 
 type MoveDraft = {
@@ -46,11 +46,15 @@ export default function MovePlanner() {
   ]);
   const [saved, setSaved] = useState(false);
   const [ready, setReady] = useState(false);
+  const [cityOptions, setCityOptions] = useState<string[]>(CITIES);
   const [remotePlanId, setRemotePlanId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
+    listIndiaCities().then((cities) => {
+      if (cities.length) setCityOptions(cities.map((city) => city.name));
+    }).catch(() => { /* Keep the built-in city list when the API is offline. */ });
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
@@ -141,7 +145,7 @@ export default function MovePlanner() {
           <div className={styles.formCard}>
             <label className={styles.field}>Type of move<select value={draft.moveType} onChange={(e) => update("moveType", e.target.value)}><option value="within_india">Moving between Indian cities</option><option value="returning_to_india">Returning to India</option><option value="relocating_to_india">Relocating to India from abroad</option></select></label>
             <label className={styles.field}>{draft.moveType === "within_india" ? "Moving from (city)" : "Moving from (city / country)"}<input value={draft.origin} onChange={(e) => update("origin", e.target.value)} placeholder={draft.moveType === "within_india" ? "e.g. Surat" : "e.g. London, United Kingdom"} /></label>
-            <label className={styles.field}>Moving to (Indian city)<select value={draft.destination} onChange={(e) => update("destination", e.target.value)}><option value="">Choose destination</option>{CITIES.map((city) => <option key={city}>{city}</option>)}</select></label>
+            <label className={styles.field}>Moving to (Indian city)<select value={draft.destination} onChange={(e) => update("destination", e.target.value)}><option value="">Choose destination</option>{cityOptions.map((city) => <option key={city}>{city}</option>)}</select></label>
             <label className={styles.field}>Expected moving date<input type="date" value={draft.moveDate} onChange={(e) => update("moveDate", e.target.value)} /></label>
             <label className={styles.field}>People moving<select value={draft.household} onChange={(e) => update("household", e.target.value)}>{["1","2","3","4","5","6","7","8+"].map((n) => <option key={n} value={n}>{n} {n === "1" ? "person" : "people"}</option>)}</select></label>
             <label className={styles.field}>Current home size<select value={draft.homeType} onChange={(e) => update("homeType", e.target.value)}>{["Studio","1 BHK","2 BHK","3 BHK","4+ BHK","Not sure"].map((n) => <option key={n}>{n}</option>)}</select></label>
