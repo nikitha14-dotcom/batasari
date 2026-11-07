@@ -28,16 +28,7 @@ describe.each([
   it('renders its category heading', async () => {
     render(<Page />);
     expect(screen.getByRole('heading', { level: 1, name })).toBeInTheDocument();
-    // Let the section fetches settle so their state updates stay inside the test.
-    if (
-      name !== 'Daily Needs' &&
-      name !== 'Immigration' &&
-      name !== 'Health' &&
-      name !== 'The City' &&
-      name !== 'Moving & Shipping'
-    ) {
-      await waitFor(() => expect(screen.getAllByText(/coming soon/i).length).toBeGreaterThan(0));
-    }
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
   });
 });
 
