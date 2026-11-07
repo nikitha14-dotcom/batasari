@@ -13,6 +13,7 @@ export type MovePlanInput = {
   services: ("packers_movers" | "local_transport" | "storage" | "international_shipping")[];
   notes?: string | null;
 };
+export type MovePlanUpdateInput = Omit<Partial<MovePlanInput>, "move_type">;
 export type SavedMovePlan = MovePlanInput & { id: string; user_id?: string; created_at?: string; updated_at?: string };
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
@@ -46,7 +47,7 @@ export function createIndiaMovePlan(input: MovePlanInput): Promise<SavedMovePlan
   return request<SavedMovePlan>("/india/move-plans", { method: "POST", body: JSON.stringify(input) });
 }
 
-export function updateIndiaMovePlan(id: string, input: Partial<MovePlanInput>): Promise<SavedMovePlan> {
+export function updateIndiaMovePlan(id: string, input: MovePlanUpdateInput): Promise<SavedMovePlan> {
   return request<SavedMovePlan>(`/india/move-plans/${encodeURIComponent(id)}`, {
     method: "PATCH",
     body: JSON.stringify(input),
