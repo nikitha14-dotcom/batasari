@@ -44,7 +44,10 @@ def main():
         assert created.status_code == 201, created.text
         plan_id = created.json()["id"]
         assert client.get("/india/move-plans").json()["move_plans"][0]["id"] == plan_id
-        updated = client.patch(f"/india/move-plans/{plan_id}", json={"title": "Pune to Bengaluru move"})
+        updated = client.patch(
+            f"/india/move-plans/{plan_id}",
+            json={"title": "Pune to Bengaluru move"},
+        )
         assert updated.status_code == 200 and updated.json()["title"] == "Pune to Bengaluru move"
         deleted = client.delete(f"/india/move-plans/{plan_id}")
         assert deleted.status_code == 200 and deleted.json() == {"deleted": True}
@@ -52,7 +55,11 @@ def main():
 
         invalid = client.post(
             "/india/move-plans",
-            json={"title": "Returning home", "move_type": "returning_to_india", "destination_city": "Chennai"},
+            json={
+                "title": "Returning home",
+                "move_type": "returning_to_india",
+                "destination_city": "Chennai",
+            },
         )
         assert invalid.status_code == 422
 
