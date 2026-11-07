@@ -125,7 +125,7 @@ export default function CityComparison() {
             <table>
               <thead><tr><th scope="col">What to compare</th>{compared.map((city) => <th scope="col" key={city.name}>{city.name}<small>{city.state}</small></th>)}</tr></thead>
               <tbody>
-                {["Location", "Local context"].map((group) => <>{DATA_ROWS.filter((row) => row.group === group).map((row) => <tr key={row.label}><th scope="row">{row.label}</th>{compared.map((city) => <td key={city.name}>{row.value(city)}</td>)}</tr>)}</>)}
+                {["Location", "Local context"].map((group) => <tbody key={group}>{DATA_ROWS.filter((row) => row.group === group).map((row) => <tr key={row.label}><th scope="row">{row.label}</th>{compared.map((city) => <td key={city.name}>{row.value(city)}</td>)}</tr>)}</tbody>)}
                 <tr className={styles.groupRow}><th scope="row" colSpan={compared.length + 1}>Research still needed</th></tr>
                 {UNAVAILABLE_ROWS.map((label) => <tr key={label}><th scope="row">{label}</th>{compared.map((city) => <td key={city.name}><span className={styles.unavailable}>Not available in verified data</span></td>)}</tr>)}
               </tbody>
