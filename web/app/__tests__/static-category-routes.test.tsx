@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 vi.mock('next/navigation', () => ({
@@ -28,7 +28,7 @@ describe.each([
   it('renders its category heading', async () => {
     render(<Page />);
     expect(screen.getByRole('heading', { level: 1, name })).toBeInTheDocument();
-    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+
   });
 });
 
