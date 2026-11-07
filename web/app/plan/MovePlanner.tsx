@@ -45,6 +45,7 @@ export default function MovePlanner() {
     { id: 4, label: "Deposits and setup", amount: "" },
   ]);
   const [saved, setSaved] = useState(false);
+  const [synced, setSynced] = useState(false);
   const [ready, setReady] = useState(false);
   const [cityOptions, setCityOptions] = useState<string[]>(CITIES);
   const [remotePlanId, setRemotePlanId] = useState<string | null>(null);
@@ -74,6 +75,7 @@ export default function MovePlanner() {
   const toggleTask = (id: string) => { setChecked((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id]); setSaved(false); };
   const save = async () => {
     setSaving(true);
+    setSynced(false);
     setSaveError("");
     try {
       let nextRemotePlanId = remotePlanId;
@@ -101,6 +103,7 @@ export default function MovePlanner() {
             : await createIndiaMovePlan(payload);
           nextRemotePlanId = result.id;
           setRemotePlanId(result.id);
+          setSynced(true);
           localStorage.setItem(STORAGE_KEY, JSON.stringify({ draft, checked, expenses, remotePlanId: nextRemotePlanId, savedAt: new Date().toISOString() }));
         } catch (syncError) {
           setSaveError(`Saved on this device, but account sync failed: ${syncError instanceof Error ? syncError.message : "Please try again."}`);
@@ -141,7 +144,7 @@ export default function MovePlanner() {
         <div className={styles.breadcrumb}><Link href="/">Home</Link><span>/</span> Move planner</div>
         <section className={styles.hero}>
           <div><p className={styles.kicker}>YOUR PERSONAL RELOCATION WORKSPACE</p><h1>A calmer move<br /><em>starts with a plan.</em></h1><p className={styles.heroText}>Bring your route, timeline, budget and essential tasks together. Save locally as a guest, or sign in to sync your move details to your account.</p></div>
-          <aside className={styles.progressCard}><div className={styles.progressTop}><span>MOVE READINESS</span><strong>{progress}%</strong></div><div className={styles.track}><span style={{ width: `${progress}%` }} /></div><p>{checked.length} of {TASKS.length} tasks completed</p><button type="button" onClick={save} className={styles.saveButton} disabled={saving}>{saving ? "Saving…" : "Save my plan"}</button>{saved && <span className={styles.saved} role="status">{remotePlanId ? "Synced to your account and saved on this device ✓" : "Saved on this device ✓"}</span>}{saveError && <span className={styles.saveError} role="alert">{saveError}</span>}</aside>
+          <aside className={styles.progressCard}><div className={styles.progressTop}><span>MOVE READINESS</span><strong>{progress}%</strong></div><div className={styles.track}><span style={{ width: `${progress}%` }} /></div><p>{checked.length} of {TASKS.length} tasks completed</p><button type="button" onClick={save} className={styles.saveButton} disabled={saving}>{saving ? "Saving…" : "Save my plan"}</button>{saved && <span className={styles.saved} role="status">{synced ? "Synced to your account and saved on this device ✓" : "Saved on this device ✓"}</span>}{saveError && <span className={styles.saveError} role="alert">{saveError}</span>}</aside>
         </section>
 
         <section className={styles.section} aria-labelledby="details-heading">
