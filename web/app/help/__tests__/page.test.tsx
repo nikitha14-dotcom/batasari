@@ -67,7 +67,7 @@ describe('Help & FAQ page', () => {
     expect(
       screen.queryByText('Find answers to common questions about Batasari.'),
     ).toBeNull();
-    expect(screen.getAllByRole('button')).toHaveLength(3);
+    expect(screen.getAllByRole('button')).toHaveLength(2);
     const accordion = screen.getByTestId('faq-accordion');
     expect(within(accordion).queryByRole('heading')).toBeNull();
     expect(within(accordion).queryByRole('link', { name: 'Send us feedback' })).toBeNull();
