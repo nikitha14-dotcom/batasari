@@ -194,6 +194,14 @@ app.state.static_content_cache = StaticContentCache()
 _daily_ai_limit = int(os.getenv("DAILY_AI_LIMIT", "250"))
 app.state.rate_limiter = InMemoryRateLimiter(daily_limit=_daily_ai_limit)
 
+# Public guest AI is capped per IP and globally to protect the model budget.
+app.state.guest_ai_ip_limiter = InMemoryRateLimiter(
+    daily_limit=int(os.getenv("GUEST_AI_DAILY_LIMIT_PER_IP", "5"))
+)
+app.state.guest_ai_global_limiter = InMemoryRateLimiter(
+    daily_limit=int(os.getenv("GUEST_AI_DAILY_LIMIT_GLOBAL", "200"))
+)
+
 # Separate counter from the AI one: sending feedback must never eat a user's
 # Copilot budget, and a chatty day on one should not close the other.
 _daily_feedback_limit = int(
