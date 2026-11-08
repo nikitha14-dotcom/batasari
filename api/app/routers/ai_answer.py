@@ -1,5 +1,5 @@
-import json
 import hashlib
+import json
 import logging
 import re
 from datetime import date
@@ -301,9 +301,15 @@ async def guest_ai_answer(request: Request, body: AIAnswerRequest):
 
     today = date.today()
     if not per_ip_limiter.check_and_increment(guest_key, today):
-        raise HTTPException(status_code=429, detail="Guest question limit reached. Please try again tomorrow.")
+        raise HTTPException(
+            status_code=429,
+            detail="Guest question limit reached. Please try again tomorrow.",
+        )
     if not global_limiter.check_and_increment("all-guests", today):
-        raise HTTPException(status_code=429, detail="Batasari's free guest AI capacity has been reached for today.")
+        raise HTTPException(
+            status_code=429,
+            detail="Batasari's free guest AI capacity has been reached for today.",
+        )
 
     return StreamingResponse(
         run_ai_answer(
