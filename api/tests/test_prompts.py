@@ -85,3 +85,12 @@ def test_no_profile_context_omits_the_section(monkeypatch):
     asyncio.run(collect())
     assert "already told us" not in seen["system_prompt"]
 
+
+
+def test_default_prompt_is_india_focused_batasari(monkeypatch):
+    monkeypatch.delenv("PROMPT_VERSION", raising=False)
+    assert prompts.active_prompt_version() == "v4"
+    prompt = prompts.PROMPTS[prompts.active_prompt_version()]
+    assert "Batasari" in prompt
+    assert "India" in prompt
+    assert "Ontario" not in prompt
