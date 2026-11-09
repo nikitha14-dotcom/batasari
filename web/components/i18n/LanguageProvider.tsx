@@ -25,13 +25,14 @@ const EN: Record<string, string> = {
   "selectHint": "Select at least one city above. Add two or more to compare their details side by side.",
   "whatCompare": "What to compare", "location": "Location", "state": "State / territory", "region": "Region", "local": "Local context",
   "languages": "Languages listed", "currency": "Currency", "timezone": "Time zone", "research": "Research still needed",
-  "notAvailable": "Not available in verified data", "disclaimer": "Directory fields are descriptive, not a city ranking or recommendation. Confirm local conditions and current costs independently before making a relocation decision.",
+  "notAvailable": "Not available in verified data", "cost":"Cost of living and monthly budget", "rent":"Typical rent and housing availability", "jobs":"Employment opportunities and current job openings", "climate":"Climate and seasonal conditions", "transport":"Public transport and connectivity", "lifestyle":"Lifestyle and neighbourhood amenities", "disclaimer": "Directory fields are descriptive, not a city ranking or recommendation. Confirm local conditions and current costs independently before making a relocation decision.",
   "usePlan": "Use a city in your move plan", "locationLabel": "Location", "profile": "Profile", "myMove": "My move",
   "movingServices": "Moving services", "stayDocs": "Stay & documents", "checklist": "Checklist", "faq": "FAQ",
   "privacy": "Privacy Statement", "support": "Contact Support", "feedback": "Feedback", "signOut": "Log out",
 };
 const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
   te: {
+    cost:"జీవన వ్యయం మరియు నెలవారీ బడ్జెట్",rent:"సాధారణ అద్దె మరియు గృహ లభ్యత",jobs:"ఉద్యోగ అవకాశాలు మరియు ప్రస్తుత ఖాళీలు",climate:"వాతావరణం మరియు ఋతు పరిస్థితులు",transport:"ప్రజా రవాణా మరియు అనుసంధానం",lifestyle:"జీవనశైలి మరియు పరిసర సదుపాయాలు",
     language:"వెబ్‌సైట్ భాష",home:"హోమ్",cityGuide:"నగర మార్గదర్శి",movePlanner:"తరలింపు ప్రణాళిక",compareCities:"నగరాలను పోల్చండి",
     makeMove:"సమాచారంతో మీ తరలింపును ప్లాన్ చేయండి",compareTitle:"భారతీయ నగరాలను పోల్చండి",compareIntro:"బతసారిలో అందుబాటులో ఉన్న నగర వివరాలను పక్కపక్కన చూడండి. ప్రాంతం మరియు భాషల వివరాల కోసం గరిష్ఠంగా నాలుగు నగరాలను ఎంచుకోండి.",
     transparent:"పారదర్శక సమాచారం",transparentText:"ధృవీకరించిన నగర డైరెక్టరీలో ఉన్న వివరాలనే చూపిస్తాము. ఆధారాలు లేని అద్దె, జీవన వ్యయం, జీతాలు, ఉద్యోగాలు, వాతావరణం లేదా రవాణా నాణ్యతను అంచనా వేయము.",
@@ -43,6 +44,7 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     usePlan:"మీ తరలింపు ప్రణాళికలో నగరాన్ని ఉపయోగించండి",profile:"ప్రొఫైల్",myMove:"నా తరలింపు",movingServices:"తరలింపు సేవలు",stayDocs:"నివాసం & పత్రాలు",checklist:"చెక్‌లిస్ట్",faq:"తరచుగా అడిగే ప్రశ్నలు",privacy:"గోప్యతా ప్రకటన",support:"సహాయం సంప్రదించండి",feedback:"అభిప్రాయం",signOut:"లాగ్ అవుట్"
   },
   hi: {
+    cost:"जीवन-यापन लागत और मासिक बजट",rent:"सामान्य किराया और आवास उपलब्धता",jobs:"रोज़गार के अवसर और वर्तमान नौकरियाँ",climate:"जलवायु और मौसमी स्थितियाँ",transport:"सार्वजनिक परिवहन और संपर्क",lifestyle:"जीवनशैली और पड़ोस की सुविधाएँ",
     language:"वेबसाइट की भाषा",home:"होम",cityGuide:"शहर गाइड",movePlanner:"स्थानांतरण योजना",compareCities:"शहरों की तुलना",
     makeMove:"सोच-समझकर स्थानांतरण करें",compareTitle:"भारतीय शहरों की तुलना करें",compareIntro:"बटसारी में उपलब्ध शहरों की जानकारी साथ-साथ देखें। क्षेत्र और भाषा की जानकारी की तुलना के लिए अधिकतम चार शहर चुनें।",
     transparent:"पारदर्शी जानकारी",transparentText:"हम केवल सत्यापित शहर निर्देशिका के फ़ील्ड दिखाते हैं। स्रोत के बिना किराया, जीवन-यापन लागत, वेतन, नौकरियाँ, मौसम या परिवहन गुणवत्ता का अनुमान नहीं लगाते।",
@@ -53,6 +55,7 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     profile:"प्रोफ़ाइल",myMove:"मेरा स्थानांतरण",movingServices:"स्थानांतरण सेवाएँ",stayDocs:"रहना और दस्तावेज़",checklist:"चेकलिस्ट",faq:"अक्सर पूछे जाने वाले प्रश्न",privacy:"गोपनीयता वक्तव्य",support:"सहायता संपर्क",feedback:"प्रतिक्रिया",signOut:"लॉग आउट"
   },
   gu: {
+    cost:"જીવન ખર્ચ અને માસિક બજેટ",rent:"સામાન્ય ભાડું અને રહેઠાણની ઉપલબ્ધતા",jobs:"રોજગારની તકો અને હાલની નોકરીઓ",climate:"આબોહવા અને મોસમી પરિસ્થિતિઓ",transport:"જાહેર પરિવહન અને જોડાણ",lifestyle:"જીવનશૈલી અને પડોશની સુવિધાઓ",
     language:"વેબસાઇટની ભાષા",home:"હોમ",cityGuide:"શહેર માર્ગદર્શિકા",movePlanner:"સ્થળાંતર યોજના",compareCities:"શહેરોની તુલના",
     makeMove:"સમજી વિચારીને સ્થળાંતર કરો",compareTitle:"ભારતીય શહેરોની તુલના કરો",compareIntro:"બતસારીમાં ઉપલબ્ધ શહેરોની વિગતો સાથે જુઓ. પ્રદેશ અને ભાષાની માહિતી સરખાવવા વધુમાં વધુ ચાર શહેરો પસંદ કરો.",
     transparent:"પારદર્શક માહિતી",transparentText:"અમે ફક્ત ચકાસેલી શહેર ડિરેક્ટરીની વિગતો બતાવીએ છીએ. સ્ત્રોત વગર ભાડું, જીવનખર્ચ, પગાર, નોકરીઓ, હવામાન અથવા પરિવહન ગુણવત્તાનો અંદાજ આપતા નથી.",
@@ -63,6 +66,7 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     profile:"પ્રોફાઇલ",myMove:"મારું સ્થળાંતર",movingServices:"સ્થળાંતર સેવાઓ",stayDocs:"રહેઠાણ અને દસ્તાવેજો",checklist:"ચેકલિસ્ટ",faq:"વારંવાર પૂછાતા પ્રશ્નો",privacy:"ગોપનીયતા નિવેદન",support:"સહાયનો સંપર્ક",feedback:"પ્રતિસાદ",signOut:"લૉગ આઉટ"
   },
   ta: {
+    cost:"வாழ்க்கைச் செலவு மற்றும் மாதாந்திர பட்ஜெட்",rent:"வழக்கமான வாடகை மற்றும் வீட்டு வசதி",jobs:"வேலை வாய்ப்புகள் மற்றும் தற்போதைய காலியிடங்கள்",climate:"காலநிலை மற்றும் பருவநிலைகள்",transport:"பொது போக்குவரத்து மற்றும் இணைப்பு",lifestyle:"வாழ்க்கை முறை மற்றும் சுற்றுப்புற வசதிகள்",
     language:"இணையதள மொழி",home:"முகப்பு",cityGuide:"நகர வழிகாட்டி",movePlanner:"குடிபெயர்வு திட்டம்",compareCities:"நகரங்களை ஒப்பிடுக",
     makeMove:"தகவலறிந்து குடிபெயருங்கள்",compareTitle:"இந்திய நகரங்களை ஒப்பிடுக",compareIntro:"படசாரியில் உள்ள நகர விவரங்களை அருகருகே பார்க்கவும். பகுதி மற்றும் மொழி விவரங்களை ஒப்பிட அதிகபட்சம் நான்கு நகரங்களைத் தேர்ந்தெடுக்கவும்.",
     transparent:"வெளிப்படையான தகவல்",transparentText:"சரிபார்க்கப்பட்ட நகரப் பட்டியலில் உள்ள விவரங்களை மட்டுமே காட்டுகிறோம். ஆதாரம் இல்லாமல் வாடகை, வாழ்க்கைச் செலவு, சம்பளம், வேலைகள், காலநிலை அல்லது போக்குவரத்தை மதிப்பிடுவதில்லை.",
@@ -73,6 +77,7 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     profile:"சுயவிவரம்",myMove:"என் குடிபெயர்வு",movingServices:"குடிபெயர்வு சேவைகள்",stayDocs:"தங்குமிடம் & ஆவணங்கள்",checklist:"சரிபார்ப்புப் பட்டியல்",faq:"அடிக்கடி கேட்கப்படும் கேள்விகள்",privacy:"தனியுரிமை அறிக்கை",support:"ஆதரவைத் தொடர்புகொள்ள",feedback:"கருத்து",signOut:"வெளியேறு"
   },
   kn: {
+    cost:"ಜೀವನ ವೆಚ್ಚ ಮತ್ತು ಮಾಸಿಕ ಬಜೆಟ್",rent:"ಸಾಮಾನ್ಯ ಬಾಡಿಗೆ ಮತ್ತು ವಸತಿ ಲಭ್ಯತೆ",jobs:"ಉದ್ಯೋಗಾವಕಾಶಗಳು ಮತ್ತು ಪ್ರಸ್ತುತ ಉದ್ಯೋಗಗಳು",climate:"ಹವಾಮಾನ ಮತ್ತು ಋತುಮಾನದ ಪರಿಸ್ಥಿತಿಗಳು",transport:"ಸಾರ್ವಜನಿಕ ಸಾರಿಗೆ ಮತ್ತು ಸಂಪರ್ಕ",lifestyle:"ಜೀವನಶೈಲಿ ಮತ್ತು ನೆರೆಹೊರೆಯ ಸೌಲಭ್ಯಗಳು",
     language:"ವೆಬ್‌ಸೈಟ್ ಭಾಷೆ",home:"ಮುಖಪುಟ",cityGuide:"ನಗರ ಮಾರ್ಗದರ್ಶಿ",movePlanner:"ಸ್ಥಳಾಂತರ ಯೋಜನೆ",compareCities:"ನಗರಗಳನ್ನು ಹೋಲಿಸಿ",
     makeMove:"ಮಾಹಿತಿಯೊಂದಿಗೆ ಸ್ಥಳಾಂತರ ಯೋಜಿಸಿ",compareTitle:"ಭಾರತೀಯ ನಗರಗಳನ್ನು ಹೋಲಿಸಿ",compareIntro:"ಬತಸಾರಿಯಲ್ಲಿ ಲಭ್ಯವಿರುವ ನಗರ ವಿವರಗಳನ್ನು ಪಕ್ಕಪಕ್ಕದಲ್ಲಿ ನೋಡಿ. ಪ್ರದೇಶ ಮತ್ತು ಭಾಷೆಗಳನ್ನು ಹೋಲಿಸಲು ಗರಿಷ್ಠ ನಾಲ್ಕು ನಗರಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
     transparent:"ಪಾರದರ್ಶಕ ಮಾಹಿತಿ",transparentText:"ಪರಿಶೀಲಿಸಿದ ನಗರ ಡೈರೆಕ್ಟರಿಯ ಮಾಹಿತಿಯನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತೇವೆ. ಮೂಲವಿಲ್ಲದೆ ಬಾಡಿಗೆ, ಜೀವನ ವೆಚ್ಚ, ವೇತನ, ಉದ್ಯೋಗ, ಹವಾಮಾನ ಅಥವಾ ಸಾರಿಗೆ ಗುಣಮಟ್ಟವನ್ನು ಅಂದಾಜಿಸುವುದಿಲ್ಲ.",
@@ -83,6 +88,7 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     profile:"ಪ್ರೊಫೈಲ್",myMove:"ನನ್ನ ಸ್ಥಳಾಂತರ",movingServices:"ಸ್ಥಳಾಂತರ ಸೇವೆಗಳು",stayDocs:"ವಾಸ್ತವ್ಯ ಮತ್ತು ದಾಖಲೆಗಳು",checklist:"ಪರಿಶೀಲನಾ ಪಟ್ಟಿ",faq:"ಪದೇಪದೇ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು",privacy:"ಗೌಪ್ಯತಾ ಹೇಳಿಕೆ",support:"ಬೆಂಬಲ ಸಂಪರ್ಕ",feedback:"ಪ್ರತಿಕ್ರಿಯೆ",signOut:"ಲಾಗ್ ಔಟ್"
   },
   ml: {
+    cost:"ജീവിതച്ചെലവും മാസ ബജറ്റും",rent:"സാധാരണ വാടകയും താമസസൗകര്യവും",jobs:"തൊഴിൽ അവസരങ്ങളും നിലവിലെ ഒഴിവുകളും",climate:"കാലാവസ്ഥയും ഋതുക്കളും",transport:"പൊതുഗതാഗതവും കണക്റ്റിവിറ്റിയും",lifestyle:"ജീവിതശൈലിയും സമീപ സൗകര്യങ്ങളും",
     language:"വെബ്സൈറ്റ് ഭാഷ",home:"ഹോം",cityGuide:"നഗര ഗൈഡ്",movePlanner:"മാറിത്താമസിക്കൽ പദ്ധതി",compareCities:"നഗരങ്ങൾ താരതമ്യം ചെയ്യുക",
     makeMove:"വിവരങ്ങൾ മനസ്സിലാക്കി മാറുക",compareTitle:"ഇന്ത്യൻ നഗരങ്ങൾ താരതമ്യം ചെയ്യുക",compareIntro:"ബതസാരിയിൽ ലഭ്യമായ നഗരവിവരങ്ങൾ ഒപ്പം കാണുക. പ്രദേശവും ഭാഷകളും താരതമ്യം ചെയ്യാൻ പരമാവധി നാല് നഗരങ്ങൾ തിരഞ്ഞെടുക്കുക.",
     transparent:"സുതാര്യമായ വിവരങ്ങൾ",transparentText:"പരിശോധിച്ച നഗര ഡയറക്ടറിയിലുള്ള വിവരങ്ങൾ മാത്രം കാണിക്കുന്നു. ഉറവിടമില്ലാതെ വാടക, ജീവിതച്ചെലവ്, ശമ്പളം, ജോലി, കാലാവസ്ഥ, ഗതാഗത നിലവാരം എന്നിവ കണക്കാക്കുന്നില്ല.",
