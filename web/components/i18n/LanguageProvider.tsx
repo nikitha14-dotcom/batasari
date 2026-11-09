@@ -101,7 +101,11 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
 };
 
 type LanguageContextValue = { language: LanguageCode; setLanguage: (code: LanguageCode) => void; t: (key: string) => string };
-const LanguageContext = createContext<LanguageContextValue | null>(null);
+const LanguageContext = createContext<LanguageContextValue>({
+  language: "en",
+  setLanguage: () => undefined,
+  t: (key: string) => EN[key] ?? key,
+});
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<LanguageCode>("en");
   const [ready, setReady] = useState(false);
@@ -124,7 +128,5 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 export function useLanguage() {
-  const value = useContext(LanguageContext);
-  if (!value) throw new Error("useLanguage must be used inside LanguageProvider");
-  return value;
+  return useContext(LanguageContext);
 }
