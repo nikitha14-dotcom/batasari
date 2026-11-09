@@ -52,6 +52,7 @@ describe("login page", () => {
     expect(emailField()).toBeInTheDocument();
     expect(screen.getByLabelText("Password")).toHaveAttribute("type", "password");
     expect(screen.getByRole("link", { name: "Sign up" })).toHaveAttribute("href", "/signup");
+    expect(screen.getByRole("link", { name: /back to home/i })).toHaveAttribute("href", "/");
   });
 
   it("signs in with a password and goes to the user's next step", async () => {
