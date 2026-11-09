@@ -98,6 +98,108 @@ const DICT: Record<Exclude<LanguageCode, "en">, Record<string, string>> = {
     disclaimer:"ഈ വിവരങ്ങൾ വിവരണത്തിനുള്ളതാണ്; നഗര റാങ്കിംഗോ ശുപാർശയോ അല്ല. മാറിത്താമസിക്കുന്നതിന് മുമ്പ് പ്രാദേശിക സാഹചര്യങ്ങളും നിലവിലെ ചെലവുകളും പരിശോധിക്കുക.",usePlan:"നിങ്ങളുടെ താമസം മാറ്റാനുള്ള പദ്ധതിയിൽ നഗരം ഉപയോഗിക്കുക",
     profile:"പ്രൊഫൈൽ",myMove:"എന്റെ താമസം മാറ്റൽ",movingServices:"മാറിത്താമസിക്കൽ സേവനങ്ങൾ",stayDocs:"താമസവും രേഖകളും",checklist:"ചെക്ക്ലിസ്റ്റ്",faq:"പതിവ് ചോദ്യങ്ങൾ",privacy:"സ്വകാര്യതാ പ്രസ്താവന",support:"സഹായവുമായി ബന്ധപ്പെടുക",feedback:"അഭിപ്രായം",signOut:"ലോഗ് ഔട്ട്"
   },
+
+};
+
+const HOME_TRANSLATIONS: Record<LanguageCode, Record<string, string>> = {
+  en: {
+    heroEyebrow:"MADE FOR YOUR NEXT CHAPTER", heroTitle:"Your move to India,", heroTitleAccent:"made clearer.",
+    heroDescription:"A thoughtful place to plan a move between Indian cities or make a new home in India from abroad.",
+    startPlan:"Start your move plan", exploreCities:"Explore Indian cities", heroNote:"One plan for the move, the home, and settling in.",
+    nextAddress:"YOUR NEXT ADDRESS", addressTagline:"India, on your terms.", artBadge:"A move that feels like yours",
+    audienceTitle:"WHEREVER YOU’RE STARTING FROM", audienceAbroad:"Moving to India from abroad",
+    audienceCities:"Moving between Indian cities", audienceFamily:"Helping family make the move",
+    sectionEyebrow:"A LITTLE LESS OVERWHELMING", sectionTitle:"Big move. Clear next steps.",
+    sectionDescription:"Keep the important parts of your move together, from your first decision to your first week in a new city.",
+    stepOneTitle:"Tell us about your move", stepOneBody:"Moving within India, returning, or arriving from abroad? Start with the route that fits you.",
+    stepTwoTitle:"Make a practical plan", stepTwoBody:"Organise your city research, home move, documents, and arrival tasks in one place.",
+    stepThreeTitle:"Settle in with confidence", stepThreeBody:"Keep important tasks visible and use official sources for rules that can change.",
+    footerTagline:"Move with a little more certainty."
+  },
+  te: {
+    heroEyebrow:"మీ కొత్త ప్రయాణం కోసం", heroTitle:"భారతదేశానికి మీ ప్రయాణం,", heroTitleAccent:"ఇప్పుడు మరింత స్పష్టంగా.",
+    heroDescription:"భారతదేశంలోని ఒక నగరం నుంచి మరొక నగరానికి మారాలన్నా, విదేశాల నుంచి వచ్చి ఇక్కడ కొత్త జీవితాన్ని ప్రారంభించాలన్నా ప్రణాళిక రూపొందించుకోండి.",
+    startPlan:"మీ తరలింపు ప్రణాళిక ప్రారంభించండి", exploreCities:"భారత నగరాలను చూడండి", heroNote:"తరలింపు, ఇల్లు, కొత్త నగరంలో స్థిరపడటం — అన్నింటికీ ఒకే ప్రణాళిక.",
+    nextAddress:"మీ తదుపరి చిరునామా", addressTagline:"మీ ఇష్టానికి అనుగుణంగా భారతదేశం.", artBadge:"మీకు సరిపోయే కొత్త ప్రయాణం",
+    audienceTitle:"మీరు ఎక్కడి నుంచి ప్రారంభించినా", audienceAbroad:"విదేశాల నుంచి భారతదేశానికి వస్తున్నారా",
+    audienceCities:"భారత నగరాల మధ్య మారుతున్నారా", audienceFamily:"కుటుంబ సభ్యుల తరలింపులో సహాయం",
+    sectionEyebrow:"ఒత్తిడి కొంచెం తగ్గిద్దాం", sectionTitle:"పెద్ద మార్పు. స్పష్టమైన తదుపరి అడుగులు.",
+    sectionDescription:"మొదటి నిర్ణయం నుంచి కొత్త నగరంలో మొదటి వారం వరకు, మీ తరలింపుకు సంబంధించిన ముఖ్యమైన విషయాలన్నింటినీ ఒకచోట ఉంచండి.",
+    stepOneTitle:"మీ ప్రయాణం గురించి చెప్పండి", stepOneBody:"భారతదేశంలోనే మారుతున్నారా, తిరిగి వస్తున్నారా, లేక విదేశాల నుంచి వస్తున్నారా? మీకు సరిపోయే మార్గాన్ని ఎంచుకోండి.",
+    stepTwoTitle:"ఆచరణాత్మక ప్రణాళిక రూపొందించండి", stepTwoBody:"నగర పరిశోధన, ఇంటి తరలింపు, పత్రాలు, చేరుకున్న తర్వాత చేయాల్సిన పనులను ఒకచోట నిర్వహించండి.",
+    stepThreeTitle:"నమ్మకంగా స్థిరపడండి", stepThreeBody:"ముఖ్యమైన పనులను స్పష్టంగా ఉంచండి. మారే నిబంధనల కోసం అధికారిక సమాచారాన్ని ఉపయోగించండి.",
+    footerTagline:"మరింత నమ్మకంతో మీ ప్రయాణాన్ని కొనసాగించండి."
+  },
+  hi: {
+    heroEyebrow:"आपके नए सफ़र के लिए", heroTitle:"भारत में आपका नया सफ़र,", heroTitleAccent:"अब और आसान.",
+    heroDescription:"भारत के एक शहर से दूसरे शहर जाने या विदेश से आकर भारत में नया घर बसाने की योजना यहाँ बनाएँ।",
+    startPlan:"अपनी स्थानांतरण योजना शुरू करें", exploreCities:"भारतीय शहर देखें", heroNote:"स्थानांतरण, घर और नए शहर में बसने के लिए एक योजना।",
+    nextAddress:"आपका अगला पता", addressTagline:"भारत, आपकी शर्तों पर।", artBadge:"आपके अनुकूल एक नया सफ़र",
+    audienceTitle:"आप जहाँ से भी शुरुआत कर रहे हों", audienceAbroad:"विदेश से भारत आना",
+    audienceCities:"भारत के शहरों के बीच स्थानांतरण", audienceFamily:"परिवार को स्थानांतरण में मदद",
+    sectionEyebrow:"थोड़ी कम परेशानी", sectionTitle:"बड़ा बदलाव। अगले कदम स्पष्ट।",
+    sectionDescription:"पहले निर्णय से लेकर नए शहर में पहले सप्ताह तक, स्थानांतरण की ज़रूरी बातों को एक जगह रखें।",
+    stepOneTitle:"अपने स्थानांतरण के बारे में बताएँ", stepOneBody:"भारत के भीतर जा रहे हैं, वापस लौट रहे हैं या विदेश से आ रहे हैं? अपने लिए सही रास्ता चुनें।",
+    stepTwoTitle:"व्यावहारिक योजना बनाएँ", stepTwoBody:"शहर की जानकारी, घर का सामान, दस्तावेज़ और पहुँचने के बाद के काम एक जगह व्यवस्थित करें।",
+    stepThreeTitle:"आत्मविश्वास से नई जगह बसें", stepThreeBody:"ज़रूरी काम सामने रखें और बदलने वाले नियमों के लिए आधिकारिक स्रोत देखें।",
+    footerTagline:"थोड़ी और निश्चितता के साथ आगे बढ़ें।"
+  },
+  gu: {
+    heroEyebrow:"તમારા નવા અધ્યાય માટે", heroTitle:"ભારતમાં તમારું સ્થળાંતર,", heroTitleAccent:"હવે વધુ સરળ.",
+    heroDescription:"ભારતના એક શહેરથી બીજા શહેરમાં જવું હોય કે વિદેશથી આવીને ભારતમાં નવું ઘર બનાવવું હોય, અહીં આયોજન કરો.",
+    startPlan:"તમારી સ્થળાંતર યોજના શરૂ કરો", exploreCities:"ભારતીય શહેરો જુઓ", heroNote:"સ્થળાંતર, ઘર અને નવા શહેરમાં સ્થાયી થવા માટે એક યોજના.",
+    nextAddress:"તમારું આગલું સરનામું", addressTagline:"ભારત, તમારી પસંદ મુજબ.", artBadge:"તમને અનુકૂળ નવું સ્થળાંતર",
+    audienceTitle:"તમે ગમે ત્યાંથી શરૂઆત કરો", audienceAbroad:"વિદેશથી ભારતમાં આવવું",
+    audienceCities:"ભારતીય શહેરો વચ્ચે સ્થળાંતર", audienceFamily:"પરિવારને સ્થળાંતરમાં મદદ",
+    sectionEyebrow:"થોડી ઓછી ગૂંચવણ", sectionTitle:"મોટું પરિવર્તન. સ્પષ્ટ આગળનાં પગલાં.",
+    sectionDescription:"પ્રથમ નિર્ણયથી લઈને નવા શહેરમાં પ્રથમ અઠવાડિયા સુધી, સ્થળાંતરની મહત્વપૂર્ણ બાબતો એક જગ્યાએ રાખો.",
+    stepOneTitle:"તમારા સ્થળાંતર વિશે જણાવો", stepOneBody:"ભારતની અંદર જઈ રહ્યા છો, પાછા આવી રહ્યા છો કે વિદેશથી આવી રહ્યા છો? તમારા માટે યોગ્ય માર્ગ પસંદ કરો.",
+    stepTwoTitle:"વ્યવહારુ યોજના બનાવો", stepTwoBody:"શહેરની માહિતી, ઘરનું સ્થળાંતર, દસ્તાવેજો અને પહોંચ્યા પછીનાં કામ એક જગ્યાએ ગોઠવો.",
+    stepThreeTitle:"આત્મવિશ્વાસથી સ્થાયી થાઓ", stepThreeBody:"મહત્વપૂર્ણ કામ નજર સમક્ષ રાખો અને બદલાતા નિયમો માટે સત્તાવાર સ્ત્રોતોનો ઉપયોગ કરો.",
+    footerTagline:"થોડી વધુ નિશ્ચિતતા સાથે આગળ વધો."
+  },
+  ta: {
+    heroEyebrow:"உங்கள் அடுத்த அத்தியாயத்திற்காக", heroTitle:"இந்தியாவுக்கான உங்கள் குடிபெயர்வு,", heroTitleAccent:"இப்போது தெளிவாக.",
+    heroDescription:"இந்திய நகரங்களுக்கு இடையே குடிபெயர்வதற்கோ, வெளிநாட்டிலிருந்து வந்து இந்தியாவில் புதிய வீட்டை அமைப்பதற்கோ இங்கே திட்டமிடுங்கள்.",
+    startPlan:"உங்கள் குடிபெயர்வு திட்டத்தைத் தொடங்குங்கள்", exploreCities:"இந்திய நகரங்களைப் பாருங்கள்", heroNote:"குடிபெயர்வு, வீடு, புதிய நகரில் நிலைபெறுதல் ஆகியவற்றுக்கு ஒரே திட்டம்.",
+    nextAddress:"உங்கள் அடுத்த முகவரி", addressTagline:"இந்தியா, உங்கள் விருப்பப்படி.", artBadge:"உங்களுக்கான புதிய பயணம்",
+    audienceTitle:"நீங்கள் எங்கிருந்து தொடங்கினாலும்", audienceAbroad:"வெளிநாட்டிலிருந்து இந்தியாவுக்கு வருதல்",
+    audienceCities:"இந்திய நகரங்களுக்கு இடையே குடிபெயர்தல்", audienceFamily:"குடும்பத்தினரின் குடிபெயர்வுக்கு உதவுதல்",
+    sectionEyebrow:"சற்றே குறைந்த குழப்பம்", sectionTitle:"பெரிய மாற்றம். தெளிவான அடுத்த படிகள்.",
+    sectionDescription:"முதல் முடிவிலிருந்து புதிய நகரில் முதல் வாரம் வரை, குடிபெயர்வின் முக்கிய அம்சங்களை ஒரே இடத்தில் வைத்திருங்கள்.",
+    stepOneTitle:"உங்கள் குடிபெயர்வைப் பற்றிச் சொல்லுங்கள்", stepOneBody:"இந்தியாவுக்குள் நகர்கிறீர்களா, திரும்பி வருகிறீர்களா அல்லது வெளிநாட்டிலிருந்து வருகிறீர்களா? உங்களுக்கான வழியைத் தேர்ந்தெடுக்கவும்.",
+    stepTwoTitle:"நடைமுறைத் திட்டத்தை உருவாக்குங்கள்", stepTwoBody:"நகர ஆய்வு, வீட்டுப் பொருட்கள் மாற்றம், ஆவணங்கள், வந்தடைந்த பின் செய்யவேண்டியவற்றை ஒரே இடத்தில் ஒழுங்குபடுத்துங்கள்.",
+    stepThreeTitle:"நம்பிக்கையுடன் நிலைபெறுங்கள்", stepThreeBody:"முக்கியப் பணிகளைக் கண்முன் வைத்திருந்து மாறக்கூடிய விதிகளுக்கு அதிகாரப்பூர்வ ஆதாரங்களைப் பயன்படுத்துங்கள்.",
+    footerTagline:"இன்னும் கொஞ்சம் நம்பிக்கையுடன் முன்னேறுங்கள்."
+  },
+  kn: {
+    heroEyebrow:"ನಿಮ್ಮ ಹೊಸ ಅಧ್ಯಾಯಕ್ಕಾಗಿ", heroTitle:"ಭಾರತಕ್ಕೆ ನಿಮ್ಮ ಸ್ಥಳಾಂತರ,", heroTitleAccent:"ಇನ್ನಷ್ಟು ಸ್ಪಷ್ಟವಾಗಿ.",
+    heroDescription:"ಭಾರತದ ನಗರಗಳ ನಡುವೆ ಸ್ಥಳಾಂತರವಾಗಲು ಅಥವಾ ವಿದೇಶದಿಂದ ಬಂದು ಭಾರತದಲ್ಲಿ ಹೊಸ ಮನೆ ಕಟ್ಟಿಕೊಳ್ಳಲು ಇಲ್ಲಿ ಯೋಜಿಸಿ.",
+    startPlan:"ನಿಮ್ಮ ಸ್ಥಳಾಂತರ ಯೋಜನೆ ಪ್ರಾರಂಭಿಸಿ", exploreCities:"ಭಾರತದ ನಗರಗಳನ್ನು ಅನ್ವೇಷಿಸಿ", heroNote:"ಸ್ಥಳಾಂತರ, ಮನೆ ಮತ್ತು ಹೊಸ ನಗರದಲ್ಲಿ ನೆಲೆಸಲು ಒಂದೇ ಯೋಜನೆ.",
+    nextAddress:"ನಿಮ್ಮ ಮುಂದಿನ ವಿಳಾಸ", addressTagline:"ಭಾರತ, ನಿಮ್ಮ ಆಯ್ಕೆಯಂತೆ.", artBadge:"ನಿಮಗೆ ಹೊಂದುವ ಹೊಸ ಪ್ರಯಾಣ",
+    audienceTitle:"ನೀವು ಎಲ್ಲಿಂದ ಪ್ರಾರಂಭಿಸಿದರೂ", audienceAbroad:"ವಿದೇಶದಿಂದ ಭಾರತಕ್ಕೆ ಸ್ಥಳಾಂತರ",
+    audienceCities:"ಭಾರತದ ನಗರಗಳ ನಡುವೆ ಸ್ಥಳಾಂತರ", audienceFamily:"ಕುಟುಂಬದವರಿಗೆ ಸ್ಥಳಾಂತರದಲ್ಲಿ ಸಹಾಯ",
+    sectionEyebrow:"ಸ್ವಲ್ಪ ಕಡಿಮೆ ಗೊಂದಲ", sectionTitle:"ದೊಡ್ಡ ಬದಲಾವಣೆ. ಸ್ಪಷ್ಟ ಮುಂದಿನ ಹೆಜ್ಜೆಗಳು.",
+    sectionDescription:"ಮೊದಲ ನಿರ್ಧಾರದಿಂದ ಹೊಸ ನಗರದಲ್ಲಿನ ಮೊದಲ ವಾರದವರೆಗೆ, ಸ್ಥಳಾಂತರದ ಮುಖ್ಯ ವಿಷಯಗಳನ್ನು ಒಂದೇ ಕಡೆ ಇಡಿ.",
+    stepOneTitle:"ನಿಮ್ಮ ಸ್ಥಳಾಂತರದ ಬಗ್ಗೆ ತಿಳಿಸಿ", stepOneBody:"ಭಾರತದೊಳಗೆ ಸ್ಥಳಾಂತರವಾಗುತ್ತಿದ್ದೀರಾ, ಮರಳಿ ಬರುತ್ತಿದ್ದೀರಾ ಅಥವಾ ವಿದೇಶದಿಂದ ಬರುತ್ತಿದ್ದೀರಾ? ನಿಮಗೆ ಸೂಕ್ತವಾದ ಮಾರ್ಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+    stepTwoTitle:"ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆ ರೂಪಿಸಿ", stepTwoBody:"ನಗರದ ಮಾಹಿತಿ, ಮನೆಯ ಸ್ಥಳಾಂತರ, ದಾಖಲೆಗಳು ಮತ್ತು ಬಂದ ನಂತರದ ಕೆಲಸಗಳನ್ನು ಒಂದೇ ಸ್ಥಳದಲ್ಲಿ ವ್ಯವಸ್ಥೆಗೊಳಿಸಿ.",
+    stepThreeTitle:"ಆತ್ಮವಿಶ್ವಾಸದಿಂದ ನೆಲೆಸಿ", stepThreeBody:"ಮುಖ್ಯ ಕೆಲಸಗಳನ್ನು ಗಮನದಲ್ಲಿರಿಸಿ ಮತ್ತು ಬದಲಾಗಬಹುದಾದ ನಿಯಮಗಳಿಗಾಗಿ ಅಧಿಕೃತ ಮೂಲಗಳನ್ನು ಬಳಸಿ.",
+    footerTagline:"ಇನ್ನಷ್ಟು ಖಚಿತತೆಯೊಂದಿಗೆ ಮುಂದುವರಿಯಿರಿ."
+  },
+  ml: {
+    heroEyebrow:"നിങ്ങളുടെ പുതിയ അധ്യായത്തിനായി", heroTitle:"ഇന്ത്യയിലേക്കുള്ള നിങ്ങളുടെ മാറ്റം,", heroTitleAccent:"ഇനി കൂടുതൽ വ്യക്തമായി.",
+    heroDescription:"ഇന്ത്യൻ നഗരങ്ങൾക്കിടയിൽ താമസം മാറാനോ വിദേശത്തുനിന്ന് വന്ന് ഇന്ത്യയിൽ പുതിയൊരു വീട് ഒരുക്കാനോ ഇവിടെ പദ്ധതിയിടാം.",
+    startPlan:"നിങ്ങളുടെ മാറ്റത്തിനുള്ള പദ്ധതി തുടങ്ങുക", exploreCities:"ഇന്ത്യൻ നഗരങ്ങൾ കാണുക", heroNote:"താമസം മാറ്റാനും വീട് ഒരുക്കാനും പുതിയ നഗരത്തിൽ സ്ഥിരതാമസമാക്കാനും ഒരൊറ്റ പദ്ധതി.",
+    nextAddress:"നിങ്ങളുടെ അടുത്ത വിലാസം", addressTagline:"ഇന്ത്യ, നിങ്ങളുടെ രീതിയിൽ.", artBadge:"നിങ്ങൾക്കായി ഒരുക്കിയ പുതിയ യാത്ര",
+    audienceTitle:"നിങ്ങൾ എവിടെ നിന്ന് തുടങ്ങുകയാണെങ്കിലും", audienceAbroad:"വിദേശത്തുനിന്ന് ഇന്ത്യയിലേക്ക് വരുന്നു",
+    audienceCities:"ഇന്ത്യൻ നഗരങ്ങൾക്കിടയിൽ താമസം മാറുന്നു", audienceFamily:"കുടുംബാംഗങ്ങളെ താമസം മാറ്റാൻ സഹായിക്കുന്നു",
+    sectionEyebrow:"കുറച്ച് കുറവ് ആശയക്കുഴപ്പം", sectionTitle:"വലിയ മാറ്റം. വ്യക്തമായ അടുത്ത ചുവടുകൾ.",
+    sectionDescription:"ആദ്യ തീരുമാനത്തിൽ നിന്ന് പുതിയ നഗരത്തിലെ ആദ്യ ആഴ്ച വരെ, താമസം മാറ്റുന്നതിലെ പ്രധാന കാര്യങ്ങൾ ഒരിടത്ത് സൂക്ഷിക്കുക.",
+    stepOneTitle:"നിങ്ങളുടെ യാത്രയെക്കുറിച്ച് പറയൂ", stepOneBody:"ഇന്ത്യയ്ക്കുള്ളിൽ താമസം മാറുകയാണോ, മടങ്ങിവരുകയാണോ, വിദേശത്തുനിന്ന് എത്തുകയാണോ? നിങ്ങൾക്ക് അനുയോജ്യമായ വഴി തിരഞ്ഞെടുക്കുക.",
+    stepTwoTitle:"പ്രായോഗിക പദ്ധതി തയ്യാറാക്കുക", stepTwoBody:"നഗരത്തെക്കുറിച്ചുള്ള വിവരങ്ങൾ, വീട്ടുസാധനങ്ങളുടെ മാറ്റം, രേഖകൾ, എത്തിയശേഷമുള്ള കാര്യങ്ങൾ എന്നിവ ഒരിടത്ത് ക്രമീകരിക്കുക.",
+    stepThreeTitle:"ആത്മവിശ്വാസത്തോടെ സ്ഥിരതാമസമാക്കുക", stepThreeBody:"പ്രധാന ജോലികൾ ശ്രദ്ധയിൽ വയ്ക്കുക. മാറാവുന്ന നിയമങ്ങൾക്കായി ഔദ്യോഗിക ഉറവിടങ്ങൾ ഉപയോഗിക്കുക.",
+    footerTagline:"കൂടുതൽ ഉറപ്പോടെ മുന്നോട്ട് നീങ്ങൂ."
+  }
 };
 
 type LanguageContextValue = { language: LanguageCode; setLanguage: (code: LanguageCode) => void; t: (key: string) => string };
@@ -122,7 +224,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const value = useMemo(() => ({
     language,
     setLanguage,
-    t: (key: string) => language === "en" ? (EN[key] ?? key) : (DICT[language][key] ?? EN[key] ?? key),
+    t: (key: string) => HOME_TRANSLATIONS[language][key] ?? (language === "en" ? (EN[key] ?? key) : (DICT[language][key] ?? EN[key] ?? key)),
   }), [language, setLanguage]);
   useEffect(() => { if (ready) document.documentElement.lang = language; }, [language, ready]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
