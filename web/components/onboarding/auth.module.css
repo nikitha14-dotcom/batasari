@@ -534,3 +534,31 @@
   outline-offset: 2px;
 }
 
+
+
+/* Shared auth top-bar actions: keep a visible route back to the public home. */
+.topBarActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.backHome {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  color: #34483b;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.backHome:hover { text-decoration: underline; }
+.backHome:focus-visible { outline: 2px solid #0f172a; outline-offset: 3px; border-radius: 4px; }
+
+@media (max-width: 600px) {
+  .topBarActions { gap: 10px; }
+  .backHome { font-size: 12px; }
+}
