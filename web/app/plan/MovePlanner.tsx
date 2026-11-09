@@ -151,7 +151,7 @@ export default function MovePlanner() {
         <Link className={styles.topAction} href="/categories">My move hub ↗</Link>
       </header>
       <div className={styles.container}>
-        <div className={styles.breadcrumb}><Link href="/">Home</Link><span>/</span> Move planner</div>
+        <div className={styles.breadcrumb}><Link className={styles.backLink} href="/">← Back to home</Link><span aria-hidden="true">/</span><Link href="/categories">Move hub</Link><span aria-hidden="true">/</span><span aria-current="page">Move planner</span></div>
         <section className={styles.hero}>
           <div><p className={styles.kicker}>YOUR PERSONAL RELOCATION WORKSPACE</p><h1>A calmer move<br /><em>starts with a plan.</em></h1><p className={styles.heroText}>Bring your route, timeline, budget and essential tasks together. Save locally as a guest, or sign in to sync your move details to your account.</p></div>
           <aside className={styles.progressCard}><div className={styles.progressTop}><span>MOVE READINESS</span><strong>{progress}%</strong></div><div className={styles.track}><span style={{ width: `${progress}%` }} /></div><p>{checked.length} of {TASKS.length} tasks completed</p><button type="button" onClick={save} className={styles.saveButton} disabled={saving}>{saving ? "Saving…" : "Save my plan"}</button>{saved && <span className={styles.saved} role="status">{synced ? "Synced to your account and saved on this device ✓" : "Saved on this device ✓"}</span>}{saveError && <span className={styles.saveError} role="alert">{saveError}</span>}</aside>
