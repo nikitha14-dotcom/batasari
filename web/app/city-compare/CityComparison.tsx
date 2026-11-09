@@ -21,12 +21,12 @@ const DATA_ROWS: { label: string; value: (city: IndiaCity) => string; group: str
 ];
 
 const UNAVAILABLE_ROWS = [
-  "Cost of living and monthly budget",
-  "Typical rent and housing availability",
-  "Employment opportunities and current job openings",
-  "Climate and seasonal conditions",
-  "Public transport and connectivity",
-  "Lifestyle and neighbourhood amenities",
+  "cost",
+  "rent",
+  "jobs",
+  "climate",
+  "transport",
+  "lifestyle",
 ];
 
 export default function CityComparison() {
@@ -132,7 +132,7 @@ export default function CityComparison() {
               <tbody>
                 {["location", "local"].flatMap((group) => DATA_ROWS.filter((row) => row.group === (group === "location" ? "Location" : "Local context")).map((row) => <tr key={row.label}><th scope="row">{t(row.label)}</th>{compared.map((city) => <td key={city.name}>{row.value(city)}</td>)}</tr>))}
                 <tr className={styles.groupRow}><th scope="row" colSpan={compared.length + 1}>{t("research")}</th></tr>
-                {UNAVAILABLE_ROWS.map((label) => <tr key={label}><th scope="row">{label}</th>{compared.map((city) => <td key={city.name}><span className={styles.unavailable}>{t("notAvailable")}</span></td>)}</tr>)}
+                {UNAVAILABLE_ROWS.map((label) => <tr key={label}><th scope="row">{t(label)}</th>{compared.map((city) => <td key={city.name}><span className={styles.unavailable}>{t("notAvailable")}</span></td>)}</tr>)}
               </tbody>
             </table>
           </div>
