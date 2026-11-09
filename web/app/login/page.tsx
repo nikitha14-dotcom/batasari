@@ -124,9 +124,10 @@ export default function LoginPage() {
   }
 
   const topBar = (
-    <Link href="/signup" className={styles.loginButton}>
-      Sign up
-    </Link>
+    <div className={styles.topBarActions}>
+      <Link href="/" className={styles.backHome}>← Back to home</Link>
+      <Link href="/signup" className={styles.loginButton}>Sign up</Link>
+    </div>
   );
 
   if (!isSupabaseConfigured()) {
@@ -221,7 +222,7 @@ export default function LoginPage() {
         <p className={styles.subtitle}>
           {mode === "reset"
             ? "We’ll email you a link to choose a new password."
-            : "Welcome back to KnewSooner"}
+            : "Welcome back to Batasari"}
         </p>
       </div>
 
