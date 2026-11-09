@@ -124,8 +124,8 @@ export default function LoginPage() {
   }
 
   const topBar = (
-    <div className={styles.topBarActions}>
-      <Link href="/" className={styles.backHome}>← Back to home</Link>
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 18, flexWrap: "wrap" }}>
+      <Link href="/" style={{ display: "inline-flex", alignItems: "center", minHeight: 40, padding: "0 4px", color: "#244b38", fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>← Back to home</Link>
       <Link href="/signup" className={styles.loginButton}>Sign up</Link>
     </div>
   );
