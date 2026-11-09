@@ -48,12 +48,10 @@ describe("CityComparison", () => {
     expect(screen.queryByLabelText(/Hyderabad/)).not.toBeInTheDocument();
   });
 
-  it("shows a recoverable error if the directory request fails", async () => {
-    listIndiaCities.mockRejectedValueOnce(new Error("City directory offline"));
+  it("uses the bundled city directory without requiring the API", async () => {
     render(<CityComparison />);
-    expect(await screen.findByRole("alert")).toHaveTextContent("City directory offline");
-    fireEvent.click(screen.getByRole("button", { name: /try again/i }));
-    expect(await screen.findByText(/Surat/)).toBeInTheDocument();
+    expect(await screen.findByLabelText(/Surat/)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Hyderabad/)).toBeInTheDocument();
   });
 
   it("shows a helpful empty state before any city is selected", async () => {
