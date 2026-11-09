@@ -11,7 +11,7 @@ from app.gateway.gemini_client import call_gemini
 
 
 def uses_gemini() -> bool:
-    return (os.getenv("PRIMARY_PROVIDER") or "claude").strip().lower() == "gemini"
+    return (os.getenv("PRIMARY_PROVIDER") or "gemini").strip().lower() == "gemini"
 
 
 async def call_internal_model(system_prompt: str, question: str, model: str | None = None) -> dict:
