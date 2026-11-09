@@ -1,4 +1,4 @@
-"""End-to-end check of the real /ai/answer path, with real Sonnet and web search.
+"""End-to-end check of the real /ai/answer path, using the configured AI provider.
 
 The CI plan (ClickUp "CI plan"):
   1) every PR that touches the AI code, and rollbacks: AI_SMOKE_SET=smoke
@@ -14,7 +14,7 @@ same router and category-prompt switches as the staging API. A question that
 fails is asked once more before it counts, and a pass on the retry is reported.
 
 Run from api/:  uv run python ../scripts/ai_smoke.py
-Needs ANTHROPIC_API_KEY. The database is a stand-in that records writes, so
+Needs GEMINI_API_KEY when PRIMARY_PROVIDER=gemini, or ANTHROPIC_API_KEY for Claude. The database is a stand-in that records writes, so
 nothing touches staging or production data.
 """
 
@@ -105,8 +105,10 @@ def _events(text):
 
 
 def main() -> int:
-    if not os.getenv("ANTHROPIC_API_KEY"):
-        print("ANTHROPIC_API_KEY is not set; cannot run the AI smoke check.")
+    provider = (os.getenv("PRIMARY_PROVIDER") or "gemini").strip().lower()
+    required_key = "GEMINI_API_KEY" if provider == "gemini" else "ANTHROPIC_API_KEY"
+    if not os.getenv(required_key):
+        print(f"{required_key} is not set; cannot run the AI smoke check.")
         return 1
 
     which = os.getenv("AI_SMOKE_SET", "smoke")
@@ -114,7 +116,7 @@ def main() -> int:
     app.state.supabase = db
     app.state.rate_limiter = None  # the check itself must not hit the daily limit
     # One client for the whole run keeps one event loop. A new loop per request
-    # leaves the cached Anthropic client holding connections from a closed loop,
+    # leaves the cached provider client holding connections from a closed loop,
     # which fail every other call with APIConnectionError. The server runs one
     # loop, so this only matters here.
     with TestClient(app) as client:
