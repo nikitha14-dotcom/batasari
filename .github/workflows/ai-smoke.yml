@@ -6,8 +6,8 @@ name: AI smoke check
 #   2) Daily: 1 question per category, 5 total, ~$0.40.
 #   3) Model or prompt changes: the full gold set, started by hand from
 #      nightly-harness.yml.
-# Real Sonnet with web search; the database is a stand-in, so nothing is
-# written to staging. Checks structure, not wording.
+# Real Gemini free-tier generation without Search grounding; the database is a
+# stand-in, so nothing is written to staging. Checks structure, not wording.
 
 on:
   pull_request:
