@@ -12,8 +12,9 @@ import re
 
 import anthropic
 import openai
+from google.genai import errors as genai_errors
 
-PROVIDER_ERRORS = (anthropic.APIError, openai.APIError)
+PROVIDER_ERRORS = (anthropic.APIError, openai.APIError, genai_errors.APIError)
 
 # Error types and request ids are short identifiers. Anything else is dropped
 # rather than risk passing free text through.
