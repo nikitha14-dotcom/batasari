@@ -12,7 +12,8 @@ MAX_OUTPUT_TOKENS = 4000
 _client = None
 SOURCE_RULES = (
     "\n\nSOURCE RULES\n"
-    "- Prefer official government and regulator pages (india.gov.in, gov.in, uidai.gov.in, passportindia.gov.in, parivahan.gov.in, rbi.org.in, dicgc.org.in, "
+    "- Prefer official government and regulator pages (india.gov.in, gov.in, uidai.gov.in, "
+    "passportindia.gov.in, parivahan.gov.in, rbi.org.in, dicgc.org.in, "
     "and state or municipal government domains) over blogs, law-firm posts or realtor pages.\n"
     "- Do not cite court case names or statute sections unless you found them on an "
     "official page that you are linking.\n"
