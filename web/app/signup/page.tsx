@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -166,7 +167,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <OnboardingShell topBarAction={<LoginLink />} cardClassName={styles.card} aside={<Welcome />}>
+    <OnboardingShell topBarAction={<div className={styles.topBarActions}><Link href="/" className={styles.backHome}>← Back to home</Link><LoginLink /></div>} cardClassName={styles.card} aside={<Welcome />}>
       <div className={styles.head}>
         <h1 className={styles.title}>Sign Up</h1>
       </div>
