@@ -1,0 +1,27 @@
+import type { IndiaCity } from "@/lib/api/india";
+
+export const INDIA_CITY_DIRECTORY: IndiaCity[] = [
+  { name: "Ahmedabad", state: "Gujarat", region: "West", languages: ["Gujarati", "Hindi", "English"] },
+  { name: "Bengaluru", state: "Karnataka", region: "South", languages: ["Kannada", "English", "Hindi"] },
+  { name: "Bhopal", state: "Madhya Pradesh", region: "Central", languages: ["Hindi", "English"] },
+  { name: "Bhubaneswar", state: "Odisha", region: "East", languages: ["Odia", "Hindi", "English"] },
+  { name: "Chandigarh", state: "Chandigarh (UT)", region: "North", languages: ["Hindi", "Punjabi", "English"] },
+  { name: "Chennai", state: "Tamil Nadu", region: "South", languages: ["Tamil", "English"] },
+  { name: "Coimbatore", state: "Tamil Nadu", region: "South", languages: ["Tamil", "English"] },
+  { name: "Delhi", state: "Delhi (NCT)", region: "North", languages: ["Hindi", "English", "Punjabi"] },
+  { name: "Guwahati", state: "Assam", region: "North East", languages: ["Assamese", "Hindi", "English"] },
+  { name: "Hyderabad", state: "Telangana", region: "South", languages: ["Telugu", "Urdu", "English", "Hindi"] },
+  { name: "Indore", state: "Madhya Pradesh", region: "Central", languages: ["Hindi", "English"] },
+  { name: "Jaipur", state: "Rajasthan", region: "North", languages: ["Hindi", "Rajasthani", "English"] },
+  { name: "Kochi", state: "Kerala", region: "South", languages: ["Malayalam", "English", "Hindi"] },
+  { name: "Kolkata", state: "West Bengal", region: "East", languages: ["Bengali", "Hindi", "English"] },
+  { name: "Lucknow", state: "Uttar Pradesh", region: "North", languages: ["Hindi", "Urdu", "English"] },
+  { name: "Mumbai", state: "Maharashtra", region: "West", languages: ["Marathi", "Hindi", "English"] },
+  { name: "Nagpur", state: "Maharashtra", region: "Central", languages: ["Marathi", "Hindi", "English"] },
+  { name: "Pune", state: "Maharashtra", region: "West", languages: ["Marathi", "Hindi", "English"] },
+  { name: "Rajamahendravaram", state: "Andhra Pradesh", region: "South", languages: ["Telugu", "English"] },
+  { name: "Surat", state: "Gujarat", region: "West", languages: ["Gujarati", "Hindi", "English"] },
+  { name: "Tirupati", state: "Andhra Pradesh", region: "South", languages: ["Telugu", "English", "Tamil"] },
+  { name: "Vadodara", state: "Gujarat", region: "West", languages: ["Gujarati", "Hindi", "English"] },
+  { name: "Visakhapatnam", state: "Andhra Pradesh", region: "South", languages: ["Telugu", "English", "Hindi"] },
+];
