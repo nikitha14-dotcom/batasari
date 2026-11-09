@@ -2,3 +2,17 @@
 
 .saveButton{align-self:flex-start;border:0;border-radius:8px;padding:10px 14px;background:#294f3c;color:#fff;font:600 11px Arial,sans-serif;cursor:pointer}.saveButton:disabled{opacity:.65;cursor:wait}
 
+
+
+/* City guide answer inputs */
+.answerIntro{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-top:30px}
+.answerIntro .subheading{margin:0 0 7px}
+.answerIntro p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.answerIntro>strong{flex:0 0 auto;color:var(--green);font-size:12px}
+.promptContent{display:grid;gap:10px;flex:1;min-width:0}
+.promptContent label{font-size:13px;font-weight:650;line-height:1.5;color:#18251d}
+.promptContent textarea{width:100%;min-height:86px;resize:vertical;border:1px solid #d9ded3;border-radius:9px;background:#fff;padding:11px 12px;color:#1e2b22;font:400 13px/1.55 inherit;outline:none}
+.promptContent textarea:focus{border-color:#66805c;box-shadow:0 0 0 3px rgba(102,128,92,.13)}
+.promptContent textarea::placeholder{color:#929a90}
+.answerSaved{margin:14px 0 0;color:#687565;font-size:11px;line-height:1.5}
+@media(max-width:700px){.answerIntro{align-items:flex-start;flex-direction:column;gap:6px}.promptGrid{grid-template-columns:1fr}.promptCard{padding:15px}}
