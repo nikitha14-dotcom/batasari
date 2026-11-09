@@ -6,7 +6,7 @@ from google import genai
 from google.genai import types
 
 # Same return shape as call_claude / call_fallback, so runner.py can swap them.
-DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite"
+DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
 MAX_OUTPUT_TOKENS = 4000
 
 _client = None
