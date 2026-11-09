@@ -63,6 +63,13 @@ export default function SignUpPage() {
 
   const canSubmit = isValidEmail(email) && !sending;
 
+  const authTopBar = (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 18, flexWrap: "wrap" }}>
+      <Link href="/" style={{ display: "inline-flex", alignItems: "center", minHeight: 40, padding: "0 4px", color: "#244b38", fontSize: 14, fontWeight: 700, textDecoration: "none", whiteSpace: "nowrap" }}>← Back to home</Link>
+      <LoginLink />
+    </div>
+  );
+
   async function send(address: string) {
     setSending(true);
     setError(null);
@@ -124,7 +131,7 @@ export default function SignUpPage() {
 
   if (sentTo) {
     return (
-      <OnboardingShell topBarAction={<LoginLink />} cardClassName={`${styles.card} ${styles.cardTall}`}>
+      <OnboardingShell topBarAction={authTopBar} cardClassName={`${styles.card} ${styles.cardTall}`}>
         <div className={styles.head}>
           <h1 className={styles.title}>Verify Your Email</h1>
         </div>
