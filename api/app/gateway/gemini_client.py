@@ -5,8 +5,9 @@ import httpx
 from google import genai
 from google.genai import types
 
-# Same return shape as call_claude / call_fallback, so runner.py can swap them.
-DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
+# Gemini 2.5 Flash Lite has free-tier Google Search grounding quota.
+# Gemini 3.x Flash Lite currently has no Search grounding quota on this project.
+DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite"
 MAX_OUTPUT_TOKENS = 4000
 
 _client = None
@@ -94,4 +95,3 @@ async def call_gemini(system_prompt: str, question: str, web_search: bool = True
         "model": model,
         "sources": sources,
     }
-
