@@ -37,7 +37,7 @@ describe('contact us page', () => {
       '/feedback',
     );
     fireEvent.click(screen.getByRole('button', { name: /Select a topic/i }));
-    expect(screen.getAllByRole('option').map((item) => item.textContent)).toEqual([
+    expect(within(screen.getByRole('listbox')).getAllByRole('option').map((item) => item.textContent)).toEqual([
       'Technical Issue',
       'Account & Sign-in',
       'Privacy & Data',
