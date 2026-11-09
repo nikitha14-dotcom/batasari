@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import styles from "./batasari.module.css";
 import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
