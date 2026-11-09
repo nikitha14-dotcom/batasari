@@ -41,7 +41,11 @@ def _error_kind(body: object) -> str | None:
 def describe_provider_error(exc: BaseException) -> str:
     """E.g. "AuthenticationError status=401 type=authentication_error request_id=req_1"."""
     parts = [type(exc).__name__]
+    # google-genai ClientError/ServerError expose the HTTP status as `code`,
+    # while Anthropic/OpenAI use `status_code`. Keep only the numeric value.
     status = getattr(exc, "status_code", None)
+    if not isinstance(status, int):
+        status = getattr(exc, "code", None)
     if isinstance(status, int):
         parts.append(f"status={status}")
     kind = _error_kind(getattr(exc, "body", None))
