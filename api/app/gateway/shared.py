@@ -82,6 +82,11 @@ def estimate_cost(
     pricing = {
         "gpt-4o-mini": (0.150, 0.600),
         "gemini-3.6-flash": (0.75, 3.75),
+        "gemini-2.5-flash-lite": (0.10, 0.40),
+        # Shadow-rate estimate for Gemini 3.5 Flash Lite. Free-tier calls may
+        # cost $0 in billing, but non-zero metered estimates keep spend caps
+        # and smoke-test accounting meaningful across free and paid tiers.
+        "gemini-3.5-flash-lite": (0.10, 0.40),
         # TODO: confirm real Claude Sonnet 4.6 pricing before this ships to
         # anyone who relies on it — placeholder only, don't trust this number yet.
         "claude-sonnet-4-6": (3.00, 15.000),

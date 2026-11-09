@@ -5,15 +5,17 @@ import httpx
 from google import genai
 from google.genai import types
 
-# Same return shape as call_claude / call_fallback, so runner.py can swap them.
-DEFAULT_GEMINI_MODEL = "gemini-3.6-flash"
+# Use a current model available to new projects on the free tier.
+# Gemini 2.5 generation is restricted to projects with prior model usage.
+DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
 MAX_OUTPUT_TOKENS = 4000
 
 _client = None
 SOURCE_RULES = (
     "\n\nSOURCE RULES\n"
-    "- Prefer official government and regulator pages (canada.ca, ontario.ca, "
-    "tribunalsontario.ca, ontario.ca/laws) over blogs, law-firm posts or realtor pages.\n"
+    "- Prefer official government and regulator pages (india.gov.in, gov.in, uidai.gov.in, "
+    "passportindia.gov.in, parivahan.gov.in, rbi.org.in, dicgc.org.in, "
+    "and state or municipal government domains) over blogs, law-firm posts or realtor pages.\n"
     "- Do not cite court case names or statute sections unless you found them on an "
     "official page that you are linking.\n"
     "- Deprioritize video, social media and forum posts: prefer official and "
@@ -52,8 +54,8 @@ async def _resolve(http: httpx.AsyncClient, url: str) -> str | None:
     return None
 
 
-async def call_gemini(system_prompt: str, question: str, web_search: bool = True) -> dict:
-    """Gemini with native Google Search. Raises on failure or an empty answer."""
+async def call_gemini(system_prompt: str, question: str, web_search: bool = False) -> dict:
+    """Gemini generation; native Search is opt-in because this project has no free Search quota."""
     model = gemini_model()
     config = types.GenerateContentConfig(
         # The source rules only make sense when the model can search the web.
@@ -93,4 +95,3 @@ async def call_gemini(system_prompt: str, question: str, web_search: bool = True
         "model": model,
         "sources": sources,
     }
-

@@ -1,3 +1,4 @@
+import hashlib
 import json
 import logging
 import re
@@ -270,6 +271,58 @@ async def ai_answer(request: Request, body: AIAnswerRequest):
             supabase=getattr(request.app.state, "supabase", None),
             insight_store=insight_store,
             model_input_cache=getattr(request.app.state, "model_input_cache", None),
+        ),
+        media_type="text/event-stream",
+    )
+
+
+@router.post("/guest-answer")
+async def guest_ai_answer(request: Request, body: AIAnswerRequest):
+    """Public, non-persistent AI answers for visitors without accounts."""
+    # Trust the immediate proxy's appended client address, not arbitrary
+    # client-supplied left-most X-Forwarded-For values.
+    forwarded = [
+        part.strip()
+        for part in request.headers.get("x-forwarded-for", "").split(",")
+        if part.strip()
+    ]
+    if len(forwarded) >= 2:
+        client_ip = forwarded[-2]
+    elif request.client and request.client.host:
+        client_ip = request.client.host
+    else:
+        client_ip = "unknown"
+
+    guest_key = hashlib.sha256(client_ip.encode("utf-8")).hexdigest()
+    per_ip_limiter = getattr(request.app.state, "guest_ai_ip_limiter", None)
+    global_limiter = getattr(request.app.state, "guest_ai_global_limiter", None)
+    if per_ip_limiter is None or global_limiter is None:
+        raise HTTPException(status_code=503, detail="Guest AI is temporarily unavailable.")
+
+    today = date.today()
+    if not per_ip_limiter.check_and_increment(guest_key, today):
+        raise HTTPException(
+            status_code=429,
+            detail="Guest question limit reached. Please try again tomorrow.",
+        )
+    if not global_limiter.check_and_increment("all-guests", today):
+        raise HTTPException(
+            status_code=429,
+            detail="Batasari's free guest AI capacity has been reached for today.",
+        )
+
+    return StreamingResponse(
+        run_ai_answer(
+            question=body.question,
+            category=body.category,
+            subcategory=body.subcategory,
+            user_id=f"guest-{guest_key[:24]}",
+            profile_context="",
+            conversation_context="",
+            conversation_id=None,
+            supabase=None,
+            insight_store=None,
+            model_input_cache=None,
         ),
         media_type="text/event-stream",
     )
