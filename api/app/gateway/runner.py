@@ -59,7 +59,7 @@ MIN_FALLBACK_SECONDS = 5.0
 def primary_provider() -> str:
     # claude (default) or gemini. One setting, so switching or rolling back
     # needs no code change.
-    return (os.getenv("PRIMARY_PROVIDER") or "gemini").strip().lower()
+    return (os.getenv("PRIMARY_PROVIDER") or "claude").strip().lower()
 
 
 def primary_model() -> str:
