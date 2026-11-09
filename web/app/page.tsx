@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import styles from "./batasari.module.css";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 
 const steps = [
   { number: "01", title: "Tell us about your move", body: "Moving within India, returning, or arriving from abroad? Start with the route that fits you." },
@@ -13,13 +14,13 @@ export default function Home() {
     <main className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.wordmark} href="/" aria-label="Batasari home"><span className={styles.mark}>ब</span>Batasari</Link>
-        <nav className={styles.headerNav} aria-label="Main navigation">
+        <div style={{display:"flex",alignItems:"center",gap:14,flexWrap:"wrap"}}><LanguageSwitcher compact /><nav className={styles.headerNav} aria-label="Main navigation">
           <a href="#how-it-works">How it works</a>
           <Link href="/india-guide">Cities</Link>
           <Link href="/city-compare">Compare cities</Link>
           <Link href="/moving-shipping">Moving help</Link>
           <Link className={styles.navButton} href="/plan">Plan your move</Link>
-        </nav>
+        </nav></div>
       </header>
 
       <section className={styles.hero}>
