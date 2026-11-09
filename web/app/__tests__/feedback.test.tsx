@@ -108,7 +108,7 @@ describe("feedback page", () => {
 
     fireEvent.click(screen.getByRole("button", { name: /select feedback type/i }));
 
-    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual([
+    expect(within(screen.getByRole("listbox")).getAllByRole("option").map((o) => o.textContent)).toEqual([
       "Suggestion",
       "Feature Request",
       "Bug Report",
