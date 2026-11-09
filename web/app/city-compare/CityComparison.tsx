@@ -13,11 +13,11 @@ const MAX_CITIES = 4;
 type DirectoryState = "loading" | "ready" | "error";
 
 const DATA_ROWS: { label: string; value: (city: IndiaCity) => string; group: string }[] = [
-  { group: "Location", label: "{t("state")}", value: (city) => city.state || "Not listed" },
-  { group: "Location", label: "Region", value: (city) => city.region || "Not listed" },
-  { group: "Local context", label: "{t("languages")}", value: (city) => city.languages?.length ? city.languages.join(", ") : "Not listed" },
-  { group: "Local context", label: "{t("currency")}", value: () => "INR" },
-  { group: "Local context", label: "{t("timezone")}", value: () => "Asia/Kolkata (IST)" },
+  { group: "Location", label: "state", value: (city) => city.state || "Not listed" },
+  { group: "Location", label: "region", value: (city) => city.region || "Not listed" },
+  { group: "Local context", label: "languages", value: (city) => city.languages?.length ? city.languages.join(", ") : "Not listed" },
+  { group: "Local context", label: "currency", value: () => "INR" },
+  { group: "Local context", label: "timezone", value: () => "Asia/Kolkata (IST)" },
 ];
 
 const UNAVAILABLE_ROWS = [
@@ -113,7 +113,7 @@ export default function CityComparison() {
                 })}
               </div>
             )}
-            <p className={styles.sourceMeta}>Source: Batasari curated India city directory · Retrieved {retrievedAt || "just now"}</p>
+            <p className={styles.sourceMeta}>{t("source")} {retrievedAt || "just now"}</p>
           </>
         )}
       </section>
@@ -130,7 +130,7 @@ export default function CityComparison() {
             <table>
               <thead><tr><th scope="col">{t("whatCompare")}</th>{compared.map((city) => <th scope="col" key={city.name}>{city.name}<small>{city.state}</small></th>)}</tr></thead>
               <tbody>
-                {["Location", "Local context"].flatMap((group) => DATA_ROWS.filter((row) => row.group === group).map((row) => <tr key={row.label}><th scope="row">{row.label}</th>{compared.map((city) => <td key={city.name}>{row.value(city)}</td>)}</tr>))}
+                {["location", "local"].flatMap((group) => DATA_ROWS.filter((row) => row.group === (group === "location" ? "Location" : "Local context")).map((row) => <tr key={row.label}><th scope="row">{t(row.label)}</th>{compared.map((city) => <td key={city.name}>{row.value(city)}</td>)}</tr>))}
                 <tr className={styles.groupRow}><th scope="row" colSpan={compared.length + 1}>{t("research")}</th></tr>
                 {UNAVAILABLE_ROWS.map((label) => <tr key={label}><th scope="row">{label}</th>{compared.map((city) => <td key={city.name}><span className={styles.unavailable}>{t("notAvailable")}</span></td>)}</tr>)}
               </tbody>
