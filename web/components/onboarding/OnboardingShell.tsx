@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 
 import styles from "./onboarding.module.css";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 
 /**
  * Page chrome shared by every ONB screen: tinted background, the two
@@ -34,7 +35,7 @@ export function OnboardingShell({
         <div className={styles.brand}>
           <span className={styles.brandStrong}>Batasari</span>
         </div>
-        {topBarAction}
+        <div style={{display:"flex",alignItems:"center",gap:14,flexWrap:"wrap"}}><LanguageSwitcher compact />{topBarAction}</div>
       </header>
 
       <main className={`${styles.stage} ${aside ? styles.stageSplit : ""}`}>

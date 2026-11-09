@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Icon, type IconName } from './icons';
 import styles from './navigation.module.css';
 import { SignOutButton } from './SignOutButton';
+import { useLanguage } from '@/components/i18n/LanguageProvider';
 
 type NavItem = { label: string; href: string; icon: IconName };
 
@@ -48,6 +49,7 @@ export const EDUCATION_SUB_ITEMS = [
 export type EducationGroup = (typeof EDUCATION_SUB_ITEMS)[number]['group'];
 
 function NavLink({ item, active }: { item: NavItem; active: boolean }) {
+  const { t } = useLanguage();
   return (
     <Link
       href={item.href}
@@ -57,7 +59,7 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
       <span className={styles.navIcon}>
         <Icon name={item.icon} />
       </span>
-      <span className={styles.navLabel}>{item.label}</span>
+      <span className={styles.navLabel}>{t(({ "My move":"myMove", "City guide":"cityGuide", "Compare cities":"compareCities", "Moving services":"movingServices", "Stay & documents":"stayDocs", "Checklist":"checklist", FAQ:"faq", "Privacy Statement":"privacy", "Contact Support":"support", Feedback:"feedback" } as Record<string,string>)[item.label] ?? item.label)}</span>
       {active && <span className={styles.activeDot} aria-hidden="true" />}
     </Link>
   );

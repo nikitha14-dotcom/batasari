@@ -1,4 +1,5 @@
 import { ClientErrorListener } from "@/components/ClientErrorListener";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 
 import "./globals.css";
 
@@ -19,8 +20,10 @@ export default function RootLayout({
     // showing a development error when an extension changes them.
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ClientErrorListener />
-        {children}
+        <LanguageProvider>
+          <ClientErrorListener />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 
 const updateUser = vi.fn();
 const routerReplace = vi.fn();
@@ -34,7 +35,7 @@ describe("ONB-04 create account", () => {
   });
 
   it("shows the Figma fields with required/optional notes", () => {
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     expect(screen.getByRole("heading", { name: "Let’s get to know you!" })).toBeInTheDocument();
     expect(screen.getByText("(required)")).toBeInTheDocument();
     expect(screen.getAllByText("(optional)")).toHaveLength(2);
@@ -46,7 +47,7 @@ describe("ONB-04 create account", () => {
   });
 
   it("needs a first name before Continue is enabled", () => {
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     expect(continueButton()).toBeDisabled();
     fireEvent.change(first(), { target: { value: "   " } });
     expect(continueButton()).toBeDisabled();
@@ -55,7 +56,7 @@ describe("ONB-04 create account", () => {
   });
 
   it("saves cleaned names and the opt-in to account metadata, then goes to ONB-05", async () => {
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     fireEvent.change(first(), { target: { value: "  Amy  " } });
     fireEvent.change(last(), { target: { value: "Bennet" } });
     fireEvent.change(display(), { target: { value: "Maple\n" } });
@@ -76,7 +77,7 @@ describe("ONB-04 create account", () => {
   });
 
   it("stores blank optional fields as null", async () => {
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     fireEvent.change(first(), { target: { value: "Amy" } });
     fireEvent.click(continueButton());
     await waitFor(() =>
@@ -90,7 +91,7 @@ describe("ONB-04 create account", () => {
     sessionState.session = {
       user: { user_metadata: { first_name: "Amy", display_name: "Maple", product_updates_opt_in: true } },
     };
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     expect(first()).toHaveValue("Amy");
     expect(display()).toHaveValue("Maple");
     expect(screen.getByRole("switch")).toHaveAttribute("aria-checked", "true");
@@ -98,7 +99,7 @@ describe("ONB-04 create account", () => {
 
   it("shows a save failure and stays on the page", async () => {
     updateUser.mockResolvedValue({ data: {}, error: new Error("network down") });
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     fireEvent.change(first(), { target: { value: "Amy" } });
     fireEvent.click(continueButton());
     expect(await screen.findByRole("alert")).toHaveTextContent("network down");
@@ -106,7 +107,7 @@ describe("ONB-04 create account", () => {
   });
 
   it("caps each name field at 50 characters in the input", () => {
-    render(<CreateAccountPage />);
+    render(<LanguageProvider><CreateAccountPage /></LanguageProvider>);
     for (const field of [first(), last(), display()]) expect(field).toHaveAttribute("maxLength", "50");
   });
 });
