@@ -113,11 +113,31 @@ const CITY_PROMPTS = ["Rent and deposit expectations", "Commute options between 
 
 export function IndiaCityGuide() {
   const [city, setCity] = useState("Bengaluru");
+  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [answersLoaded, setAnswersLoaded] = useState(false);
   const questionList = useMemo(() => CITY_PROMPTS.map((item) => `${city}: ${item}`), [city]);
+  useEffect(() => {
+    try {
+      const saved: unknown = JSON.parse(window.localStorage.getItem("batasari-city-guide-answers-v1") ?? "{}");
+      if (saved && typeof saved === "object" && !Array.isArray(saved)) setAnswers(saved as Record<string, string>);
+    } catch {
+      setAnswers({});
+    }
+    setAnswersLoaded(true);
+  }, []);
+  useEffect(() => {
+    if (answersLoaded) window.localStorage.setItem("batasari-city-guide-answers-v1", JSON.stringify(answers));
+  }, [answers, answersLoaded]);
+  const answeredCount = CITY_PROMPTS.filter((_, index) => (answers[`${city}-${index}`] ?? "").trim()).length;
   return <AppShell activeHref="/india-guide"><div className={styles.page}><PageIntro eyebrow="CITY GUIDE" title="Find a city that feels right." description="Start with the places on your shortlist. Batasari helps you organise what to compare; always verify local details before you decide." />
     <section className={styles.cityPicker}><label htmlFor="city-select">Choose a city to explore</label><select id="city-select" value={city} onChange={(event) => setCity(event.target.value)}>{CITIES.map((item) => <option key={item}>{item}</option>)}</select><p>Indian Rupee (INR) · India Standard Time (IST)</p><p>{CITY_INFO.find((item) => item.name === city)?.state} · {CITY_INFO.find((item) => item.name === city)?.region} India · Common languages: {CITY_INFO.find((item) => item.name === city)?.languages}</p></section>
-    <h2 className={styles.subheading}>Questions to take with you</h2><div className={styles.promptGrid}>{questionList.map((item, index) => <article key={item} className={styles.promptCard}><span>0{index + 1}</span><p>{item}</p></article>)}</div>
-    <div className={styles.callout}><strong>Shortlisting more than one city?</strong><p>Use the same questions for each place so you can compare options on your own priorities.</p><Link href="/categories">Add your move details →</Link></div>
+    <div className={styles.answerIntro}><div><h2 className={styles.subheading}>Your city research answers</h2><p>Type your notes in the boxes below. Your answers are saved automatically in this browser for each city.</p></div><strong>{answeredCount} of {CITY_PROMPTS.length} answered</strong></div>
+    <div className={styles.promptGrid}>{questionList.map((item, index) => {
+      const answerKey = `${city}-${index}`;
+      return <article key={item} className={styles.promptCard}><span>0{index + 1}</span><div className={styles.promptContent}><label htmlFor={`city-answer-${index}`}>{item}</label><textarea id={`city-answer-${index}`} value={answers[answerKey] ?? ""} onChange={(event) => setAnswers((current) => ({ ...current, [answerKey]: event.target.value }))} placeholder="Write your answer or research notes here…" rows={3} /></div></article>;
+    })}</div>
+    <p className={styles.answerSaved} role="status">Your notes are saved automatically on this device. Sign-in sync is not enabled for these notes yet.</p>
+    <div className={styles.callout}><strong>Shortlisting more than one city?</strong><p>Choose another city above and answer the same questions to compare your priorities.</p><Link href="/categories">Add your move details →</Link></div>
   </div></AppShell>;
 }
 
