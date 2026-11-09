@@ -5,9 +5,9 @@ import httpx
 from google import genai
 from google.genai import types
 
-# Gemini 2.5 Flash Lite has free-tier Google Search grounding quota.
-# Gemini 3.x Flash Lite currently has no Search grounding quota on this project.
-DEFAULT_GEMINI_MODEL = "gemini-2.5-flash-lite"
+# Use a current model available to new projects on the free tier.
+# Gemini 2.5 generation is restricted to projects with prior model usage.
+DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite"
 MAX_OUTPUT_TOKENS = 4000
 
 _client = None
@@ -54,8 +54,8 @@ async def _resolve(http: httpx.AsyncClient, url: str) -> str | None:
     return None
 
 
-async def call_gemini(system_prompt: str, question: str, web_search: bool = True) -> dict:
-    """Gemini with native Google Search. Raises on failure or an empty answer."""
+async def call_gemini(system_prompt: str, question: str, web_search: bool = False) -> dict:
+    """Gemini generation; native Search is opt-in because this project has no free Search quota."""
     model = gemini_model()
     config = types.GenerateContentConfig(
         # The source rules only make sense when the model can search the web.
