@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { LanguageProvider } from "@/components/i18n/LanguageProvider";
 
 const { submitFeedback, routerPush } = vi.hoisted(() => ({
   submitFeedback: vi.fn(),
@@ -54,7 +55,7 @@ describe("feedback page", () => {
   // ---- Feedback_1 ----
 
   it("renders the form at rest", () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     expect(screen.getByRole("heading", { name: "Share your feedback" })).toBeInTheDocument();
     expect(screen.getByText("How was your experience?")).toBeInTheDocument();
@@ -63,14 +64,14 @@ describe("feedback page", () => {
   });
 
   it("starts with no feedback type selected, so the field cannot be left on a default", () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     expect(screen.getByRole("button", { name: /select feedback type/i })).toBeInTheDocument();
     expect(screen.queryByText("Suggestion")).not.toBeInTheDocument();
   });
 
   it("disables Submit until a rating and a type are both chosen", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     const submit = screen.getByRole("button", { name: "Submit Feedback" });
     expect(submit).toBeDisabled();
@@ -84,7 +85,7 @@ describe("feedback page", () => {
   });
 
   it("does not require the free text", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
 
@@ -92,7 +93,7 @@ describe("feedback page", () => {
   });
 
   it("marks stars up to the one clicked", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fireEvent.click(screen.getByRole("radio", { name: "3 stars" }));
 
@@ -103,7 +104,7 @@ describe("feedback page", () => {
   // ---- Feedback_2 ----
 
   it("opens the type menu with all six options in the design's order", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fireEvent.click(screen.getByRole("button", { name: /select feedback type/i }));
 
@@ -118,7 +119,7 @@ describe("feedback page", () => {
   });
 
   it("closes the menu and shows the choice once a type is picked", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fireEvent.click(screen.getByRole("button", { name: /select feedback type/i }));
     fireEvent.click(screen.getByRole("option", { name: "Complaint" }));
@@ -128,7 +129,7 @@ describe("feedback page", () => {
   });
 
   it("closes the menu on Escape", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fireEvent.click(screen.getByRole("button", { name: /select feedback type/i }));
     fireEvent.keyDown(document, { key: "Escape" });
@@ -139,7 +140,7 @@ describe("feedback page", () => {
   // ---- submit ----
 
   it("sends the rating, type and message", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     typeMessage("Search is broken");
@@ -157,7 +158,7 @@ describe("feedback page", () => {
   // ---- Feedback_3 ----
 
   it("shows the thanks dialog after a successful submission", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     fireEvent.click(screen.getByRole("button", { name: "Submit Feedback" }));
@@ -168,7 +169,7 @@ describe("feedback page", () => {
   // ---- Feedback_4 ----
 
   it("sends the user to Profile Overview when the dialog is closed", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     typeMessage("Something");
@@ -181,7 +182,7 @@ describe("feedback page", () => {
   });
 
   it("clears the answers on the way out, so a back navigation cannot show them as unsent", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     typeMessage("Something");
@@ -195,7 +196,7 @@ describe("feedback page", () => {
   });
 
   it("does not leave a banner behind on the feedback page", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     fireEvent.click(screen.getByRole("button", { name: "Submit Feedback" }));
@@ -205,7 +206,7 @@ describe("feedback page", () => {
   });
 
   it("closes the dialog and redirects on Escape too", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     fireEvent.click(screen.getByRole("button", { name: "Submit Feedback" }));
@@ -218,7 +219,7 @@ describe("feedback page", () => {
   });
 
   it("does not navigate while the dialog is still open", async () => {
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     fireEvent.click(screen.getByRole("button", { name: "Submit Feedback" }));
@@ -231,7 +232,7 @@ describe("feedback page", () => {
 
   it("shows the server's message and keeps what the user typed when the save fails", async () => {
     submitFeedback.mockRejectedValue(new FeedbackError("You have sent a lot of feedback today.", 429));
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     typeMessage("Keep this");
@@ -247,7 +248,7 @@ describe("feedback page", () => {
 
   it("does not leak a raw exception to the user", async () => {
     submitFeedback.mockRejectedValue(new TypeError("Failed to fetch"));
-    render(<FeedbackPage />);
+    render(<LanguageProvider><FeedbackPage /></LanguageProvider>);
 
     fillValidForm();
     fireEvent.click(screen.getByRole("button", { name: "Submit Feedback" }));
