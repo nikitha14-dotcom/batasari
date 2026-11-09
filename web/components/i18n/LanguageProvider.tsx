@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 export const LANGUAGES = [
   { code: "en", label: "English", native: "English" },
@@ -110,16 +110,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (LANGUAGES.some((item) => item.code === saved)) setLanguageState(saved as LanguageCode);
     setReady(true);
   }, []);
-  const setLanguage = (code: LanguageCode) => {
+  const setLanguage = useCallback((code: LanguageCode) => {
     setLanguageState(code);
     window.localStorage.setItem("batasari-language", code);
     document.documentElement.lang = code;
-  };
+  }, []);
   const value = useMemo(() => ({
     language,
     setLanguage,
     t: (key: string) => language === "en" ? (EN[key] ?? key) : (DICT[language][key] ?? EN[key] ?? key),
-  }), [language]);
+  }), [language, setLanguage]);
   useEffect(() => { if (ready) document.documentElement.lang = language; }, [language, ready]);
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
