@@ -53,13 +53,13 @@ jobs:
 
       - name: Run the AI smoke check
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           AI_SMOKE_SET: ${{ github.event_name == 'schedule' && 'daily' || inputs.set || 'smoke' }}
           # Same switches as the staging API, so this checks what users get.
           ROUTER_ENABLED: "true"
           CATEGORY_PROMPTS_ENABLED: "true"
           CATEGORY_PROMPT_CATEGORIES: "Work,Finance,Education & Family,Housing"
-          PRIMARY_PROVIDER: ${{ vars.PRIMARY_PROVIDER || 'claude' }}
+          PRIMARY_PROVIDER: ${{ vars.PRIMARY_PROVIDER || 'gemini' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: uv run python ../scripts/ai_smoke.py
 
